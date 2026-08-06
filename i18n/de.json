@@ -102,8 +102,10 @@
     ["Reorder what plays next, pull rooms into a group mid-song, shape a zone with its own equalizer — and see the true stream format of every room, down to the <a class=\"hl\" href=\"#signal\">bit-perfect verdict</a>.", "Sortiere um, was als nächstes spielt, hole Räume mitten im Song in eine Gruppe, forme eine Zone mit ihrem eigenen Equalizer — und sieh das echte Streamformat jedes Raums, bis hin zum <a class=\"hl\" href=\"#signal\">bit-perfect-Urteil</a>."],
     ["Always in agreement", "Immer einer Meinung"],
     ["Two phones, the wall panel and the Loxone app all show the same state, live — nothing polls, and an edit made anywhere appears everywhere.", "Zwei Handys, das Wandpanel und die Loxone-App zeigen denselben Zustand, live — nichts pollt, und eine Änderung von irgendwo erscheint überall."],
-    ["living room <span class=\"quiet\">· grouped</span>", "wohnzimmer <span class=\"quiet\">· grouped</span>"],
-    [">up next<", ">als nächstes<"],
+    ["The sonn web player on a phone: Good evening — the house is quiet, 4 rooms ready", "Der sonn Web-Player auf einem Handy: Good evening — the house is quiet, 4 rooms ready"],
+    ["the actual player · not a mockup", "der echte player · kein mockup"],
+    ["The sonn Admin UI Zones screen: four zones named Living room, Kitchen, Study and Bedroom, each with AirPlay, Spotify Connect and DLNA receiver chips", "Der Zones-Bildschirm der sonn Admin-UI: vier Zonen namens Living room, Kitchen, Study und Bedroom, jede mit AirPlay-, Spotify-Connect- und DLNA-Empfänger-Chips"],
+    ["the admin ui, as it ships — every room a zone, receivers on each", "die admin-ui, wie sie ausgeliefert wird — jeder raum eine zone, empfänger an jeder"],
 
     ["zones &amp; outputs", "zonen &amp; ausgänge"],
     ["The speakers you already own are the system.", "Die Lautsprecher, die du schon besitzt, sind das System."],

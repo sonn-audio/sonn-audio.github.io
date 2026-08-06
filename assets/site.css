@@ -2193,6 +2193,54 @@ section[data-num]::before {
   font-size: 10px;
 }
 
+/* --- real screenshots, framed ---------------------------------------------- */
+
+/* A window frame in the site's own chrome; the pixels inside are the product's. */
+.shot {
+  margin-top: clamp(38px, 6vh, 56px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgb(0 0 0 / 45%);
+  overflow: hidden;
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 40px 90px -50px rgb(0 0 0 / 100%),
+    0 0 80px -40px rgb(74 222 128 / 18%);
+}
+
+.shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.shot-caption {
+  padding: 10px 14px;
+  border-top: 1px solid var(--line-soft);
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* The real player in the drawn bezel: the frame is ours, the screen is the product's. */
+.phone-real {
+  padding: 10px;
+}
+
+.phone-real img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+}
+
+.phone-real .shot-caption {
+  border-top: 0;
+  padding: 12px 4px 2px;
+  text-align: center;
+}
+
 /* --- feature rows (zones) ------------------------------------------------ */
 
 .rows {
