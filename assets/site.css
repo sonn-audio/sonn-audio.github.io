@@ -442,6 +442,36 @@ section[data-num]::before {
   color: var(--accent);
 }
 
+/* --- the language switch: two engraved labels, one lit ---------------------- */
+
+.bar-lang {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bar-lang a {
+  padding: 5px 7px;
+  border-radius: 6px;
+  color: var(--dim);
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+
+.bar-lang a:hover {
+  color: var(--text);
+  background: var(--surface);
+}
+
+.bar-lang a.on {
+  color: var(--accent);
+}
+
 /* --- the burger: three meter bars that become a cross ---------------------- */
 
 .bar-burger {
