@@ -1078,6 +1078,14 @@ section[data-num]::before {
   background: rgb(240 180 41 / 8%);
 }
 
+/* The receiver roster under its row — every protocol a zone can be played *to* over. */
+.receiver-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+
 @media (max-width: 940px) {
   .stack-back {
     display: none;

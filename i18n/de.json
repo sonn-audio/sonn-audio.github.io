@@ -486,8 +486,8 @@
       ">Empfänger<"
     ],
     [
-      "A receiver lets a phone play <em>to</em> a zone. Spotify Connect, AirPlay, DLNA and line-in land on the server, which sends them on to that zone's output — so a pair of Snapcast speakers on a Raspberry&nbsp;Pi shows up as an AirPlay target with no support of its own.",
-      "Ein Empfänger lässt ein Telefon <em>in</em> eine Zone spielen. Spotify Connect, AirPlay, DLNA und Line-in landen auf dem Server, der sie an den Ausgang der Zone weiterreicht — so erscheint ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi als AirPlay-Ziel, ganz ohne eigene Unterstützung."
+      "A receiver lets a phone or app play <em>to</em> a zone: the stream lands on the server, which sends it on to that zone's output. A pair of Snapcast speakers on a Raspberry&nbsp;Pi shows up as an AirPlay target with no support of its own — and one zone can offer them all at once.",
+      "Ein Empfänger lässt ein Telefon oder eine App <em>in</em> eine Zone spielen: Der Stream landet auf dem Server, der ihn an den Ausgang der Zone weiterreicht. Ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi erscheint als AirPlay-Ziel, ganz ohne eigene Unterstützung — und eine Zone kann sie alle gleichzeitig anbieten."
     ],
     [
       ">Grouping<",
