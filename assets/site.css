@@ -2234,7 +2234,7 @@ section[data-num]::before {
   font-size: 10px;
 }
 
-/* --- the beoremote one, drawn ----------------------------------------------- */
+/* --- the beoremote one --------------------------------------------------- */
 
 .remote-split {
   margin-top: clamp(48px, 8vh, 76px);
@@ -2248,135 +2248,24 @@ section[data-num]::before {
   color: var(--muted);
 }
 
-.remote-wrap {
-  display: grid;
-  place-items: center;
-}
-
-/* Tall, slim, aluminium: the identity's dark surfaces standing in for the metal. */
-.remote {
-  width: 170px;
-  padding: 16px 16px 18px;
+/* A photograph on a dark page: framed like the screenshots, dimmed a touch to sit in. */
+.remote-photo {
+  max-width: 400px;
+  margin: 0 auto;
   border: 1px solid var(--line);
-  border-radius: 26px;
-  background:
-    linear-gradient(172deg, rgb(255 255 255 / 7%), rgb(255 255 255 / 2%) 40%, rgb(255 255 255 / 4%)),
-    rgb(10 12 16 / 92%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 9%),
-    0 50px 100px -50px rgb(0 0 0 / 100%),
-    0 0 80px -40px rgb(74 222 128 / 20%);
-  transform: rotate(1.4deg);
-  transition: transform 0.4s var(--ease);
-}
-
-.remote:hover {
-  transform: rotate(0deg) translateY(-4px);
-}
-
-/* The display — the whole point. What it lists is what the server decided it lists. */
-.remote-screen {
-  padding: 12px 12px 14px;
-  border: 1px solid var(--line-soft);
-  border-radius: 10px;
-  background: rgb(0 0 0 / 55%);
-}
-
-.remote-zone {
-  font-size: 8px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-
-.remote-screen ul {
-  margin-top: 9px;
-  display: grid;
-  gap: 7px;
-}
-
-.remote-screen li {
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  white-space: nowrap;
+  border-radius: 16px;
   overflow: hidden;
-  text-overflow: ellipsis;
+  background: rgb(0 0 0 / 45%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 5%),
+    0 40px 90px -50px rgb(0 0 0 / 100%);
 }
 
-.remote-screen li.on {
-  color: var(--accent);
-  text-shadow: 0 0 10px rgb(74 222 128 / 55%);
-}
-
-.remote-screen li.on::before {
-  content: '› ';
-}
-
-.remote-pad {
-  display: grid;
-  place-items: center;
-  width: 84px;
-  height: 84px;
-  margin: 18px auto 0;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: rgb(255 255 255 / 3%);
-}
-
-.remote-pad i {
-  width: 30px;
-  height: 30px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: rgb(255 255 255 / 5%);
-}
-
-.remote-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-.rk {
-  width: 26px;
-  height: 26px;
-  border: 1px solid var(--line-soft);
-  border-radius: 50%;
-  background: rgb(255 255 255 / 3%);
-}
-
-/* The four coloured keys — each one starts something in the room. */
-.remote-colors {
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 14px;
-}
-
-.remote-colors i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--c);
-  opacity: 0.85;
-}
-
-.remote-brand {
-  margin-top: 16px;
-  font-size: 6.5px;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  text-align: center;
-  color: var(--dim);
-}
-
-@media (max-width: 900px) {
-  .remote {
-    width: 150px;
-  }
+.remote-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(0.92) brightness(0.94);
 }
 
 /* --- real screenshots, framed ---------------------------------------------- */
