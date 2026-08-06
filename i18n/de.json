@@ -838,12 +838,12 @@
       "Optionale Shazam-Titelerkennung"
     ],
     [
-      "Play, pause and skip — when the endpoint supports control",
-      "Play, Pause und Skip — wenn der Endpoint Steuerung unterstützt"
+      "Play, pause and skip are forwarded to the device — when it can be driven over the network",
+      "Play, Pause und Skip gehen ans Gerät weiter — wenn es sich übers Netzwerk steuern lässt"
     ],
     [
-      "Masterlink B&amp;O players under full control: a Beosound&nbsp;9000 obeys completely",
-      "Masterlink-B&amp;O-Player unter voller Kontrolle: eine Beosound&nbsp;9000 lässt sich komplett steuern"
+      "B&amp;O Masterlink can: a Beosound&nbsp;9000 changes discs on command",
+      "B&amp;O Masterlink kann das: eine Beosound&nbsp;9000 wechselt Discs auf Kommando"
     ]
   ]
 }
