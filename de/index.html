@@ -717,9 +717,9 @@
           <div class="split remote-split rise">
             <div>
               <p class="eyebrow">beoremote one</p>
-              <h3 class="h3">Das Menü auf dem Display? Schreibt sonn.</h3>
+              <h3 class="h3">Bidirektionale Steuerung mit der Beoremote One.</h3>
               <p class="remote-p">
-                Eine Beoremote One kann einen Raum übernehmen. Der Server baut das Menü, das die Fernbedienung zeigt — deine Favoriten, Radiosender und jedes Line-in-Gerät wie den Plattenspieler oder den CD-Player — und jede Farb- und Punkttaste startet etwas in diesem Raum. Play, Pause und Skip erreichen, was gerade spielt, auch ein steuerbares Line-in-Gerät.
+                Radiosender und Raum-Favoriten erscheinen direkt als abspielbare Einträge auf dem Display der Fernbedienung — der Server baut die Liste, die Remote spielt daraus. Jede Farb- und Punkttaste startet etwas im Raum, und Play, Pause und Skip erreichen, was gerade spielt, auch ein steuerbares Line-in-Gerät.
               </p>
               <p class="remote-p">
                 Die Lautstärke bleibt auf dem Gerät selbst und funktioniert damit auch, wenn der Server kurz nicht erreichbar ist. Die Fernbedienung koppelt sich per Bluetooth mit einem kleinen Helfer, der ihre Tastendrücke weiterreicht; läuft er einmal, wählst du nur noch, welche Remote zu welcher Zone gehört.
@@ -909,13 +909,33 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
           <div class="split mt-l">
             <div class="rise">
               <div class="slab">
-                <div class="slab-chrome" aria-hidden="true"><i></i><i></i><i></i><span>quick start</span></div>
-                <pre><span class="c-com"># docker-compose.yml liegt im Repo — oder:</span>
-<span class="c-cmd">docker</span> run -d \
+                <div class="slab-chrome"><i></i><i></i><i></i><span>quick start</span>
+                  <button class="slab-copy mono" type="button">kopieren</button>
+                </div>
+                <div class="slab-tabs" role="tablist" aria-label="Installationswege">
+                  <button class="slab-tab" role="tab" aria-selected="true" data-tab="q-compose">docker compose</button>
+                  <button class="slab-tab" role="tab" aria-selected="false" data-tab="q-run">docker run</button>
+                  <button class="slab-tab" role="tab" aria-selected="false" data-tab="q-node">node.js</button>
+                </div>
+
+                <pre id="q-compose" data-copy="curl -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml &amp;&amp; docker compose up -d"><span class="c-com"># eine datei, ein befehl — die compose-datei liegt im repo</span>
+<span class="c-cmd">curl</span> -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml
+<span class="c-cmd">docker</span> compose up -d<span class="cursor" aria-hidden="true"></span></pre>
+
+                <pre id="q-run" hidden data-copy="docker run -d --name sonn-core --network host -v $(pwd)/data:/app/data ghcr.io/sonn-audio/core:latest"><span class="c-cmd">docker</span> run -d \
   --name sonn-core \
   --network host \
   -v $(pwd)/data:/app/data \
   ghcr.io/sonn-audio/core:latest<span class="cursor" aria-hidden="true"></span></pre>
+
+                <pre id="q-node" hidden data-copy="git clone https://github.com/sonn-audio/core.git &amp;&amp; cd core
+mkdir -p data
+npm install &amp;&amp; npm run build
+npm start"><span class="c-com"># Node.js 20+</span>
+<span class="c-cmd">git</span> clone https://github.com/sonn-audio/core.git &amp;&amp; cd core
+<span class="c-cmd">mkdir</span> -p data
+<span class="c-cmd">npm</span> install &amp;&amp; npm run build
+<span class="c-cmd">npm</span> start<span class="cursor" aria-hidden="true"></span></pre>
               </div>
               <p class="door-note">
                 Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu. <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender Audioserver.
@@ -1423,10 +1443,28 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       /* ============================== API tabs ========================================= */
       document.querySelectorAll('.slab-tab').forEach((tab) =>
         tab.addEventListener('click', () => {
-          document.querySelectorAll('.slab-tab').forEach((t) => t.setAttribute('aria-selected', 'false'));
+          const slab = tab.closest('.slab');
+          slab.querySelectorAll('.slab-tab').forEach((t) => t.setAttribute('aria-selected', 'false'));
           tab.setAttribute('aria-selected', 'true');
-          document.querySelectorAll('.slab > pre').forEach((p) => (p.hidden = true));
+          slab.querySelectorAll(':scope > pre').forEach((p) => (p.hidden = true));
           document.getElementById(tab.dataset.tab).hidden = false;
+        }),
+      );
+
+      /* The quick start's copy button copies whichever install route is showing. */
+      document.querySelectorAll('.slab-copy').forEach((btn) =>
+        btn.addEventListener('click', async () => {
+          const slab = btn.closest('.slab');
+          const pre = [...slab.querySelectorAll('pre')].find((p) => !p.hidden);
+          try {
+            await navigator.clipboard.writeText(pre.dataset.copy || pre.textContent.trim());
+            btn.textContent = '✓ kopiert';
+            setTimeout(() => {
+              btn.textContent = 'kopieren';
+            }, 1600);
+          } catch {
+            /* clipboard blocked — the command is right there to select */
+          }
         }),
       );
 

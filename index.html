@@ -762,12 +762,12 @@
           <div class="split remote-split rise">
             <div>
               <p class="eyebrow">beoremote one</p>
-              <h3 class="h3">The menu on that display? sonn writes it.</h3>
+              <h3 class="h3">Bidirectional control with the Beoremote One.</h3>
               <p class="remote-p">
-                A Beoremote One can own a room. The server builds the menu the remote shows — your
-                favourites, radio stations, and any line-in device such as the turntable or the CD
-                player — and every coloured and dot button starts something in that room. Play, pause
-                and skip route to whatever is playing, including a line-in device that can be driven.
+                Radio stations and room favourites appear directly as playable items on the remote's
+                screen — the server builds the list, the remote plays from it. Every coloured and dot
+                button starts something in the room, and play, pause and skip route to whatever is
+                playing, including a line-in device that can be driven.
               </p>
               <p class="remote-p">
                 Volume stays on the device itself, so it keeps working even when the server is briefly
@@ -972,13 +972,33 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
           <div class="split mt-l">
             <div class="rise">
               <div class="slab">
-                <div class="slab-chrome" aria-hidden="true"><i></i><i></i><i></i><span>quick start</span></div>
-                <pre><span class="c-com"># docker-compose.yml is in the repo — or:</span>
-<span class="c-cmd">docker</span> run -d \
+                <div class="slab-chrome"><i></i><i></i><i></i><span>quick start</span>
+                  <button class="slab-copy mono" type="button">copy</button>
+                </div>
+                <div class="slab-tabs" role="tablist" aria-label="Install options">
+                  <button class="slab-tab" role="tab" aria-selected="true" data-tab="q-compose">docker compose</button>
+                  <button class="slab-tab" role="tab" aria-selected="false" data-tab="q-run">docker run</button>
+                  <button class="slab-tab" role="tab" aria-selected="false" data-tab="q-node">node.js</button>
+                </div>
+
+                <pre id="q-compose" data-copy="curl -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml &amp;&amp; docker compose up -d"><span class="c-com"># one file, one command — the compose file lives in the repo</span>
+<span class="c-cmd">curl</span> -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml
+<span class="c-cmd">docker</span> compose up -d<span class="cursor" aria-hidden="true"></span></pre>
+
+                <pre id="q-run" hidden data-copy="docker run -d --name sonn-core --network host -v $(pwd)/data:/app/data ghcr.io/sonn-audio/core:latest"><span class="c-cmd">docker</span> run -d \
   --name sonn-core \
   --network host \
   -v $(pwd)/data:/app/data \
   ghcr.io/sonn-audio/core:latest<span class="cursor" aria-hidden="true"></span></pre>
+
+                <pre id="q-node" hidden data-copy="git clone https://github.com/sonn-audio/core.git &amp;&amp; cd core
+mkdir -p data
+npm install &amp;&amp; npm run build
+npm start"><span class="c-com"># Node.js 20+</span>
+<span class="c-cmd">git</span> clone https://github.com/sonn-audio/core.git &amp;&amp; cd core
+<span class="c-cmd">mkdir</span> -p data
+<span class="c-cmd">npm</span> install &amp;&amp; npm run build
+<span class="c-cmd">npm</span> start<span class="cursor" aria-hidden="true"></span></pre>
               </div>
               <p class="door-note">
                 Then open <code>http://&lt;server-ip&gt;:7090</code>, create your admin account, and walk
@@ -1494,10 +1514,28 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       /* ============================== API tabs ========================================= */
       document.querySelectorAll('.slab-tab').forEach((tab) =>
         tab.addEventListener('click', () => {
-          document.querySelectorAll('.slab-tab').forEach((t) => t.setAttribute('aria-selected', 'false'));
+          const slab = tab.closest('.slab');
+          slab.querySelectorAll('.slab-tab').forEach((t) => t.setAttribute('aria-selected', 'false'));
           tab.setAttribute('aria-selected', 'true');
-          document.querySelectorAll('.slab > pre').forEach((p) => (p.hidden = true));
+          slab.querySelectorAll(':scope > pre').forEach((p) => (p.hidden = true));
           document.getElementById(tab.dataset.tab).hidden = false;
+        }),
+      );
+
+      /* The quick start's copy button copies whichever install route is showing. */
+      document.querySelectorAll('.slab-copy').forEach((btn) =>
+        btn.addEventListener('click', async () => {
+          const slab = btn.closest('.slab');
+          const pre = [...slab.querySelectorAll('pre')].find((p) => !p.hidden);
+          try {
+            await navigator.clipboard.writeText(pre.dataset.copy || pre.textContent.trim());
+            btn.textContent = '✓ copied';
+            setTimeout(() => {
+              btn.textContent = 'copy';
+            }, 1600);
+          } catch {
+            /* clipboard blocked — the command is right there to select */
+          }
         }),
       );
 

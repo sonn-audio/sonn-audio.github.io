@@ -2659,6 +2659,29 @@ section[data-num]::before {
   color: var(--dim);
 }
 
+/* The copy button in the chrome: copies whichever install route is showing. */
+.slab-copy {
+  margin-left: auto;
+  padding: 3px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: none;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+  cursor: pointer;
+  transition:
+    color 0.2s,
+    border-color 0.2s;
+}
+
+.slab-copy:hover {
+  color: var(--accent);
+  border-color: rgb(74 222 128 / 40%);
+}
+
 .slab-tabs {
   display: flex;
   gap: 2px;

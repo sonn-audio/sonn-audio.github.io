@@ -626,10 +626,6 @@
       "Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles enthält. Sichere den Ordner, und du hast die Installation gesichert."
     ],
     [
-      "# docker-compose.yml is in the repo — or:",
-      "# docker-compose.yml liegt im Repo — oder:"
-    ],
-    [
       "Then open <code>http://&lt;server-ip&gt;:7090</code>, create your admin account, and walk the three steps: <strong>Content</strong> — add your music. <strong>Access</strong> — switch on how to reach it. <strong>Zones</strong> — only if you want rooms. Steps one and two are already a working audio server.",
       "Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu. <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender Audioserver."
     ],
@@ -846,14 +842,6 @@
       "beoremote one"
     ],
     [
-      "The menu on that display? sonn writes it.",
-      "Das Menü auf dem Display? Schreibt sonn."
-    ],
-    [
-      "A Beoremote One can own a room. The server builds the menu the remote shows — your favourites, radio stations, and any line-in device such as the turntable or the CD player — and every coloured and dot button starts something in that room. Play, pause and skip route to whatever is playing, including a line-in device that can be driven.",
-      "Eine Beoremote One kann einen Raum übernehmen. Der Server baut das Menü, das die Fernbedienung zeigt — deine Favoriten, Radiosender und jedes Line-in-Gerät wie den Plattenspieler oder den CD-Player — und jede Farb- und Punkttaste startet etwas in diesem Raum. Play, Pause und Skip erreichen, was gerade spielt, auch ein steuerbares Line-in-Gerät."
-    ],
-    [
       "Volume stays on the device itself, so it keeps working even when the server is briefly unreachable. The remote pairs over Bluetooth with a small helper that forwards its keypresses; once it runs, you only pick which remote belongs to which zone.",
       "Die Lautstärke bleibt auf dem Gerät selbst und funktioniert damit auch, wenn der Server kurz nicht erreichbar ist. Die Fernbedienung koppelt sich per Bluetooth mit einem kleinen Helfer, der ihre Tastendrücke weiterreicht; läuft er einmal, wählst du nur noch, welche Remote zu welcher Zone gehört."
     ],
@@ -864,6 +852,26 @@
     [
       "beoremote one — the list on it comes from the server",
       "beoremote one — die liste darauf kommt vom server"
+    ],
+    [
+      "Bidirectional control with the Beoremote One.",
+      "Bidirektionale Steuerung mit der Beoremote One."
+    ],
+    [
+      "Radio stations and room favourites appear directly as playable items on the remote's screen — the server builds the list, the remote plays from it. Every coloured and dot button starts something in the room, and play, pause and skip route to whatever is playing, including a line-in device that can be driven.",
+      "Radiosender und Raum-Favoriten erscheinen direkt als abspielbare Einträge auf dem Display der Fernbedienung — der Server baut die Liste, die Remote spielt daraus. Jede Farb- und Punkttaste startet etwas im Raum, und Play, Pause und Skip erreichen, was gerade spielt, auch ein steuerbares Line-in-Gerät."
+    ],
+    [
+      "aria-label=\"Install options\"",
+      "aria-label=\"Installationswege\""
+    ],
+    [
+      "# one file, one command — the compose file lives in the repo",
+      "# eine datei, ein befehl — die compose-datei liegt im repo"
+    ],
+    [
+      "<button class=\"slab-copy mono\" type=\"button\">copy</button>",
+      "<button class=\"slab-copy mono\" type=\"button\">kopieren</button>"
     ]
   ]
 }
