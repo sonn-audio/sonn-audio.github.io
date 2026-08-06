@@ -466,14 +466,6 @@
       "Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten."
     ],
     [
-      ">Bang &amp; Olufsen remotes<",
-      ">Bang &amp; Olufsen Fernbedienungen<"
-    ],
-    [
-      "A Beoremote One can own a room: the server builds the menu it shows — favorites, radio, the turntable — and play, pause and skip route to whatever the room is playing.",
-      "Eine Beoremote One kann einen Raum übernehmen: Der Server baut das Menü, das sie zeigt — Favoriten, Radio, der Plattenspieler — und Play, Pause und Skip erreichen, was der Raum gerade spielt."
-    ],
-    [
       ">This browser is a room<",
       ">Dieser Browser ist ein Raum<"
     ],
@@ -848,6 +840,34 @@
     [
       "Every other output takes a fixed format, so anything else means a conversion — a good one, but a conversion. Sendspin is the one output where <em>not converting</em> is guaranteed. And it carries more than playback: its source role brings line-in devices in, and its visualizer role streams live analysis for VU meters and light scenes.",
       "Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem <em>nicht umwandeln</em> garantiert ist. Und er trägt mehr als Wiedergabe: Seine Source-Rolle bringt Line-in-Geräte herein, und seine Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen."
+    ],
+    [
+      "beoremote one",
+      "beoremote one"
+    ],
+    [
+      "The menu on that display? sonn writes it.",
+      "Das Menü auf dem Display? Schreibt sonn."
+    ],
+    [
+      "A Beoremote One can own a room. The server builds the menu the remote shows — your favourites, radio stations, and any line-in device such as the turntable or the CD player — and every coloured and dot button starts something in that room. Play, pause and skip route to whatever is playing, including a line-in device that can be driven.",
+      "Eine Beoremote One kann einen Raum übernehmen. Der Server baut das Menü, das die Fernbedienung zeigt — deine Favoriten, Radiosender und jedes Line-in-Gerät wie den Plattenspieler oder den CD-Player — und jede Farb- und Punkttaste startet etwas in diesem Raum. Play, Pause und Skip erreichen, was gerade spielt, auch ein steuerbares Line-in-Gerät."
+    ],
+    [
+      "Volume stays on the device itself, so it keeps working even when the server is briefly unreachable. The remote pairs over Bluetooth with a small helper that forwards its keypresses; once it runs, you only pick which remote belongs to which zone.",
+      "Die Lautstärke bleibt auf dem Gerät selbst und funktioniert damit auch, wenn der Server kurz nicht erreichbar ist. Die Fernbedienung koppelt sich per Bluetooth mit einem kleinen Helfer, der ihre Tastendrücke weiterreicht; läuft er einmal, wählst du nur noch, welche Remote zu welcher Zone gehört."
+    ],
+    [
+      ">my favourites<",
+      ">meine favoriten<"
+    ],
+    [
+      ">turntable<",
+      ">plattenspieler<"
+    ],
+    [
+      ">radio paradise<",
+      ">radio paradise<"
     ]
   ]
 }
