@@ -1,19 +1,33 @@
 # sonn — the website
 
 The product site for [sonn](https://github.com/sonn-audio/core), served by GitHub Pages at
-**https://sonn-audio.github.io/**.
+**https://sonn-audio.github.io/** (English) and **https://sonn-audio.github.io/de/** (German).
 
 Static and self-contained on purpose: two self-hosted fonts, inline SVG, one stylesheet, one
-script — no build step, no dependency, no request that leaves the host. Open `index.html` in a
-browser and you are running the site.
+script — no dependency, no request that leaves the host. Open `index.html` in a browser and
+you are running the site.
 
 ```
-index.html            the page, and all of its behaviour (one <script> at the bottom)
+index.html            the page, and all of its behaviour — THE source of truth, hand-editable
+i18n/de.json          the German edition, as [english, german] pairs
+build.mjs             node build.mjs → regenerates de/index.html (node built-ins only)
+de/index.html         GENERATED — never edit by hand
 assets/site.css       the identity: tokens, layout, scrollytelling, microinteractions
 assets/fonts/         Hanken Grotesk + JetBrains Mono (variable, woff2)
 assets/sonn-mark.svg  favicon — the roofline over the level meter
 assets/og.png         social card, rendered from the hero itself
 ```
+
+## Editing
+
+English needs no build: edit `index.html` and push. For German, add or update the matching
+pair in `i18n/de.json` and run `node build.mjs`. The build **fails** when a pair's English
+side no longer occurs in `index.html`, so a copy edit cannot silently strand the German page
+— fix the pair, rebuild, commit both.
+
+Matching is whitespace-insensitive, so reflowing a paragraph never breaks its translation.
+Product vocabulary (`bit-perfect`, `zones · live`, `bypassed`, `grouped`) is deliberately not
+translated: that is what the product UI itself says.
 
 The visual identity is the one the server draws on its own front door (`public/index.html` in
 `core`): near-black ground, one green accent, one hairline as the structural device, Hanken

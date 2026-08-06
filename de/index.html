@@ -28,14 +28,12 @@
     <link rel="preload" href="../assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../assets/site.css" />
-    <!--
-      Die deutsche Ausgabe. Sätze auf Deutsch; die gravierten Mono-Labels und das
-      Produktvokabular (bit-perfect, zones · live, bypassed) bleiben Englisch — so
-      spricht auch die Produkt-UI selbst.
-    -->
+    <!-- The one inline script: mark the page as scripted before first paint, so entrance
+         states only ever hide things when something is actually going to reveal them. -->
     <script>document.documentElement.classList.add('js');</script>
   </head>
   <body>
+    <!-- Reading progress — a hairline of accent across the very top. -->
     <div class="progress" id="progress" aria-hidden="true"></div>
 
     <!-- ============================================================ top bar -->
@@ -85,11 +83,13 @@
     <main id="top">
       <!-- ============================================================= hero -->
       <section class="hero">
+        <!-- The identity, as weather: aurora overhead, a 3D sea of samples along the ground. -->
         <div class="hero-aurora" aria-hidden="true"></div>
         <canvas class="hero-wave" id="wave" aria-hidden="true"></canvas>
 
         <div class="wrap hero-in">
           <div class="hero-copy" id="hero-copy">
+            <!-- The mark draws itself: roofline first, then its meter rises into place. -->
             <svg class="hero-mark" id="hero-mark" viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
               <path id="mark-roof" class="mark-roof" d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
               <g class="mark-bars">
@@ -108,6 +108,7 @@
 
             <p class="eyebrow hero-eyebrow">der offene audioserver</p>
 
+            <!-- Each line steps out from behind its own baseline, one after the other. -->
             <h1>
               <span class="line" style="--l: 0"><span class="line-in">Ein Server.</span></span>
               <span class="line" style="--l: 1"><span class="line-in">Jeder Raum.</span></span>
@@ -115,10 +116,7 @@
             </h1>
 
             <p class="lede">
-              sonn sammelt deine Musik — lokale Bibliothek, Spotify, Apple&nbsp;Music, Tidal, Radio, sogar
-              den Plattenspieler — und spielt sie synchron auf den Lautsprechern, die du schon besitzt,
-              über fast jedes Protokoll, das sie sprechen. Oder lass die Räume ganz weg und stelle deine
-              Inhalte jeder App im Haus bereit.
+              sonn sammelt deine Musik — lokale Bibliothek, Spotify, Apple&nbsp;Music, Tidal, Radio, sogar den Plattenspieler — und spielt sie synchron auf den Lautsprechern, die du schon besitzt, über fast jedes Protokoll, das sie sprechen. Oder lass die Räume ganz weg und stelle deine Inhalte jeder App im Haus bereit.
             </p>
 
             <div class="actions">
@@ -138,6 +136,10 @@
             </p>
           </div>
 
+          <!--
+            The room board, with the player's technical view peeking out behind it — the two
+            cards the product actually draws, stacked like they came off a desk.
+          -->
           <div class="stack" id="stack" aria-hidden="true">
             <div class="stack-back">
               <p class="stack-back-k">technical · wohnzimmer</p>
@@ -201,6 +203,7 @@
           </div>
         </div>
 
+        <!-- Everything it speaks, on one slowly turning belt. -->
         <div class="marquee" aria-hidden="true">
           <div class="marquee-track">
             <span>spotify</span><i></i><span>apple music</span><i></i><span>tidal</span><i></i><span>deezer</span><i></i>
@@ -224,8 +227,7 @@
             <p class="eyebrow">ein server, zwei gestalten</p>
             <h2 class="h2">Content-Server oder Ganzhaus-System. Oder beides.</h2>
             <p class="lede">
-              Eine frische Installation startet ohne Zonen und ohne Freigaben. Was du einschaltest,
-              bestimmt, was daraus wird — und du kannst es später ändern, ohne von vorn anzufangen.
+              Eine frische Installation startet ohne Zonen und ohne Freigaben. Was du einschaltest, bestimmt, was daraus wird — und du kannst es später ändern, ohne von vorn anzufangen.
             </p>
           </div>
 
@@ -234,9 +236,7 @@
               <p class="door-num">01 / nur inhalte</p>
               <h3 class="door-title">Deine Musik für alles bereitstellen</h3>
               <p class="door-sub">
-                Richte deine Bibliothek, Streaming-Konten und Radio auf sonn, schalte ein, wie du sie
-                erreichen willst — und jede App und jedes Gerät im Haus kann stöbern und abspielen. Keine
-                Räume zu konfigurieren, nichts pro Gerät zu verwalten.
+                Richte deine Bibliothek, Streaming-Konten und Radio auf sonn, schalte ein, wie du sie erreichen willst — und jede App und jedes Gerät im Haus kann stöbern und abspielen. Keine Räume zu konfigurieren, nichts pro Gerät zu verwalten.
               </p>
               <ul class="door-list">
                 <li>DLNA / UPnP MediaServer — Smart-TVs, Receiver, Netzwerklautsprecher</li>
@@ -245,9 +245,7 @@
                 <li>Eingebauter Web-Player, aus jedem Browser im Netzwerk</li>
               </ul>
               <p class="door-note">
-                Streamingdienste inklusive — auf Geräten, die selbst keinerlei Unterstützung dafür haben.
-                Ein DLNA-TV hat keine Apple&nbsp;Music- oder Tidal-App und stöbert trotzdem vom Sofa aus
-                durch deine Konten, weil sonn sie wie jeden anderen Inhalt bereitstellt.
+                Streamingdienste inklusive — auf Geräten, die selbst keinerlei Unterstützung dafür haben. Ein DLNA-TV hat keine Apple&nbsp;Music- oder Tidal-App und stöbert trotzdem vom Sofa aus durch deine Konten, weil sonn sie wie jeden anderen Inhalt bereitstellt.
               </p>
             </div>
 
@@ -257,8 +255,7 @@
               <p class="door-num">02 / multiroom</p>
               <h3 class="door-title">Oder übernimm die Räume selbst</h3>
               <p class="door-sub">
-                Lege feste Zonen an — bis zu 24, eine pro Raum — und sonn steuert die Lautsprecher direkt:
-                benannte Räume, synchrone Gruppen, ein Ort für das ganze Haus.
+                Lege feste Zonen an — bis zu 24, eine pro Raum — und sonn steuert die Lautsprecher direkt: benannte Räume, synchrone Gruppen, ein Ort für das ganze Haus.
               </p>
               <ul class="door-list">
                 <li>Zentrale Steuerung über Web-Player, Admin-UI oder eine Loxone-App</li>
@@ -267,8 +264,7 @@
                 <li>Verstärker schalten über GPIO oder USB-Relais, pro Zone oder geteilt</li>
               </ul>
               <p class="door-note">
-                Mit aktivierter Loxone-Integration liefert der Miniserver die Zonen — sonn verhält sich
-                wie ein vollwertiger Loxone Audioserver.
+                Mit aktivierter Loxone-Integration liefert der Miniserver die Zonen — sonn verhält sich wie ein vollwertiger Loxone Audioserver.
               </p>
             </div>
           </div>
@@ -282,10 +278,7 @@
             <p class="eyebrow">der signalweg</p>
             <h2 class="h2">Deine Datei, unverändert, am Lautsprecher.</h2>
             <p class="lede">
-              sonn ist um eine Idee gebaut: Das Audio, das deine Bibliothek verlässt, soll den Player
-              exakt so erreichen, wie es aufgenommen wurde. Jede Stufe, die es berühren könnte, ist pro
-              Zone sichtbar — und der Server führt keine davon aus, solange nichts ihn dazu zwingt.
-              Probier es aus:
+              sonn ist um eine Idee gebaut: Das Audio, das deine Bibliothek verlässt, soll den Player exakt so erreichen, wie es aufgenommen wurde. Jede Stufe, die es berühren könnte, ist pro Zone sichtbar — und der Server führt keine davon aus, solange nichts ihn dazu zwingt. Probier es aus:
             </p>
           </div>
 
@@ -355,21 +348,14 @@
                   <span id="verdict-label">bit-perfect</span>
                 </span>
                 <p class="verdict-why" id="verdict-why">
-                  Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples
-                  der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie
-                  aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.
+                  Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.
                 </p>
               </div>
             </div>
           </div>
 
           <p class="sig-foot rise">
-            Das ist kein Diagramm, das wir für die Website gezeichnet haben — es ist die technische
-            Ansicht, die der Web-Player für jede Zone live zeigt: das Quellformat, jede Stufe, die das
-            Audio berührt hat, und das Urteil. <em>Bit-perfect</em>, <em>untouched</em> oder
-            <em>altered</em> — mit Begründung. Und wenn du einfach nur Musik willst: Nimm den Ausgang,
-            den du schon hast. Alles funktioniert, alles klingt gut, und nichts davon verlangt einen
-            Gedanken an Sampleraten.
+            Das ist kein Diagramm, das wir für die Website gezeichnet haben — es ist die technische Ansicht, die der Web-Player für jede Zone live zeigt: das Quellformat, jede Stufe, die das Audio berührt hat, und das Urteil. <em>Bit-perfect</em>, <em>untouched</em> oder <em>altered</em> — mit Begründung. Und wenn du einfach nur Musik willst: Nimm den Ausgang, den du schon hast. Alles funktioniert, alles klingt gut, und nichts davon verlangt einen Gedanken an Sampleraten.
           </p>
         </div>
       </section>
@@ -381,8 +367,7 @@
             <p class="eyebrow">inhalte</p>
             <h2 class="h2">Alles, was du hörst, an einem Ort.</h2>
             <p class="lede">
-              Jede Quelle steht jedem Konsumenten des Servers zur Verfügung — dem Web-Player, Loxone,
-              DLNA-Geräten und Subsonic-Apps gleichermaßen. Einmal einrichten, von überall erreichen.
+              Jede Quelle steht jedem Konsumenten des Servers zur Verfügung — dem Web-Player, Loxone, DLNA-Geräten und Subsonic-Apps gleichermaßen. Einmal einrichten, von überall erreichen.
             </p>
           </div>
 
@@ -395,8 +380,7 @@
               </span>
               <h3>Lokale Bibliothek</h3>
               <p>
-                Ordner und Netzwerkfreigaben, per Tags indexiert zu Alben, Künstlern und Titeln — mit
-                Cover-Art und automatisch geladenen Künstlerbildern.
+                Ordner und Netzwerkfreigaben, per Tags indexiert zu Alben, Künstlern und Titeln — mit Cover-Art und automatisch geladenen Künstlerbildern.
               </p>
               <ul>
                 <li>Inkrementeller Index — eine abgelegte Datei taucht einfach auf</li>
@@ -413,8 +397,7 @@
               </span>
               <h3>Streamingdienste</h3>
               <p>
-                Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — und Music
-                Assistant als Quelle, mit seinen eigenen Anbietern.
+                Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — und Music Assistant als Quelle, mit seinen eigenen Anbietern.
               </p>
               <ul>
                 <li>Mehrere Konten desselben Dienstes können koexistieren</li>
@@ -431,8 +414,7 @@
               </span>
               <h3>Radio &amp; Line-in</h3>
               <p>
-                Das TuneIn-Verzeichnis, Radio Paradise, deine eigenen Streams — plus Plattenspieler oder
-                CD-Player, durch jede Zone im Haus.
+                Das TuneIn-Verzeichnis, Radio Paradise, deine eigenen Streams — plus Plattenspieler oder CD-Player, durch jede Zone im Haus.
               </p>
               <ul>
                 <li>Line-in mit optionaler Shazam-Titelerkennung</li>
@@ -451,20 +433,26 @@
             <p class="eyebrow">zonen &amp; ausgänge</p>
             <h2 class="h2">Die Lautsprecher, die du schon besitzt, sind das System.</h2>
             <p class="lede">
-              Eine Zone ist ein Gerät in einem Raum. sonn spricht mit fast allem, was Klang erzeugen
-              kann — und eine Zone kann auch <em>empfangen</em>: Richte AirPlay oder
-              Spotify&nbsp;Connect auf einen alten Verstärker, und es funktioniert einfach.
+              Eine Zone ist ein Gerät in einem Raum. sonn spricht mit fast allem, was Klang erzeugen kann — und eine Zone kann auch <em>empfangen</em>: Richte AirPlay oder Spotify&nbsp;Connect auf einen alten Verstärker, und es funktioniert einfach.
             </p>
           </div>
         </div>
 
+        <!--
+          The mark, unfolded — as scrollytelling. The logo is a roofline over a level meter;
+          scroll, and this drawing performs its own construction: the roof draws itself, the
+          server boots in the basement, packets rise, and the rooms come online one by one.
+          Without JS (or with reduced motion) the finished scene simply stands there.
+        -->
         <div class="scrolly" id="house-scrolly">
           <div class="scrolly-pin">
             <div class="wrap">
               <figure class="house" aria-label="Ein Haus mit fünf Räumen, die Musik von einem sonn-Server im Keller spielen">
                 <svg viewBox="0 0 640 476" role="img">
+                  <!-- roofline — the logo's own stroke, drawn live -->
                   <path class="h-roof" id="h-roof" d="M36 168 L320 30 L604 168" />
 
+                  <!-- shell -->
                   <g class="h-shell" id="h-shell">
                     <rect class="h-wall" x="68" y="168" width="504" height="276" rx="6" />
                     <line class="h-line" x1="68" y1="288" x2="572" y2="288" />
@@ -474,6 +462,7 @@
                     <line class="h-line" x1="320" y1="288" x2="320" y2="400" />
                   </g>
 
+                  <!-- packet risers: the audio leaving the basement for each room -->
                   <g class="h-risers" id="h-risers" aria-hidden="true">
                     <line class="h-riser" x1="152" y1="400" x2="152" y2="252" />
                     <line class="h-riser" x1="320" y1="400" x2="320" y2="252" />
@@ -487,6 +476,7 @@
                     <circle class="h-pkt" cx="446" cy="396" r="2.2" style="--dy: -32px; --dur: 1.9s; --del: 1.6s" />
                   </g>
 
+                  <!-- upstairs: bedroom (idle) · study (line-in) · bath -->
                   <g class="h-room" data-room="bedroom">
                     <text class="h-label" x="86" y="192">schlafzimmer</text>
                     <text class="h-sub" x="86" y="206">leerlauf · amp aus</text>
@@ -523,6 +513,7 @@
                     <circle class="h-ring" cx="488" cy="248" r="3.4" />
                   </g>
 
+                  <!-- downstairs: living room + kitchen, grouped and in sync -->
                   <g class="h-room" data-room="living">
                     <text class="h-label" x="86" y="312">wohnzimmer</text>
                     <text class="h-sub" x="86" y="326">sendspin · 24/96</text>
@@ -538,6 +529,7 @@
                   <g class="h-room" data-room="kitchen">
                     <text class="h-label" x="338" y="312">küche</text>
                     <text class="h-sub" x="338" y="326">chromecast</text>
+                    <!-- identical delays on purpose: grouped rooms march in step -->
                     <g class="h-meter is-grouped" transform="translate(432 372)">
                       <rect class="m m1" x="0" y="-10" width="3" height="10" rx="1.5" />
                       <rect class="m m2" x="7" y="-14" width="3" height="14" rx="1.5" />
@@ -548,11 +540,13 @@
                     <circle class="h-ring is-grouped" cx="446" cy="384" r="3.4" />
                   </g>
 
+                  <!-- the group, drawn: one marching line between the two speakers -->
                   <g class="h-groupline" id="h-groupline">
                     <path class="h-group" d="M206 384 H434" />
                     <text class="h-group-label" x="320" y="376">gruppiert · synchron</text>
                   </g>
 
+                  <!-- the basement: where the server lives -->
                   <g class="h-core" id="h-core">
                     <rect class="h-core-box" x="68" y="400" width="504" height="44" />
                     <circle class="h-core-dot" cx="94" cy="422" r="3" />
@@ -608,41 +602,31 @@
             <div class="row">
               <dt>Empfänger</dt>
               <dd>
-                Ein Empfänger lässt ein Telefon <em>in</em> eine Zone spielen. Spotify Connect, AirPlay,
-                DLNA und Line-in landen auf dem Server, der sie an den Ausgang der Zone weiterreicht — so
-                erscheint ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi als AirPlay-Ziel, ganz ohne
-                eigene Unterstützung.
+                Ein Empfänger lässt ein Telefon <em>in</em> eine Zone spielen. Spotify Connect, AirPlay, DLNA und Line-in landen auf dem Server, der sie an den Ausgang der Zone weiterreicht — so erscheint ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi als AirPlay-Ziel, ganz ohne eigene Unterstützung.
               </dd>
             </div>
             <div class="row">
               <dt>Gruppieren</dt>
               <dd>
-                Beliebige Räume spielen synchron, jederzeit umgruppierbar. Die Küche kommt zum Abendessen
-                zur Terrasse dazu und verlässt sie danach wieder — aus der App, vom Wandpanel oder per
-                Loxone-Szene.
+                Beliebige Räume spielen synchron, jederzeit umgruppierbar. Die Küche kommt zum Abendessen zur Terrasse dazu und verlässt sie danach wieder — aus der App, vom Wandpanel oder per Loxone-Szene.
               </dd>
             </div>
             <div class="row">
               <dt>Verstärker schalten</dt>
               <dd>
-                Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder
-                abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor-
-                und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten.
+                Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten.
               </dd>
             </div>
             <div class="row">
               <dt>Bang &amp; Olufsen Fernbedienungen</dt>
               <dd>
-                Eine Beoremote One kann einen Raum übernehmen: Der Server baut das Menü, das sie zeigt —
-                Favoriten, Radio, der Plattenspieler — und Play, Pause und Skip erreichen, was der Raum
-                gerade spielt.
+                Eine Beoremote One kann einen Raum übernehmen: Der Server baut das Menü, das sie zeigt — Favoriten, Radio, der Plattenspieler — und Play, Pause und Skip erreichen, was der Raum gerade spielt.
               </dd>
             </div>
             <div class="row">
               <dt>Dieser Browser ist ein Raum</dt>
               <dd>
-                Der Web-Player meldet sich selbst als lokales Ziel an: auswählen, abspielen, und es spielt
-                hier — gesteuert mit exakt denselben Reglern wie die Hardware-Zonen.
+                Der Web-Player meldet sich selbst als lokales Ziel an: auswählen, abspielen, und es spielt hier — gesteuert mit exakt denselben Reglern wie die Hardware-Zonen.
               </dd>
             </div>
           </dl>
@@ -657,11 +641,10 @@
               <p class="eyebrow">loxone</p>
               <h2 class="h2">Ein vollwertiger Loxone Audioserver.</h2>
               <p class="lede">
-                Kein Add-on, das mit Loxone redet — eine vollständige Audioserver-Implementierung.
-                Kopple sie mit einem Miniserver und sie verhält sich wie das Original: Zonen, Quellen,
-                Favoriten, Alarme und die native Loxone-App, mit bis zu 24 Zonen — derselben Obergrenze
-                wie beim Original.
+                Kein Add-on, das mit Loxone redet — eine vollständige Audioserver-Implementierung. Kopple sie mit einem Miniserver und sie verhält sich wie das Original: Zonen, Quellen, Favoriten, Alarme und die native Loxone-App, mit bis zu 24 Zonen — derselben Obergrenze wie beim Original.
               </p>
+              <!-- The pairing, as it looks from the network: the Miniserver and sonn find each
+                   other, the handshake crosses the wire both ways, and the icon turns green. -->
               <div class="pairing" aria-hidden="true">
                 <div class="pair-box">
                   <span class="pair-k">miniserver</span>
@@ -693,9 +676,7 @@
                 <li><span>Speichern und Miniserver neu starten. Das Symbol wird grün, und deine Zonen kommen an.</span></li>
               </ol>
               <p class="door-note">
-                Nicht-Spotify-Dienste werden dem Miniserver als virtuelle Spotify-Konten präsentiert —
-                das einzige Vokabular, das Loxone-Clients dafür haben. Überall sonst behalten sie ihren
-                eigenen Namen. Trennen wirkt ohne Neustart, und deine eigenen Zonen kehren zurück.
+                Nicht-Spotify-Dienste werden dem Miniserver als virtuelle Spotify-Konten präsentiert — das einzige Vokabular, das Loxone-Clients dafür haben. Überall sonst behalten sie ihren eigenen Namen. Trennen wirkt ohne Neustart, und deine eigenen Zonen kehren zurück.
               </p>
             </div>
 
@@ -703,10 +684,7 @@
               <p class="eyebrow">home assistant &amp; deine eigenen tools</p>
               <h2 class="h2 h2-sub">Und es versteht sich mit dem Rest des Hauses.</h2>
               <p class="lede lede-sub">
-                Eine optionale MQTT-Schnittstelle veröffentlicht jede Zone als retained Topics — ganze
-                Objekte als JSON, einzelne Felder als schlichte Werte — sodass Home&nbsp;Assistant,
-                Node-RED oder ein KNX-Gateway sie ganz ohne Code konsumieren. Steuern geht genauso:
-                Wert publizieren, fertig.
+                Eine optionale MQTT-Schnittstelle veröffentlicht jede Zone als retained Topics — ganze Objekte als JSON, einzelne Felder als schlichte Werte — sodass Home&nbsp;Assistant, Node-RED oder ein KNX-Gateway sie ganz ohne Code konsumieren. Steuern geht genauso: Wert publizieren, fertig.
               </p>
               <div class="slab mt-m">
                 <div class="slab-chrome" aria-hidden="true"><i></i><i></i><i></i><span>mqtt · retained</span></div>
@@ -724,8 +702,7 @@ sonn/zones/3/track/title    <span class="c-str">Song</span>
                   <circle cx="12" cy="12" r="9" /><path d="M12 8v4l2.5 2.5" />
                 </svg>
                 <span>
-                  Eine native Home-Assistant-Integration steht auf der Roadmap. Heute spricht HA bereits
-                  über MQTT und die HTTP-API mit sonn — die native Komponente macht daraus einen Klick.
+                  Eine native Home-Assistant-Integration steht auf der Roadmap. Heute spricht HA bereits über MQTT und die HTTP-API mit sonn — die native Komponente macht daraus einen Klick.
                 </span>
               </div>
             </div>
@@ -740,10 +717,7 @@ sonn/zones/3/track/title    <span class="c-str">Song</span>
             <p class="eyebrow">für entwickler</p>
             <h2 class="h2">Eine API, in der <code>curl</code> ein vollwertiger Client ist.</h2>
             <p class="lede">
-              Befehle sind schlichtes HTTP, und Zustand lesen heißt nie pollen: Abonniere den
-              Event-Stream einmal und du erfährst jede Änderung. Kein Handshake, keine Correlation-IDs,
-              kein SDK zu installieren — ein Shell-Skript mit fünf Zeilen ist eine vollständige
-              Integration.
+              Befehle sind schlichtes HTTP, und Zustand lesen heißt nie pollen: Abonniere den Event-Stream einmal und du erfährst jede Änderung. Kein Handshake, keine Correlation-IDs, kein SDK zu installieren — ein Shell-Skript mit fünf Zeilen ist eine vollständige Integration.
             </p>
           </div>
 
@@ -795,25 +769,19 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
             <div class="card rise">
               <h3>Offen by design</h3>
               <p>
-                Apache-2.0, auf GitHub. Die öffentliche API ist bis aufs Feld dokumentiert, und der
-                Web-Player ist auf ihr gebaut und auf nichts sonst — trägt der Vertrag keinen echten
-                Player, ist das ein Bug.
+                Apache-2.0, auf GitHub. Die öffentliche API ist bis aufs Feld dokumentiert, und der Web-Player ist auf ihr gebaut und auf nichts sonst — trägt der Vertrag keinen echten Player, ist das ein Bug.
               </p>
             </div>
             <div class="card rise">
               <h3>Events statt Polling</h3>
               <p>
-                Zwei Tabs, ein Wandpanel und die Loxone-App sind sich einig, weil alle dasselbe
-                <code>zone.changed</code> rendern. Eine Änderung von woanders erscheint hier — ohne eine
-                Zeile eigenen Code.
+                Zwei Tabs, ein Wandpanel und die Loxone-App sind sich einig, weil alle dasselbe <code>zone.changed</code> rendern. Eine Änderung von woanders erscheint hier — ohne eine Zeile eigenen Code.
               </p>
             </div>
             <div class="card rise">
               <h3>MQTT dazu</h3>
               <p>
-                Derselbe Zustand, zweite Schnittstelle: retained Topics, die ein Miniserver oder ein
-                KNX-Gateway ohne JSON-Parser lesen kann. Beide laufen gleichzeitig und können sich nicht
-                widersprechen — sie publizieren aus derselben Quelle.
+                Derselbe Zustand, zweite Schnittstelle: retained Topics, die ein Miniserver oder ein KNX-Gateway ohne JSON-Parser lesen kann. Beide laufen gleichzeitig und können sich nicht widersprechen — sie publizieren aus derselben Quelle.
               </p>
             </div>
           </div>
@@ -827,8 +795,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
             <p class="eyebrow">loslegen</p>
             <h2 class="h2">Läuft, bevor der Kaffee durch ist.</h2>
             <p class="lede">
-              Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles
-              enthält. Sichere den Ordner, und du hast die Installation gesichert.
+              Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles enthält. Sichere den Ordner, und du hast die Installation gesichert.
             </p>
           </div>
 
@@ -844,11 +811,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
   ghcr.io/sonn-audio/core:latest<span class="cursor" aria-hidden="true"></span></pre>
               </div>
               <p class="door-note">
-                Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh
-                die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu.
-                <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur
-                wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender
-                Audioserver.
+                Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu. <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender Audioserver.
               </p>
             </div>
 
@@ -884,8 +847,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
                   <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" /><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5" />
                 </svg>
                 <span>
-                  Lieber ohne Docker? Läuft direkt auf Node.js&nbsp;20+ — klonen, <code>npm install</code>,
-                  <code>npm run build</code>, <code>npm start</code>.
+                  Lieber ohne Docker? Läuft direkt auf Node.js&nbsp;20+ — klonen, <code>npm install</code>, <code>npm run build</code>, <code>npm start</code>.
                 </span>
               </div>
             </div>
@@ -895,6 +857,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
 
       <!-- ========================================================= closing -->
       <section class="closing" id="closing">
+        <!-- The name of the thing, poster-sized: engraved outline that fills with light as you arrive. -->
         <span class="closing-word" aria-hidden="true">
           <i class="cw-outline">sonn</i>
           <i class="cw-fill" id="cw-fill">sonn</i>
@@ -903,8 +866,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
           <p class="eyebrow eyebrow-center">open source · self-hosted · deins</p>
           <h2 class="h2">Deine Musik verdient einen Server wie diesen.</h2>
           <p class="lede">
-            Kein Abo, keine Cloud-Abhängigkeit, keine Lautsprecher zu ersetzen. Alles läuft in deinem
-            eigenen Netzwerk — zieh das Internetkabel, und deine Bibliothek spielt weiter.
+            Kein Abo, keine Cloud-Abhängigkeit, keine Lautsprecher zu ersetzen. Alles läuft in deinem eigenen Netzwerk — zieh das Internetkabel, und deine Bibliothek spielt weiter.
           </p>
           <div class="actions">
             <a class="btn btn-primary" href="https://github.com/sonn-audio/core" rel="noopener">
@@ -940,8 +902,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
             sonn
           </p>
           <p class="foot-note">
-            Multiroom-Audio für dein ganzes Zuhause. Open Source, self-hosted, und gebaut, um deine Musik
-            exakt so zu lassen, wie sie aufgenommen wurde.
+            Multiroom-Audio für dein ganzes Zuhause. Open Source, self-hosted, und gebaut, um deine Musik exakt so zu lassen, wie sie aufgenommen wurde.
           </p>
         </div>
         <div class="foot-col">
@@ -973,19 +934,18 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       </div>
       <div class="wrap">
         <p class="foot-legal">
-          sonn ist ein unabhängiges Open-Source-Projekt. Loxone ist eine Marke der Loxone Electronics
-          GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google und alle weiteren Produktnamen sind Marken
-          ihrer jeweiligen Inhaber. sonn ist mit keinem von ihnen verbunden und wird von keinem von ihnen
-          unterstützt.
+          sonn ist ein unabhängiges Open-Source-Projekt. Loxone ist eine Marke der Loxone Electronics GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google und alle weiteren Produktnamen sind Marken ihrer jeweiligen Inhaber. sonn ist mit keinem von ihnen verbunden und wird von keinem von ihnen unterstützt.
         </p>
       </div>
     </footer>
 
     <script>
       /*
-       * Identisch zur englischen Seite, bis auf die übersetzten Strings des Simulators und
-       * des Kopieren-Knopfs. Die Choreografie ist dieselbe: eine geteilte rAF-Schleife für
-       * Meter, Welle, Scroll-Regie und Parallaxe.
+       * All of it optional: the page reads perfectly with JS off — every hidden entrance
+       * state is gated behind the `js` class stamped in <head>, so nothing can hide without
+       * something standing by to reveal it. What's here is the live layer: one shared rAF
+       * loop drives the meters, the 3D wave, the scroll choreography and the parallax, so
+       * there is exactly one place the page spends energy per frame.
        */
       'use strict';
 
@@ -995,6 +955,8 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       const $ = (id) => document.getElementById(id);
 
       /* ============================== the one frame loop ============================== */
+      // Everything animated by script registers a task here. Tasks receive the timestamp
+      // and the cached scroll position; heavy tasks throttle themselves.
       const tasks = [];
       let scrollY = window.scrollY;
       addEventListener('scroll', () => (scrollY = window.scrollY), { passive: true });
@@ -1018,6 +980,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         });
       }
 
+      // The hero recedes as you leave it: copy and cards drift at different speeds.
       if (!reduced) {
         const copy = $('hero-copy');
         const stack = $('stack');
@@ -1052,6 +1015,9 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       document.querySelectorAll('.rise').forEach((el) => io.observe(el));
 
       /* ============================== the mark draws itself =========================== */
+      // Roofline first — a pen stroke — then the meter bars rise under it, then the
+      // headline steps out line by line. The CSS holds the choreography; this only
+      // measures the path and fires the class.
       {
         const roof = $('mark-roof');
         const len = roof.getTotalLength();
@@ -1066,6 +1032,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         document.querySelectorAll('.meter[data-meter] i').forEach((el, i) => {
           bars.push({ el, phase: Math.PI * 2 * (i / 10) + i * 1.7, min: 0.12 });
         });
+        // The hero mark IS a level meter, so it meters: gentle, around its designed shape.
         document.querySelectorAll('#hero-mark .mark-bars rect').forEach((el, i) => {
           el.style.transformBox = 'fill-box';
           el.style.transformOrigin = 'center bottom';
@@ -1076,6 +1043,9 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
           if (t - last < 66) return;
           last = t;
           for (const b of bars) {
+            // The mark's own bars belong to the entrance choreography first: driving them
+            // per-frame while their rise transition runs would restart it forever and pin
+            // them at zero. Take over only once the entrance is done, transitions off.
             if (b.soft) {
               if (t < 2400) continue;
               if (!b.freed) {
@@ -1094,6 +1064,9 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       }
 
       /* ============================== the sea of samples =============================== */
+      // A 3D field of points along the hero's ground — a perspective projection done by
+      // hand, because a dependency would be heavier than the arithmetic. Each point is a
+      // sample; the surface is the waveform the house floats on.
       const canvas = $('wave');
       if (canvas && !reduced) {
         const ctx = canvas.getContext('2d');
@@ -1114,7 +1087,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         const FOV = 340;
         let last = 0;
         tasks.push((t) => {
-          if (t - last < 50 || scrollY > innerHeight) return;
+          if (t - last < 50 || scrollY > innerHeight) return; // 20fps, and only while visible
           last = t;
           ctx.clearRect(0, 0, w, h);
           const cx = w / 2;
@@ -1142,6 +1115,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       }
 
       /* ============================== magnetic buttons ================================= */
+      // Buttons lean toward the hand that reaches for them — a few pixels, spring back.
       if (hoverable && !reduced) {
         document.querySelectorAll('.btn, .cmd').forEach((btn) => {
           btn.addEventListener('pointermove', (e) => {
@@ -1186,6 +1160,9 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       }
 
       /* ============================== the house, scroll-told =========================== */
+      // The scene builds in the order the product does: the roof draws (the mark), the
+      // server boots in the basement, packets rise, rooms come online, the group forms.
+      // Scrubbed by scroll, so the reader conducts it — backwards works too.
       {
         const wrap = $('house-scrolly');
         const roof = wrap.querySelector('.h-roof');
@@ -1200,6 +1177,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         const rooms = {};
         wrap.querySelectorAll('.h-room').forEach((g) => (rooms[g.dataset.room] = g));
 
+        // stage: [start, end] in scroll progress; ease each locally
         const span = (p, a, b) => clamp01((p - a) / (b - a));
         const parts = [
           { el: shell, a: 0.16, b: 0.26 },
@@ -1224,6 +1202,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         };
 
         if (reduced) {
+          // No choreography: the finished drawing, standing still.
           apply(1);
           roof.style.strokeDashoffset = '0';
         } else {
@@ -1242,6 +1221,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       }
 
       /* ============================== the closing word fills =========================== */
+      // The engraved "sonn" floods with the accent as the section takes the screen.
       if (!reduced) {
         const closing = $('closing');
         const fill = $('cw-fill');
@@ -1257,6 +1237,8 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       }
 
       /* ============================== the signal-path simulator ======================== */
+      // Mirrors the rules the server actually applies; see README "The goal: your
+      // file, unchanged, at the speaker".
       const SOURCES = {
         hires: { name: 'Bibliothek', fmt: 'FLAC · 24-bit / 192 kHz', rate: '24-bit / 192 kHz', lossless: true },
         cd: { name: 'Bibliothek', fmt: 'FLAC · 16-bit / 44.1 kHz', rate: '16-bit / 44.1 kHz', lossless: true },
@@ -1272,7 +1254,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       function render() {
         const src = SOURCES[state.src];
         const sendspin = state.out === 'sendspin';
-        const converts = !sendspin;
+        const converts = !sendspin; // fixed-format outputs take 48 kHz, so anything else converts
 
         $('n-src').textContent = src.name;
         $('n-src-f').textContent = src.fmt;
@@ -1291,11 +1273,13 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         $('n-out').textContent = sendspin ? 'USB-DAC' : 'Lautsprecher';
         $('n-out-f').textContent = converts ? '16-bit / 48 kHz' : src.rate;
 
+        // The three verdicts the player's technical view hands out, with the reason.
         const badge = $('verdict');
         const label = $('verdict-label');
         const why = $('verdict-why');
         const svg = badge.querySelector('svg');
 
+        // A little pop so a changed verdict is seen changing.
         badge.classList.remove('pop');
         void badge.offsetWidth;
         badge.classList.add('pop');
@@ -1410,7 +1394,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
               btn.querySelector('.copy').textContent = 'kopieren';
             }, 1600);
           } catch {
-            /* Zwischenablage blockiert — der Befehl steht ja da, zum Markieren */
+            /* clipboard blocked — the command is right there to select */
           }
         }),
       );
