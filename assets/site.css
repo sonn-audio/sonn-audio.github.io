@@ -2248,24 +2248,23 @@ section[data-num]::before {
   color: var(--muted);
 }
 
-/* A photograph on a dark page: framed like the screenshots, dimmed a touch to sit in. */
+/* The remote itself, cut out — it lies on the page, no frame between them. */
 .remote-photo {
-  max-width: 400px;
+  max-width: 380px;
   margin: 0 auto;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  overflow: hidden;
-  background: rgb(0 0 0 / 45%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 5%),
-    0 40px 90px -50px rgb(0 0 0 / 100%);
 }
 
 .remote-photo img {
   display: block;
   width: 100%;
   height: auto;
-  filter: saturate(0.92) brightness(0.94);
+  filter: saturate(0.92) drop-shadow(0 34px 50px rgb(0 0 0 / 85%)) drop-shadow(0 0 60px rgb(74 222 128 / 8%));
+}
+
+.remote-photo .shot-caption {
+  border-top: 0;
+  margin-top: 14px;
+  text-align: center;
 }
 
 /* --- real screenshots, framed ---------------------------------------------- */
