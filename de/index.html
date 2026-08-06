@@ -59,6 +59,7 @@
           <a href="#two-ways">Zwei Wege</a>
           <a href="#signal">Signalweg</a>
           <a href="#content">Inhalte</a>
+          <a href="#player">Player</a>
           <a href="#zones">Zonen</a>
           <a href="#integrations">Loxone &amp; HA</a>
           <a href="#api">API</a>
@@ -426,8 +427,80 @@
         </div>
       </section>
 
+      <!-- ========================================================== player -->
+      <section id="player" data-num="04">
+        <div class="wrap">
+          <div class="split">
+            <div class="rise">
+              <p class="eyebrow">der web-player</p>
+              <h2 class="h2">Das ganze Haus, aus jedem Browser.</h2>
+              <p class="lede">
+                Der Server liefert seinen eigenen Player aus — öffne <code>:7090</code> auf dem Handy, dem Laptop oder dem Wandpanel, und jeder Raum ist da. Nichts zu installieren, nichts zu aktualisieren, und er kann nie veralten: Er kommt aus derselben Kiste, die die Musik spielt.
+              </p>
+
+              <dl class="rows">
+                <div class="row">
+                  <dt>Alles auf einmal durchsuchen</dt>
+                  <dd>
+                    Eine Suche über deine Bibliothek und jeden verbundenen Dienst, sortiert nach Art. Finde einen Titel, tippe ihn an, und er spielt im ausgewählten Raum.
+                  </dd>
+                </div>
+                <div class="row">
+                  <dt>Favoriten aus jeder Zeile</dt>
+                  <dd>
+                    Ein Stern sitzt an allem, was spielen kann — Browsing-Ergebnisse, Suchtreffer, Warteschlange, Verlauf — und legt es in die Favoriten der Zone: dieselben, durch die ein Loxone-Wandtaster oder eine Beoremote schaltet.
+                  </dd>
+                </div>
+                <div class="row">
+                  <dt>Warteschlange, Gruppen und ein 10-Band-EQ</dt>
+                  <dd>
+                    Sortiere um, was als nächstes spielt, hole Räume mitten im Song in eine Gruppe, forme eine Zone mit ihrem eigenen Equalizer — und sieh das echte Streamformat jedes Raums, bis hin zum <a class="hl" href="#signal">bit-perfect-Urteil</a>.
+                  </dd>
+                </div>
+                <div class="row">
+                  <dt>Immer einer Meinung</dt>
+                  <dd>
+                    Zwei Handys, das Wandpanel und die Loxone-App zeigen denselben Zustand, live — nichts pollt, und eine Änderung von irgendwo erscheint überall.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+
+            <!-- The player, drawn: a phone in the product's own panel style. -->
+            <div class="phone-wrap rise" aria-hidden="true">
+              <div class="phone">
+                <div class="phone-top mono"><i class="dot"></i>wohnzimmer <span class="quiet">· grouped</span></div>
+                <div class="phone-cover">
+                  <svg viewBox="8 12 84 68" fill="currentColor">
+                    <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+                    <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+                    <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+                    <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+                  </svg>
+                </div>
+                <p class="phone-title">Holocene</p>
+                <p class="phone-artist">Bon Iver · <span class="mono">FLAC 24/96</span></p>
+                <div class="phone-progress"><i></i></div>
+                <div class="phone-transport">
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 6l-8.5 6L18 18V6zM8 6v12H6V6h2z" /></svg>
+                  <span class="phone-play">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zm8 0h4v14h-4z" /></svg>
+                  </span>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z" /></svg>
+                </div>
+                <div class="phone-queue">
+                  <p class="phone-queue-k mono">als nächstes</p>
+                  <div class="phone-row"><span>Re: Stacks</span><span class="mono quiet">Bon Iver</span></div>
+                  <div class="phone-row"><span>Towers</span><span class="mono quiet">Bon Iver</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- =========================================================== zones -->
-      <section id="zones" data-num="04">
+      <section id="zones" data-num="05">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">zonen &amp; ausgänge</p>
@@ -634,7 +707,7 @@
       </section>
 
       <!-- ==================================================== integrations -->
-      <section id="integrations" data-num="05">
+      <section id="integrations" data-num="06">
         <div class="wrap">
           <div class="split">
             <div class="rise">
@@ -711,7 +784,7 @@ sonn/zones/3/track/title    <span class="c-str">Song</span>
       </section>
 
       <!-- ============================================================= api -->
-      <section id="api" data-num="06">
+      <section id="api" data-num="07">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">für entwickler</p>
@@ -789,7 +862,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       </section>
 
       <!-- =========================================================== start -->
-      <section id="start" data-num="07">
+      <section id="start" data-num="08">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">loslegen</p>
