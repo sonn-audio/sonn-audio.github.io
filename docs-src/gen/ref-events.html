@@ -1,0 +1,42 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Events — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Events</h1>
+<pre>GET /api/v1/events        →  text/event-stream</pre>
+<p>Server-Sent Events. Every message is a JSON object on a <code>data:</code> line with a <code>type</code> discriminator. The stream opens with a full snapshot, so a client can render before the first change arrives. A <code>: keep-alive</code> comment is sent every 25 s.</p>
+<pre>data: {"type":"server.ready","zones":[ … ]}
+
+data: {"type":"zone.changed","zone":{ … }}
+
+data: {"type":"zone.progress","id":3,"position":44}
+
+data: {"type":"queue.changed","id":3,"size":12}
+
+data: {"type":"favorites.changed","id":3,"count":4}
+
+data: {"type":"recents.changed","id":3}</pre>
+<p><code>zone.changed</code> always carries the <strong>complete zone</strong>, never a patch — you never need to keep prior state to interpret an event, and a client that reconnects is immediately correct.</p>
+<p><code>zone.progress</code> is the one exception: while a track plays and nothing but the clock has moved, only the new position is sent. A full zone is ~550 bytes and this fires once a second per playing zone. Anything else that changes — volume, a new track, a source switch — still arrives as a <code>zone.changed</code>, so <strong>a client that ignores <code>zone.progress</code> stays correct</strong>; its progress bar just moves a beat later.</p>
+<p>The three collection events carry a <strong>size, not the collection</strong>. A queue is paged and can hold thousands of entries, so shipping it on every edit would be the wrong trade — re-read <code>GET /zones/{id}/queue</code> for the page you are showing. They also fire when <em>another</em> client makes the change, which is the point: two tabs, or a tab and a Loxone panel, stay in step.</p>
+<p>Unlike <code>zone.changed</code> these are not deduplicated. "The queue changed" is an event rather than a value, so two identical ones mean it changed twice — a reorder keeps the size and still reports.</p>
+<p>Browser:</p>
+<pre>new EventSource('http://server:7090/api/v1/events')
+  .onmessage = (e) =&gt; console.log(JSON.parse(e.data));</pre>
+<p>Shell:</p>
+<pre>curl -N http://server:7090/api/v1/events</pre>
+<h2>Realtime audio analysis</h2>
+<p>For visualizers, an individual zone also exposes the central audio analysis as an SSE stream:</p>
+<pre>GET /api/v1/zones/{id}/analysis?types=loudness,spectrum,f_peak,peak,pitch&amp;rate=20&amp;bins=32</pre>
+<p>The stream starts with <code>analysis.ready</code>. After that, each <code>data:</code> line is one analysis event:</p>
+<pre>{"type":"loudness","value":0.42,"timestampUs":1720000000000000}
+{"type":"spectrum","bins":[12,18,31],"timestampUs":1720000000050000}
+{"type":"pitch","midiQ88":17612,"confidence":0.81,"timestampUs":1720000000050000}</pre>
+<p><code>types</code> selects the features, <code>rate</code> is capped at 60 events per second and <code>bins</code> controls the spectrum resolution. The stream is fed from the zone's PCM output, so it is independent of the Sendspin protocol; Sendspin and browser clients consume the same central analysis pipeline. Analysis is realtime data rather than zone state and is therefore deliberately not included in <code>zone.changed</code> or persisted in the zone object.</p>
+<h2>Waveforms</h2>
+<p>The other half of the same job, for the shape of a whole track rather than the sound of this instant — a scrubber that shows where the loud parts are.</p>
+<pre>curl -s "http://server:7090/api/v1/waveform?uri=&lt;source id&gt;"</pre>
+<pre>{ "uri": "library://local/…/01 - Don't Panic.flac", "buckets": [0, 3, 11, 42, 40, 38, …], "durationMs": 224000 }</pre>
+<p><strong>Keyed by <code>uri</code>, not by zone</strong> — deliberately. The same track has the same shape in every room, so hanging it off <code>/zones/{id}/waveform</code> would serve identical bytes under a dozen URLs and make it uncacheable in a browser. A zone's <code>source.id</code> is exactly what goes in here, and the response echoes it back so a late reply can be matched to the track that is playing <em>now</em>.</p>
+<p>It is served <code>Cache-Control: private, max-age=86400</code>. That is safe to lean on rather than re-fetching: the bytes derive from a file whose size and mtime are part of its audiopath, so a file that changes is recomputed under a different response rather than staling this one.</p>
+<p><code>404 no-waveform</code> means there is no shape to draw, and covers two cases a caller can neither tell apart nor needs to: a live stream that can never have one, and a file not yet analysed. Both mean <em>draw what you have and ask again later</em>, so treat it as an empty state rather than an error — and note that an empty <code>buckets</code> array would be a different answer, a track that really is silent. A missing or blank <code>uri</code> is <code>400 missing-uri</code>.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

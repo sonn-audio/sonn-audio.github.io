@@ -1,0 +1,14 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Examples — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Examples</h1>
+<pre># What is playing everywhere?
+curl -s http://server:7090/api/v1/zones | jq -r '.zones[] | "\(.name): \(.track.title // "—")"'
+
+# Pause the kitchen, then turn it down a notch
+curl -X POST http://server:7090/api/v1/zones/3/pause
+curl -X PUT http://server:7090/api/v1/zones/3/volume -d '{"delta":-5}'
+
+# Follow every change
+curl -N http://server:7090/api/v1/events</pre>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

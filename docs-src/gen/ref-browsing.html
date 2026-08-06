@@ -1,0 +1,129 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Browsing — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Browsing</h1>
+<pre># What is there?
+curl -s http://server:7090/api/v1/services
+
+# Start at the root, then walk in
+curl -s http://server:7090/api/v1/browse
+curl -s "http://server:7090/api/v1/browse/&lt;id&gt;?offset=0&amp;limit=50"</pre>
+<p>Every service appears <strong>under its own name</strong> — <code>applemusic</code>, <code>soundcloud</code>, <code>library</code>, <code>radio</code>. The <code>radio</code> service contains Radio Paradise, TuneIn Presets and Custom Streams. There is no Spotify disguise here. That disguise exists because the Loxone clients know exactly one streaming service; it is a translation in that adapter and it stops there.</p>
+<pre>{ "services": [
+  { "id": "applemusic", "name": "Apple Music",
+    "rootId": "b1.c.category.YXBwbGVtdXNpYw.cm9vdA",
+    "searchableKinds": ["track", "album", "artist", "playlist"] }
+]}</pre>
+<p><code>rootId</code> is the id to browse that service's top level — <code>GET /browse/{rootId}</code> — so you can jump straight into one service without walking the root listing. <code>searchableKinds</code> is what its search can actually answer; <strong>empty means it cannot search at all</strong>, which is why asking <code>radio</code> for tracks returns nothing rather than failing.</p>
+<p><code>GET /browse</code> with no id lists the services themselves, so a client that just wants a tree can start there and never read <code>/services</code>.</p>
+<h2>Sections</h2>
+<p>A listing may carry a <code>sections</code> array alongside <code>items</code>, when the provider groups its own children — an Apple Music root does, the browse root does not:</p>
+<pre>{ "container": { … }, "items": [ … ], "sections": [ { "id": "…", "name": "Recently Added", "items": [ … ] } ], "start": 0, "total": 8 }</pre>
+<p><strong><code>sections</code> is not a grouping of <code>items</code> — it is separate content.</strong> On the Apple Music root the two do not overlap at all: <code>items</code> holds the eight menu entries you can walk into (Albums, Artists, Playlists…), while <code>sections</code> holds eighty-odd editorial rows (New Releases, Recently Played, Made For You). A client that renders only <code>items</code> shows a menu and silently drops everything the provider actually put on its front page.</p>
+<p>So render both, in either order, and expect no duplicates. <code>total</code> counts <code>items</code>; section contents are whole and not paged.</p>
+<h2>Items</h2>
+<pre>{
+  "id": "b1.p.track.YXBwbGVtdXNpYzp0cmFjazpiNjRfYVM1WVRVUldaRUpS…",
+  "name": "A Bird In New York",
+  "kind": "track",
+  "browsable": false,
+  "playable": true,
+  "service": "applemusic",
+  "artist": "Eric Serra",
+  "album": "Léon (Original Motion Picture Soundtrack)",
+  "duration": 81,
+  "coverUrl": "https://…/640x640bb.jpg"
+}</pre>
+<p><code>kind</code> is <code>track</code>, <code>album</code>, <code>artist</code>, <code>playlist</code>, <code>radio</code>, <code>show</code>, <code>episode</code>, <code>category</code>, <code>folder</code> or <code>unknown</code>. <strong>Treat the list as open</strong> — new kinds may appear and a client must not fail on one it does not know.</p>
+<p><code>browsable</code> and <code>playable</code> are separate questions and both can be true: an album is something to open <em>and</em> something to play, so branch on what the user did rather than inferring from <code>kind</code>.</p>
+<p><code>id</code> is <strong>opaque</strong>. Feed it back to <code>/browse/{id}</code>, <code>/items/{id}</code> or <code>POST /zones/{id}/play</code> — it round-trips exactly, and the queue routes take it too. Do not parse it: the encoding is not part of this contract, and ids stay valid across restarts and library rescans precisely because they do not encode anything you should rely on.</p>
+<h2>Paging</h2>
+<p><code>start</code> (or <code>offset</code> — both accepted everywhere, and the response field is <code>start</code>) and <code>limit</code>, default 50, max 500. <code>total</code> is the number of children — <strong>or <code>null</code> when the provider cannot say</strong>, which several streaming providers genuinely cannot. When it is null, keep paging until you get back fewer items than you asked for. A number here is a real count, not an estimate.</p>
+<h2>Looking one thing up</h2>
+<pre>curl -s http://server:7090/api/v1/items/&lt;id&gt;</pre>
+<p>For when you have an id but no listing it came from — a deep link, a restored session, an id stored last week. One caveat, stated plainly: a container's own name is not always knowable. Providers name a folder in the <em>listing that contains it</em>, not in the folder itself, so <code>name</code> can come back empty for a container you did not browse into. It is never fabricated.</p>
+<h2>Search</h2>
+<pre>curl -s "http://server:7090/api/v1/search?q=beatles"
+curl -s "http://server:7090/api/v1/search?q=beatles&amp;kind=album&amp;limit=10"
+curl -s "http://server:7090/api/v1/search?q=beatles&amp;service=applemusic,library"</pre>
+<pre>{
+  "query": "beatles",
+  "items": { "track": [ … ], "album": [ … ], "artist": [ … ] },
+  "services": [{ "service": "library" }, { "service": "applemusic" }]
+}</pre>
+<p>Results are grouped by kind, and every item names the service it came from.</p>
+<p><code>kind</code> narrows the search, and it is not merely a filter: a provider that cannot search a kind is <strong>not asked</strong> for it. Ask for albums and SoundCloud sits it out, because SoundCloud has no album search — check <code>searchableKinds</code> in <code>/services</code> to see what each one offers rather than assuming they are alike. <code>service</code> narrows which providers are asked at all.</p>
+<p><code>services</code> in the response says who answered, with <code>failed: true</code> on any that errored — so a provider outage looks like a partial answer rather than "no matches".</p>
+<h2>Playlists</h2>
+<p>Playlists you make here, on the local library. Streaming services keep their own — those are read-only and appear through <code>/browse</code> like any other container.</p>
+<pre>GET    /api/v1/playlists          ?start=&amp;limit=   →  { "items": [ … ], "total": 1 }
+POST   /api/v1/playlists          {"name": "…"}    →  201 with the playlist
+PATCH  /api/v1/playlists/{id}     {"name": "…"}    →  200, renamed
+DELETE /api/v1/playlists/{id}                      →  204
+
+POST   /api/v1/playlists/{id}/items  {"id": "&lt;item id&gt;"}        append
+PATCH  /api/v1/playlists/{id}/items  {"from": 0, "to": 3}       move
+DELETE /api/v1/playlists/{id}/items  {"position": 0}            remove</pre>
+<pre>{ "id": "b1.c.playlist.bGlicmFyeQ.…", "name": "Sunday", "tracks": 5,
+  "coverUrl": "http://server:7090/music/local/…/cover.jpg" }</pre>
+<p>A playlist's <code>id</code> <strong>is a browse id</strong>, so <code>GET /browse/{id}</code> lists its tracks and <code>POST /zones/{id}/play</code> with it plays the lot. There is no separate "read a playlist" route because there does not need to be one.</p>
+<p>Two things differ from the queue, and both catch people out:</p>
+<ul><li><strong>Entries are addressed by position, not by an id.</strong> <code>{"position": 0}</code> removes the first track; <code>{"from": 0, "to": 3}</code> moves it. A queue hands out a per-entry id because the same track can sit in it twice and you must be able to say which; a playlist is edited as a list, so the index is the handle. Read the playlist back after a move rather than assuming your own arithmetic matched.</li><li><strong>Only library tracks can be added.</strong> Handing it an <code>applemusic:</code> or <code>soundcloud:</code> item id answers <code>400 invalid-playlist-item</code>. A local playlist stores local audio; a streaming track is not the server's to keep, and a reference that dies when a subscription lapses would be worse than the refusal.</li></ul>
+<p>Errors: <code>invalid-name</code>, <code>playlist-not-found</code>, <code>invalid-playlist-item</code>, <code>playlist-item-not-found</code>.</p>
+<h2>Inputs</h2>
+<p>Physical inputs — a turntable, a CD player, a MasterLink device — are configured in the admin UI. What is configured is listed here, and there may be none:</p>
+<pre>{
+  "inputs": [
+    { "id": "linein-ms3h9f42", "name": "BeoSound 9000", "icon": "cd-player",
+      "controllable": true, "reportsMetadata": true }
+  ]
+}</pre>
+<p>They belong to the server, not to a zone: the same input is selectable from any zone, so switching one is a property of the zone rather than a list under it.</p>
+<pre>curl -X PUT http://server:7090/api/v1/zones/3/input -d '{"input":"linein-ms3h9f42"}'</pre>
+<p><code>source.id</code> reports that same id back once the zone is on it, so what you read is what you can write. <code>source.name</code> is the input's configured name.</p>
+<p><code>controllable</code> is worth branching on. For an input that answers commands — something on a MasterLink bus, say — the ordinary <code>POST /zones/{id}/pause</code>, <code>/next</code> and so on reach the device. For a turntable or a bare jack it is <code>false</code>: selecting it is the whole interaction, and transport commands change nothing audible. <code>reportsMetadata</code> says whether <code>track</code> will ever be more than blank.</p>
+<p><code>icon</code> is a hint for choosing an artwork: <code>line-in</code>, <code>cd-player</code>, <code>computer</code>, <code>imac</code>, <code>ipod</code>, <code>mobile</code>, <code>radio</code>, <code>screen</code>, <code>turntable</code>. <strong>Treat the list as open.</strong></p>
+<p>There is no verb for leaving an input — selecting something else is how you leave, and the server releases the old source as part of that.</p>
+<h2>Announcements</h2>
+<pre># Say something in the kitchen
+curl -X POST http://server:7090/api/v1/zones/3/alert \
+  -d '{"kind":"tts","text":"Dinner is ready","language":"nl"}'
+
+# The doorbell, everywhere at once
+curl -X POST http://server:7090/api/v1/zones/3/alert \
+  -d '{"kind":"bell","zones":[7,9]}'
+
+# Your own sound
+curl -X POST http://server:7090/api/v1/zones/3/alert \
+  -d '{"kind":"url","url":"http://nas/sounds/washer-done.mp3"}'</pre>
+<p>An alert interrupts rather than queues: whatever the zone was playing is ducked and picked up again afterwards, and the volume comes from that zone's configured alert level — not its current one, so an announcement is audible in a room someone had turned down.</p>
+<p><code>kind</code> is <code>tts</code>, <code>bell</code>, <code>alarm</code>, <code>fire</code>, <code>buzzer</code> or <code>url</code>. <code>tts</code> needs <code>text</code> and takes an optional <code>language</code>; <code>url</code> needs an <code>http(s)</code> address this server can reach. <code>zones</code> adds more rooms to the same announcement, with the zone in the path leading it — the response lists every room it played in.</p>
+<p><code>volume</code> (0–100) overrides the zone's alert level for one announcement.</p>
+<p><code>alarm</code> and <code>fire</code> keep going until stopped, which is what <code>DELETE</code> is for. The others end by themselves.</p>
+<p>A <code>422</code> means the alerts layer refused it — most often no text-to-speech provider is set up — with <code>error</code> naming the reason. A <code>2xx</code> means it started, not that you heard it.</p>
+<h2>Favourites, recents and groups</h2>
+<p>A favourite's <code>id</code> is its handle, for renaming, reordering, playing and removing. The Loxone clients also carry a <code>slot</code> and a <code>plus</code> flag — a position in their own button grid — which describe that UI rather than the favourite, so neither appears here. Reordering is simply the order you send.</p>
+<p>Recents are read-only apart from clearing: history has no handle to rename or reorder, and <code>source</code> is what you hand back to <code>play</code>.</p>
+<p>Grouping answers <strong>200 with the resulting group</strong>, not 204. Frame mirroring works between outputs of one protocol, so unless the server allows mixed groups a member on another protocol cannot join — it comes back under <code>rejected</code> with a reason, instead of leaving you to diff what you asked for against the next zone event. An empty <code>members</code> list ungroups; there is no separate verb for leaving.</p>
+<h2>Output delay</h2>
+<p><code>PUT /zones/{id}/output/delay</code> with <code>{"delayMs": 60}</code> declares how much delay a zone's speaker chain adds <em>after</em> its audio output — an amplifier, an active speaker. It is the only output setting this API writes.</p>
+<p><strong>It points the opposite way from its name.</strong> The client subtracts the value from every timestamp before scheduling playback, so raising it makes that room play <strong>earlier</strong>, compensating for the delay downstream of it. That is what lines up a room arriving late; a room arriving <em>early</em> has nothing to declare, and the protocol has no negative form (<code>0–5000</code> at the device). To pull a group together, raise the value on the room that lags — not on the one that leads.</p>
+<p>The server keeps its own send-ahead in step: it schedules that client's audio further in advance by the same amount, so the buffer headroom stays what it was. You can see that in <code>output.sync</code> — <code>targetLeadMs</code> grows with <code>delayMs</code>.</p>
+<p>The value is <strong>persisted and applied live</strong>: Sendspin pushes it to the client without restarting the stream, so it is audible immediately and survives a reboot. Out-of-range values are clamped to 0–10000 ms rather than refused, because "as far as it goes" is a real request; a value that is not a number is a <code>400</code>, because moving a speaker by accident is worse than an error.</p>
+<p>One caveat: the device owns this setting. It persists it locally, may keep a different value per audio output, and only honours the command if it advertised support for it — so what you write here is a request. <code>output.sync</code> therefore reports both sides: <code>delayMs</code> is what this server asked for and <code>deviceDelayMs</code> is what the device last declared, or <code>null</code> if it never has.</p>
+<p><code>deviceDelayMs</code> is <strong>not</strong> a confirmation of <code>delayMs</code>. A device applies the command immediately — that is how the protocol works — and does not mention the value until the next state message it sends for some other reason, so the two differ after every write until something else happens. Do not build a "not applied yet" indicator on the difference; it only tells you that you just wrote.</p>
+<p>What it is good for is the case where a device holds a value nobody here asked for, persisted locally for the amplifier it is wired to. Whether a device accepts the command at all is a different question, answered by the <code>supported_commands</code> it advertises.</p>
+<p>Pass <code>clientId</code> to target one Sendspin satellite instead of the zone's own output — a subwoofer under a pair of speakers needs its own offset.</p>
+<pre>PUT /zones/3/output/delay   {"delayMs": 60}
+    -&gt; 200 {"delayMs": 60, "applied": true, "clientId": null}</pre>
+<p><code>applied: false</code> means the value was stored but no live output took it: the zone's protocol has no delay, or the named satellite is not configured. That is a success, not a failure — the config is the durable part, and a device connecting later picks it up. There is no <code>GET</code>: the current value is <code>output.sync.delayMs</code> on the zone, and a second spelling of one value is a second thing to keep true. The write publishes a <code>zone.changed</code>, so every other client sees it without polling.</p>
+<h2>The queue</h2>
+<p><code>GET</code> returns a page: <code>start</code> and <code>limit</code> (default 100, max 500) are query parameters, and <code>total</code> is the length of the whole queue so you know whether to ask for more. <code>currentIndex</code> is the entry playing now, or <code>null</code>.</p>
+<p>Each entry has an <strong><code>id</code> that identifies the entry, not the track</strong> — queue the same track twice and you get two ids. That id is what <code>play</code>, <code>move</code> and <code>id</code> take. <code>source</code> is the same opaque provider id as <code>ApiSource.id</code>, so an entry can be re-queued later.</p>
+<p>Clearing the queue needs <code>{"all": true}</code> rather than an empty body: wiping a queue should be something you asked for, not something a missing field happened to mean.</p>
+<p><code>volume</code> takes either an absolute value (<code>0</code>–<code>100</code>) or a signed <code>delta</code>. Use <code>delta</code> for remote-control style stepping: it avoids the read-then-write race that two clients adjusting the same zone would otherwise hit, and <code>volumeLimits.step</code> is the size a step should have.</p>
+<p>A zone can be capped: writing above <code>volumeLimits.max</code> lands on the cap rather than where you asked, so render your slider against <code>max</code> instead of against 100.</p>
+<p><code>equalizer</code> takes ten gains in dB, low band first, clamped to <code>-6</code>..<code>+6</code> — the same range the Loxone app uses. It replies <code>200</code> with the applied bands rather than <code>204</code>, since a clamped value is worth seeing. Unlike the transport verbs it is configuration, so it works on an idle zone too.</p>
+<p>If you are an <strong>equalizer provider</strong> — you run the actual DSP and want the server to reflect it — write here when your own UI changes, and read here to pick up changes made elsewhere. The server does not push your change back to you.</p>
+<p>Errors are <code>4xx</code> with <code>{"error":"…"}</code>: <code>zone-not-found</code>, <code>invalid-json</code>, <code>invalid-volume</code>, <code>invalid-position</code>, <code>invalid-power</code>, <code>invalid-uri</code>, <code>invalid-repeat</code>, <code>invalid-shuffle</code>, <code>invalid-equalizer-bands</code>, <code>invalid-queue-patch</code>, <code>invalid-queue-delete</code>, <code>queue-item-not-found</code>, <code>invalid-target-zone</code>, <code>handoff-not-possible</code>, <code>handoff-failed</code>, <code>invalid-favorite-patch</code>, <code>invalid-favorite-delete</code>, <code>invalid-favorite-order</code>, <code>favorite-not-found</code>, <code>invalid-members</code>, <code>invalid-alert-kind</code>, <code>invalid-text</code>, <code>invalid-zones</code>, <code>invalid-input</code>, <code>input-not-found</code>, <code>invalid-query</code>, <code>method-not-allowed</code>.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <title>Content — sonn docs</title>
-    <meta name="description" content="Content sources in sonn: the local library, streaming services, radio, line-in with the bridge or Sendspin source role, and the alert engine." />
+    <title>Examples — sonn docs</title>
+    <meta name="description" content="Examples — the sonn public API, rendered from core's INTEGRATING.md." />
     <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
     <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
@@ -53,7 +53,7 @@
         </ul>
         <p class="docs-nav-k mono">using it</p>
         <ul>
-          <li><a class="on" aria-current="page" href="/docs/content/">Content</a></li>
+          <li><a href="/docs/content/">Content</a></li>
           <li><a href="/docs/zones/">Zones & outputs</a></li>
           <li><a href="/docs/loxone/">Loxone</a></li>
           <li><a href="/docs/access/">Access</a></li>
@@ -69,7 +69,7 @@
           <li><a href="/docs/ref-destinations/">Destinations</a></li>
           <li><a href="/docs/ref-browsing/">Browsing</a></li>
           <li><a href="/docs/ref-mqtt/">MQTT</a></li>
-          <li><a href="/docs/ref-examples/">Examples</a></li>
+          <li><a class="on" aria-current="page" href="/docs/ref-examples/">Examples</a></li>
           <li><a href="/docs/ref-notes-for-integrators/">Notes for integrators</a></li>
         </ul>
         <p class="docs-nav-k mono">help</p>
@@ -80,83 +80,20 @@
 
       <main class="docs-main">
         <article class="prose">
-<!-- description: Content sources in sonn: the local library, streaming services, radio, line-in with the bridge or Sendspin source role, and the alert engine. -->
-<p class="eyebrow">using it</p>
-<h1>Content</h1>
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Examples — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Examples</h1>
+<pre># What is playing everywhere?
+curl -s http://server:7090/api/v1/zones | jq -r '.zones[] | "\(.name): \(.track.title // "—")"'
 
-<p>
-  Sources are configured under <strong>Content</strong>, and every source is available to every
-  consumer of the server — the web player, Loxone, DLNA devices and Subsonic apps alike. Configure it
-  once, reach it from everywhere.
-</p>
+# Pause the kitchen, then turn it down a notch
+curl -X POST http://server:7090/api/v1/zones/3/pause
+curl -X PUT http://server:7090/api/v1/zones/3/volume -d '{"delta":-5}'
 
-<h2>Local library</h2>
-
-<ul>
-  <li>Local folders and mounted network shares (SMB/CIFS)</li>
-  <li>Tag-based index (albums, artists, tracks, folders) in SQLite, with cover art</li>
-  <li>Artist pictures fetched automatically from MusicBrainz → Wikidata → Wikimedia Commons — no API key</li>
-  <li>Incremental indexing: a dropped or copied file is picked up on its own, without a full rescan</li>
-  <li>Browse, search and delete tracks from the Admin UI</li>
-  <li>Add music by drag-and-drop in the browser, or by mounting the folder as a <a href="/docs/access/">network drive</a></li>
-</ul>
-
-<h2>Streaming services</h2>
-
-<p>
-  <strong>Spotify</strong>, <strong>Apple Music</strong>, <strong>Tidal</strong>,
-  <strong>Deezer</strong>, <strong>YouTube Music</strong>, <strong>YouTube</strong>,
-  <strong>SoundCloud</strong> — and <strong>Music Assistant</strong> as a source, exposing its own
-  providers.
-</p>
-
-<p>
-  Each configured account becomes its own browsable service, so several accounts of the same service
-  can coexist. The Loxone integration presents non-Spotify services to the Miniserver as virtual
-  Spotify accounts, since that is the only vocabulary the Loxone clients have for them; everywhere else
-  they appear under their own name.
-</p>
-
-<h2>Radio</h2>
-
-<ul>
-  <li><strong>TuneIn</strong> — adding a TuneIn username exposes your personal presets, while search scans the full directory</li>
-  <li><strong>Radio Paradise</strong> — curated, listener-supported streams (toggleable)</li>
-  <li><strong>Custom streams</strong> you manage yourself, with your own cover art</li>
-</ul>
-
-<h2>Line-in</h2>
-
-<p>
-  Play a turntable, CD player or any other analog or digital source through your zones, with optional
-  Shazam track recognition. Play, pause and skip are forwarded to the device that owns the source —
-  when that device can be driven over the network. B&amp;O Masterlink can: a Beosound&nbsp;9000
-  changes discs on command.
-</p>
-
-<p>Line-in audio reaches the server one of two ways:</p>
-
-<ul>
-  <li>
-    <strong>The line-in bridge</strong> — a small Linux helper that captures the audio and sends it to
-    the server. It runs on the machine the source is plugged into — typically a Raspberry Pi next to
-    the equipment — and is distributed as a prebuilt binary for x86-64 and ARM. It finds the server and
-    registers itself, so there is nothing to configure by hand; once registered, its inputs appear
-    under Content.
-  </li>
-  <li>
-    <strong>Sendspin's source role</strong> — a Sendspin endpoint can carry audio <em>into</em> the
-    server as well as out of it, on a dedicated endpoint or riding along with a player.
-  </li>
-</ul>
-
-<h2>Alert engine</h2>
-
-<ul>
-  <li>Text-to-speech, using the built-in engine or LoxBerry TTS over MQTT</li>
-  <li>Built-in alert sounds</li>
-  <li>Native Loxone alerts when the integration is on</li>
-</ul>
+# Follow every change
+curl -N http://server:7090/api/v1/events</pre>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>
 
           <footer class="docs-foot">
             <p class="mono">

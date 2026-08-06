@@ -1,0 +1,109 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Zone object — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Zone object</h1>
+<pre>{
+  "id": 3,
+  "name": "Kitchen",
+  "state": "playing",
+  "powerState": {
+    "power": "on",
+    "target": "on",
+    "managed": true,
+    "idleTimeoutMs": 300000
+  },
+  "position": 43,
+  "duration": 210,
+  "volume": 40,
+  "volumeLimits": { "max": 70, "default": 20, "step": 2 },
+  "repeat": "off",
+  "shuffle": false,
+  "track": {
+    "title": "Song",
+    "artist": "Artist",
+    "album": "Album",
+    "coverUrl": "http://server:7090/streams/3/…/cover",
+    "colors": {
+      "primary": [120, 30, 40],
+      "accent": [220, 80, 60],
+      "backgroundDark": [10, 5, 8],
+      "backgroundLight": [245, 240, 240],
+      "onDark": [255, 255, 255],
+      "onLight": [0, 0, 0]
+    }
+  },
+  "source": { "kind": "track", "name": "Library", "id": "library://track/9", "seekable": true },
+  "group": { "leader": 3, "members": [3, 7] },
+  "output": {
+    "protocol": "sendspin",
+    "capabilities": {
+      "formats": [{ "codec": "pcm", "sampleRate": 44100, "bitDepth": 24, "channels": 2 }],
+      "roles": ["player@v1", "visualizer@v1", "color@v1"],
+      "visualizer": {
+        "types": ["loudness", "spectrum", "pitch"],
+        "rateMax": 30,
+        "spectrum": { "bins": 64, "scale": "log", "fMin": 40, "fMax": 16000 }
+      }
+    }
+  }
+}</pre>
+<table><thead><tr><th>Field</th><th>Type</th><th>Notes</th></tr></thead><tbody><tr><td><code>id</code></td><td>number</td><td>Zone id. Stable across restarts.</td></tr><tr><td><code>name</code></td><td>string</td><td>Zone name as configured.</td></tr><tr><td><code>state</code></td><td><code>playing</code> \</td><td><code>paused</code> \</td><td><code>stopped</code></td><td></td></tr><tr><td><code>powerState</code></td><td>object</td><td><code>power</code>, <code>target</code>, <code>managed</code> and <code>idleTimeoutMs</code>; see below.</td></tr><tr><td><code>position</code></td><td>number</td><td>Whole seconds into the current track.</td></tr><tr><td><code>duration</code></td><td>number</td><td>Whole seconds. <code>0</code> means open-ended (live radio).</td></tr><tr><td><code>volume</code></td><td>number</td><td><code>0</code>–<code>100</code>, but see <code>volumeLimits</code>.</td></tr><tr><td><code>volumeLimits</code></td><td>object</td><td><code>max</code>, <code>default</code> and <code>step</code> — what this zone's volume will actually accept.</td></tr><tr><td><code>repeat</code></td><td><code>off</code> \</td><td><code>one</code> \</td><td><code>all</code></td><td></td></tr><tr><td><code>shuffle</code></td><td>boolean</td><td></td></tr></tbody></table>
+<p><code>track.colors</code> is the palette derived from the current cover artwork. It is <code>null</code> when there is no cover or when the artwork could not be processed.</p>
+<p><code>output.capabilities</code> contains the capabilities negotiated with the active output client. For Sendspin this includes supported player formats, negotiated roles and visualizer preferences. It is <code>null</code> when the client is not connected. <code>format</code> remains the format currently in use; capabilities describe what the client can accept.</p>
+<p><code>powerState.power</code> is the last confirmed physical power signal. <code>powerState.target</code> is the desired signal. When <code>managed</code> is false, no physical power action is configured and <code>idleTimeoutMs</code> is <code>null</code>. | <code>track</code> | object \| <strong>null</strong> | <code>null</code> when the zone has nothing loaded. | | <code>source</code> | object \| <strong>null</strong> | Where the audio comes from. | | <code>group</code> | object \| <strong>null</strong> | <code>null</code> when the zone plays on its own; <code>members</code> lists leader first. | | <code>output</code> | object \| <strong>null</strong> | <code>protocol</code> is e.g. <code>sendspin</code>, <code>snapcast</code>, <code>googlecast</code>, <code>dlna</code>, <code>sonos</code>, <code>airplay</code>. | | <code>format</code> | object \| <strong>null</strong> | The source audio and output audio format. | | <code>error</code> | string \| <em>absent</em> | Why the last thing this zone was asked to play did not play. |</p>
+<p><code>output.device</code> is present when the protocol identifies a specific device — for squeezelite that is the SlimProto MAC, i.e. what its <code>-m</code> is set to:</p>
+<pre>"output": {
+  "protocol": "squeezelite",
+  "device": { "id": "02:8C:54:A9:DC:AC", "name": "Test1", "connected": true }
+}</pre>
+<p>It is reported whether or not the zone is playing and whether or not the device is reachable, so you can map your own devices onto zones from a single read. <code>connected</code> tells you the current link state; the id stays put either way.</p>
+<p><code>output.sync</code> says how this zone's audio is timed against the device, for protocols that keep a shared clock. It is <code>null</code> or absent for the rest: an output that just hands bytes to a renderer has no clock agreement to report on, so <strong>an absent <code>sync</code> does not mean "out of sync"</strong>.</p>
+<pre>"output": {
+  "protocol": "sendspin",
+  "sync": {
+    "state": "synchronized",
+    "delayMs": 0,
+    "deviceDelayMs": null,
+    "targetLeadMs": 250,
+    "leadMarginMs": 150,
+    "leadMs": 334,
+    "leadMinMs": 271,
+    "driftMs": -25
+  }
+}</pre>
+<p>Two different things live in there. <code>state</code> and <code>delayMs</code> are the <strong>agreement</strong>: the device reports whether it locked onto the clock (<code>synchronized</code>, <code>error</code>, <code>external_source</code> when it switched to its own input, or <code>unknown</code> before it has said), and <code>delayMs</code> is the delay its own chain adds after the audio port — raising it makes the room play <em>earlier</em>, see below. <code>deviceDelayMs</code> is what the device says it has, which is not a confirmation of <code>delayMs</code>: a device applies the command at once but only mentions the value in its next state message, so this trails every write by design. Do not build a "not applied yet" indicator on the difference.</p>
+<p>The rest is the <strong>measurement</strong> of how well the server is keeping its end, and each is <code>null</code> while nothing is streaming, because they describe a stream in flight.</p>
+<p>Frames are scheduled to arrive inside a <strong>band</strong>, not at a single target: <code>targetLeadMs</code> is its floor — the least lead the sender allows — and <code>leadMarginMs</code> is how far above that it may run before it backpressures. <code>leadMs</code> is the lead the most recent frame achieved, so it oscillates through the band by design as the sender bursts and then waits.</p>
+<p><strong><code>leadMinMs</code> is the health signal</strong>, not <code>leadMs</code>: the lowest lead seen over the last couple of seconds. While that floor stays at or above <code>targetLeadMs</code> the client always has audio in hand; a floor sinking toward zero is what a listener hears as dropouts. It is deliberately a floor rather than a jitter average or spread — those measure the designed oscillation above and report a perfectly steady stream as a fault.</p>
+<p><code>driftMs</code> compares the server's modelled timeline against the frame clock — a value that keeps growing is a slipping timeline; one that sits still is fine, whatever its sign.</p>
+<p>Only the agreement is treated as state. A change in <code>state</code>, <code>delayMs</code> or <code>targetLeadMs</code> arrives as a <code>zone.changed</code>; the measurements move every frame and would turn every progress tick into a full zone, so they ride along on whatever <code>zone.changed</code> comes next rather than causing one. Poll <code>GET /zones/{id}</code> if you want them live.</p>
+<p><code>source.kind</code> is one of <code>track</code>, <code>radio</code>, <code>playlist</code>, <code>linein</code>, <code>airplay</code>, <code>spotify</code>, <code>bluetooth</code>, <code>unknown</code>. <strong>Treat the list as open</strong>: new kinds may be added, and a client must not fail on one it does not recognise — that is what <code>unknown</code> is a placeholder for.</p>
+<p><code>source.seekable</code> says whether <code>PUT /zones/{id}/position</code> will do anything — false for a live stream, which has no position to seek to.</p>
+<p><code>source.id</code> is an <strong>opaque</strong> provider-native identifier. You may store it and pass it back, but do not parse it: its internal form is service-specific and explicitly not part of this contract.</p>
+<p><code>null</code> is used deliberately instead of empty strings, so <code>if (zone.track)</code> is enough to tell "playing something" from "idle".</p>
+<p><code>format.output</code> is what the device is actually receiving, which is not the file's own format — a zone whose output cannot take 192 kHz gets it resampled. <code>format.source</code> is the native source format when it was declared by the provider or successfully probed:</p>
+<pre>"format": {
+  "bitPerfect": true,
+  "dspApplied": false,
+  "source": { "codec": "flac", "sampleRate": 96000, "bitDepth": 24, "channels": 2, "bitrate": null, "highRes": true },
+  "output": { "codec": "pcm", "sampleRate": 44100, "bitDepth": 24, "channels": 2, "bitrate": null, "highRes": true },
+  "processing": {
+    "resampled": true,
+    "resampler": { "name": "soxr", "precision": 28, "cutoff": 0.91 },
+    "requantised": false,
+    "channelsRemapped": false,
+    "reencoded": false,
+    "equalizer": null,
+    "gainDb": null,
+    "delayMs": null,
+    "crossfading": false
+  }
+}</pre>
+<p><code>bitrate</code> is bits per second where it is known, and <code>null</code> when it is unavailable. <code>source</code> is null when the source format is unknown; <code>format</code> is null when the zone is streaming nothing. Engine internals — buffer sizes, restart counts, subscriber drops — stay out; those describe the server's health rather than the audio, and live in the admin surface.</p>
+<p><code>format.bitPerfect</code> is true only when a lossless source reaches the output with matching sample rate, bit depth and channel count and without EQ, gain, pre-delay or other DSP. It is false for lossy sources such as MP3 and AAC, even when their output parameters happen to match. <code>format.dspApplied</code> indicates whether the server performed conversion, filtering, gain, delay or re-encoding. An AAC source can therefore be <code>bitPerfect: false</code> and <code>dspApplied: false</code>. <code>format.source.highRes</code> and <code>format.output.highRes</code> are true above 48 kHz or above 16-bit depth.</p>
+<p><code>format.processing</code> is <code>dspApplied</code> itemised — what was done to the audio, stage by stage, so a client can show <em>why</em> a stream is not bit-perfect rather than only that it is not.</p>
+<table><thead><tr><th>field</th><th>meaning</th></tr></thead><tbody><tr><td><code>resampled</code></td><td>The resampler ran: rate, channels or depth changed, or a filter forced the path.</td></tr><tr><td><code>resampler</code></td><td>Which one and how it was configured, when it ran. <code>null</code> otherwise.</td></tr><tr><td><code>requantised</code></td><td>The sample depth changed — the source declared one, the output carries another.</td></tr><tr><td><code>channelsRemapped</code></td><td>The channel count changed: a downmix or an upmix.</td></tr><tr><td><code>reencoded</code></td><td>The output codec re-encodes rather than carrying samples (<code>aac</code>, <code>mp3</code>, <code>opus</code>).</td></tr><tr><td><code>equalizer</code></td><td>The zone's 10-band EQ, when any band is off zero. Gains in dB, low band first.</td></tr><tr><td><code>gainDb</code></td><td>Gain by origin: <code>source</code> is the provider's own loudness normalisation (Spotify sends one), <code>output</code> a fixed trim. <code>null</code> when both are zero.</td></tr><tr><td><code>delayMs</code></td><td>Pre-delay for aligning this source against another output. <code>null</code> when none.</td></tr><tr><td><code>crossfading</code></td><td>True while a crossfade is blending, which requantises by definition.</td></tr></tbody></table>
+<p>It is <strong><code>null</code>-able rather than defaulted to a chain of <code>false</code></strong>, and the distinction carries information: <code>null</code> means the engine cannot say, so a server that does not report a chain stays distinguishable from one whose chain is genuinely empty.</p>
+<p>The zone's volume is deliberately not in here. It is applied at the device rather than in this pipeline, so listing it as processing would claim an alteration this server did not make.</p>
+<p><code>error</code> is present only when something went wrong, so <code>if (zone.error)</code> is the whole check. It exists because <code>POST /play</code> answers <code>204</code> for a uri the server cannot resolve — resolution is asynchronous, so the call is accepted before anything has been looked up. The failure then arrives as a <code>zone.changed</code> like any other state change, which means you do not need a verification timer: send the play, watch the stream. <code>track</code> is <code>null</code> while a zone carries an error, and the error clears on the next successful play.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

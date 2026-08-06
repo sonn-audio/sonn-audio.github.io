@@ -1,0 +1,8 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Design — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Design</h1>
+<p>Two rules explain every choice below:</p>
+<ul><li><strong>Reading state never requires polling.</strong> Subscribe to <code>/api/v1/events</code> once and you are told about every change. <code>GET /api/v1/zones</code> exists to bootstrap or for one-shot scripts.</li><li><strong>Commands are plain HTTP.</strong> No handshake, no socket, no correlation ids — a <code>curl</code> one-liner or a five-line shell script is a first-class client.</li></ul>
+<p>Every successful command is followed by an event, so you never have to read back after writing: <code>zone.changed</code> for anything that alters a zone's state, and <code>queue.changed</code>, <code>favorites.changed</code> or <code>recents.changed</code> for the collections — those say <em>that</em> something changed and leave you to re-read the page you are showing.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

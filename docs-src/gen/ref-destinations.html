@@ -1,0 +1,27 @@
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Destinations — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Destinations</h1>
+<p>Somewhere audio can be sent. A zone is one kind of destination, but <strong>this server does not require zones at all</strong> — it can run as a DLNA source with a streaming account and nothing else, and a client can play audio itself with no zone configured anywhere.</p>
+<pre>curl -s http://server:7090/api/v1/destinations</pre>
+<pre>{ "destinations": [
+  { "id": "3",    "name": "Kitchen",  "kind": "zone",  "protocol": "sendspin", "available": true },
+  { "id": "9000", "name": "This tab", "kind": "local", "protocol": "sendspin", "available": true }
+]}</pre>
+<p>Playback works the same on either: <code>POST /destinations/{id}/play</code>, <code>/pause</code>, <code>/volume</code> and the rest are the same commands as their <code>/zones/{id}/…</code> counterparts, and a destination's id <em>is</em> its zone id.</p>
+<p><strong>A local destination is not in <code>GET /zones</code>.</strong> A zone is a room in a house — everyone may see that the kitchen is playing. A browser tab is not a room, so it appears in neither the zone list nor the events stream, not even for the browser that registered it. Otherwise every client's room list would grow with every tab anyone opened, and one person's phone would sit beside the speakers, playable by mistake.</p>
+<p>A tab does not need it there either: the Sendspin socket it already holds to receive audio pushes title, artist, album, artwork, playback state and progress as <code>server/state</code>. That is the source that cannot be out of step with the sound, and reading the same thing twice from two places is one time too many.</p>
+<p><code>GET /destinations</code> is where a tab finds itself, and it is private: send the <code>clientId</code> you were given at registration, as an <code>X-Sonn-Client-Id</code> header or <code>?clientId=</code>, and your own destination is listed alongside the configured zones. Send nothing and you get the zones only.</p>
+<p>Every zone route still <em>works</em> on a local destination — <code>/zones/{id}/queue</code>, favourites, grouping — because it is a zone underneath. It is only absent from the listings. Drive it through <code>/destinations/{id}/…</code> and you never need to know that.</p>
+<p><code>/destinations</code> exists for the one thing <code>/zones</code> cannot express: <strong>registering</strong> a client as somewhere audio goes, and telling a zone from a tab (<code>kind</code>). Everything after that is a zone.</p>
+<h2>Playing audio yourself</h2>
+<p>A client can be the thing that plays. Register, then connect:</p>
+<pre>curl -X POST http://server:7090/api/v1/destinations/local -d '{"name":"This tab"}'</pre>
+<pre>{ "id": "9000", "kind": "local", "clientId": "browser-9000",
+  "streamUrl": "ws://server:7090/sendspin", "protocol": "sendspin", "available": true }</pre>
+<p>Then open <code>streamUrl</code> and announce <code>clientId</code> in a Sendspin <code>client/hello</code>. Audio arrives as PCM frames on that socket, and <code>POST /destinations/{id}/play</code> starts it. The <a href="https://github.com/Sendspin/spec" rel="noopener">Sendspin protocol</a> does the rest — format negotiation, clock sync, grouping — and <code>sendspin-js</code> implements the client side for a browser.</p>
+<div class="note"><strong><code>streamUrl</code> is the socket itself</strong>, <code>ws://…/sendspin</code> — not a base url to append a path to. A library that wants an origin and adds its own path needs the http form of <em>this</em> url, not your page's origin: in development those differ, and pointing it at your own origin dials a port where nothing listens. There is no error when that happens — the connect simply hangs — so bound your connect attempt and treat the timeout as a failure.</div>
+<p><code>streamUrl</code> is built from the address your request arrived on, so it is reachable from wherever you are, including behind a proxy. Pass your own <code>clientId</code> back on a later call to reclaim the same registration — that is what a page reload needs, and without it every refresh leaves an orphan behind until it times out. The registration disappears shortly after the socket closes.</p>
+<p><code>DELETE /destinations/local/{id}</code> removes one early. It refuses a configured zone: that is not this route's to delete.</p>
+<p><strong>Release a registration you could not use.</strong> If registering succeeds but connecting fails, delete it — otherwise the tab that never connected sits in everyone's room list as a speaker that plays nothing until it times out.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>

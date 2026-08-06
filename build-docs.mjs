@@ -14,8 +14,18 @@
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 
+import { existsSync } from 'node:fs';
+
 const template = readFileSync('docs-src/template.html', 'utf8');
 const { sections } = JSON.parse(readFileSync('docs-src/nav.json', 'utf8'));
+
+// De api-referentie wordt door build-api.mjs uit core's INTEGRATING.md gegenereerd;
+// als hij er is, schuift hij als sectie vóór "help" in.
+if (existsSync('docs-src/gen/nav.json')) {
+  const gen = JSON.parse(readFileSync('docs-src/gen/nav.json', 'utf8'));
+  const helpAt = sections.findIndex((s) => s.title === 'help');
+  sections.splice(helpAt === -1 ? sections.length : helpAt, 0, gen);
+}
 
 const pages = sections.flatMap((s) => s.items);
 
@@ -35,7 +45,8 @@ const navFor = (active) =>
 
 let built = 0;
 for (const { slug } of pages) {
-  const fragment = readFileSync(`docs-src/${slug}.html`, 'utf8');
+  const path = existsSync(`docs-src/${slug}.html`) ? `docs-src/${slug}.html` : `docs-src/gen/${slug}.html`;
+  const fragment = readFileSync(path, 'utf8');
   const title = /<h1[^>]*>(.*?)<\/h1>/s.exec(fragment)?.[1].replace(/<[^>]+>/g, '') ?? slug;
   const description = /<!--\s*description:\s*(.*?)\s*-->/s.exec(fragment)?.[1] ?? 'sonn documentation';
   const html = template

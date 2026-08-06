@@ -29,6 +29,13 @@ sidebar lives in `docs-src/nav.json`, the shell in `docs-src/template.html`, and
 exist are in the nav — no dead links. English for now; German follows the same route as the
 landing once the chapters settle.
 
+**One source of truth, split by kind.** User documentation is authored HERE — core's README
+is a short readme that links to it. The API reference is authored in CORE
+(`INTEGRATING.md`, next to the code it describes) — `node build-api.mjs` fetches it, splits
+it into chapters and writes generated fragments under `docs-src/gen/` for build-docs to
+assemble. After an INTEGRATING.md change: `node build-api.mjs && node build-docs.mjs`,
+commit. Never edit `docs-src/gen/` by hand.
+
 ## Editing
 
 English needs no build: edit `index.html` and push. For German, add or update the matching

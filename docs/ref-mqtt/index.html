@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
     <title>MQTT — sonn docs</title>
-    <meta name="description" content="sonn's MQTT surface: retained zone state as JSON and plain scalars, and writable set/cmd topics — made for Home Assistant, Node-RED and KNX gateways." />
+    <meta name="description" content="MQTT — the sonn public API, rendered from core's INTEGRATING.md." />
     <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
     <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
@@ -58,10 +58,19 @@
           <li><a href="/docs/loxone/">Loxone</a></li>
           <li><a href="/docs/access/">Access</a></li>
         </ul>
-        <p class="docs-nav-k mono">for developers</p>
+        <p class="docs-nav-k mono">api reference</p>
         <ul>
-          <li><a href="/docs/api/">The HTTP API</a></li>
-          <li><a class="on" aria-current="page" href="/docs/mqtt/">MQTT</a></li>
+          <li><a href="/docs/reference/">Integrating with sonn</a></li>
+          <li><a href="/docs/ref-design/">Design</a></li>
+          <li><a href="/docs/ref-zone-object/">Zone object</a></li>
+          <li><a href="/docs/ref-events/">Events</a></li>
+          <li><a href="/docs/ref-reading/">Reading</a></li>
+          <li><a href="/docs/ref-commands/">Commands</a></li>
+          <li><a href="/docs/ref-destinations/">Destinations</a></li>
+          <li><a href="/docs/ref-browsing/">Browsing</a></li>
+          <li><a class="on" aria-current="page" href="/docs/ref-mqtt/">MQTT</a></li>
+          <li><a href="/docs/ref-examples/">Examples</a></li>
+          <li><a href="/docs/ref-notes-for-integrators/">Notes for integrators</a></li>
         </ul>
         <p class="docs-nav-k mono">help</p>
         <ul>
@@ -71,62 +80,26 @@
 
       <main class="docs-main">
         <article class="prose">
-<!-- description: sonn's MQTT surface: retained zone state as JSON and plain scalars, and writable set/cmd topics — made for Home Assistant, Node-RED and KNX gateways. -->
-<p class="eyebrow">for developers</p>
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: MQTT — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
 <h1>MQTT</h1>
-
-<p>
-  An optional second surface, for setups already built around a broker. It is not a replacement for
-  the <a href="/docs/api/">HTTP API</a>: it carries zone state and the everyday transport controls,
-  and nothing else. Announcements, browsing, the queue, favourites, recents, the equalizer, grouping,
-  cover art and health checks are HTTP only.
-</p>
-
-<p>
-  Reach for it when a broker is already how your house talks to itself — then MQTT saves you writing
-  an HTTP client, and tools like Home Assistant or Node-RED consume it with no code at all. Both can
-  run at once, and both report the same state: MQTT publishes from the same event source the HTTP API
-  streams from, so the two cannot disagree.
-</p>
-
-<p>Switch it on under <strong>Access</strong> in the Admin UI and point it at your broker.</p>
-
+<p>An optional second surface, for setups already built around a broker. It is not a replacement for the API above: it carries zone state and the everyday transport controls, and nothing else. Announcements, browsing, the queue, favourites, recents, the equalizer, grouping, cover art and health checks are HTTP only.</p>
+<p>Reach for it when a broker is already how your house talks to itself — then MQTT saves you writing an HTTP client, and tools like Home Assistant or Node-RED consume it with no code at all. Reach for the HTTP API when you want the whole feature set, or when adding a broker would be infrastructure you do not otherwise need. Both can run at once, and both report the same state: MQTT publishes from the same event source <code>/api/v1/events</code> streams from, so the two cannot disagree.</p>
+<p>Switch it on under <strong>Access</strong> in the admin UI and point it at your broker. The payload is the same zone object described above — the API model, not Loxone's field names.</p>
 <h2>What it publishes</h2>
-
-<pre>sonn/server/online              1        (0 when the server dies — an MQTT will)
+<pre>sonn/server/online              1        (0 when the server dies — this is an MQTT will)
 sonn/zones/3                    {"id":3,"name":"Kitchen","state":"playing",…}
 sonn/zones/3/state              playing
 sonn/zones/3/volume             40
 sonn/zones/3/track/title        Song
 sonn/zones/3/source/name        Apple Music
 sonn/zones/3/output/protocol    sendspin</pre>
-
-<p>
-  Two shapes on purpose. The <code>zones/&lt;id&gt;</code> topic carries the whole object as JSON. The
-  per-field topics carry plain scalars, because a Miniserver or a KNX gateway can subscribe to a topic
-  and read a number but cannot parse JSON. Booleans are <code>1</code>/<code>0</code> for the same
-  reason, and a field with no value is published empty rather than dropped — so a display clears when
-  playback stops instead of keeping the last track.
-</p>
-
-<p>
-  Everything is <strong>retained</strong>, so a consumer that connects later sees current state
-  immediately instead of waiting for the next change.
-</p>
-
-<div class="note">
-  <code>sonn</code> is the default prefix and is configurable; two servers on one broker need
-  different ones. The playing-time counter (<code>position</code>) is off by default — it costs a
-  message per second per zone — and can be switched on in the same panel.
-</div>
-
+<p>Two shapes on purpose. The <code>zones/&lt;id&gt;</code> topic carries the whole object as JSON. The per-field topics carry plain scalars, because a Miniserver or a KNX gateway can subscribe to a topic and read a number but cannot parse JSON. Booleans are <code>1</code>/<code>0</code> for the same reason, and a field with no value is published empty rather than dropped — so a display clears when playback stops instead of keeping the last track.</p>
+<p>Everything is <strong>retained</strong>, so a consumer that connects later sees current state immediately instead of waiting for the next change.</p>
+<p><code>sonn</code> is the default prefix and is configurable; two servers on one broker need different ones. The playing-time counter (<code>position</code>) is off by default — it costs a message per second per zone — and can be switched on in the same panel.</p>
 <h2>Controlling it</h2>
-
-<p>
-  Publish to <code>set/&lt;field&gt;</code> for a single value, or to <code>cmd</code> with JSON when
-  you need more than one at once:
-</p>
-
+<p>Publish to <code>set/&lt;field&gt;</code> for a single value, or to <code>cmd</code> with JSON when you need more than one at once:</p>
 <pre>mosquitto_pub -t 'sonn/zones/3/set/volume' -m '40'      # absolute
 mosquitto_pub -t 'sonn/zones/3/set/volume' -m '+5'      # relative, like a remote
 mosquitto_pub -t 'sonn/zones/3/set/state'  -m 'paused'
@@ -134,44 +107,11 @@ mosquitto_pub -t 'sonn/zones/3/set/next'   -m '1'       # value ignored
 
 mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"power":"on","volume":40}'
 mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"play":"applemusic:track:…"}'</pre>
-
-<p>
-  Writable fields: <code>volume</code>, <code>state</code>, <code>power</code>,
-  <code>position</code>, <code>repeat</code>, <code>shuffle</code>, <code>next</code>,
-  <code>previous</code>, <code>play</code>. The values are the ones the state topics publish — write
-  <code>paused</code>, not some separate command word — and booleans accept
-  <code>1</code>/<code>true</code>/<code>on</code>/<code>yes</code> and their opposites. A message
-  carrying several fields is applied in a sensible order regardless of key order: power before volume,
-  so <code>{"power":"on","volume":40}</code> does what it looks like.
-</p>
-
-<p>
-  An invalid value is refused whole rather than applied in part, and an unknown field is ignored, so
-  echoing the state topics back does no harm.
-</p>
-
-<div class="note warn">
-  <strong>Publish commands unretained.</strong> A retained command is replayed every time the server
-  reconnects, which makes a zone lurch back to it after each restart. The server refuses replayed
-  commands and deletes the retained message, so the surprise happens once — but
-  <code>mosquitto_pub -r</code> on a command topic is never what you want.
-</div>
-
-<h2>Access control</h2>
-
-<p>
-  Access is your broker's business: anyone allowed to publish to these topics can control the audio,
-  exactly as anyone allowed to read the state topics can watch it. Use your broker's own credentials
-  and per-topic ACLs.
-</p>
-
-<h2>Home Assistant</h2>
-
-<p>
-  Today, Home Assistant talks to sonn over this MQTT surface and the HTTP API. A native integration is
-  on the roadmap — it will make the connection one-click, but the state it shows will be the same
-  state these topics carry.
-</p>
+<p>Writable fields: <code>volume</code>, <code>state</code>, <code>power</code>, <code>position</code>, <code>repeat</code>, <code>shuffle</code>, <code>next</code>, <code>previous</code>, <code>play</code>. The values are the ones the state topics publish — write <code>paused</code>, not some separate command word — and booleans accept <code>1</code>/<code>true</code>/<code>on</code>/<code>yes</code> and their opposites. A message carrying several fields is applied in a sensible order regardless of key order: power before volume, so <code>{"power":"on","volume":40}</code> does what it looks like.</p>
+<p>An invalid value is refused whole rather than applied in part, and an unknown field is ignored, so echoing our own state topics back does no harm.</p>
+<div class="note"><strong>Publish commands unretained.</strong> A retained command is replayed to us every time we reconnect, which makes a zone lurch back to it after each restart. The server refuses replayed commands and <em>deletes</em> the retained message, so the surprise happens once — but <code>mosquitto_pub -r</code> on a command topic is never what you want.</div>
+<p>Access is your broker's business: anyone allowed to publish to these topics can control the audio, exactly as anyone allowed to read the state topics can watch it. Use your broker's own credentials and per-topic ACLs.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>
 
           <footer class="docs-foot">
             <p class="mono">

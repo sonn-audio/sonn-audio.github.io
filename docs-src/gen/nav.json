@@ -1,0 +1,49 @@
+{
+  "title": "api reference",
+  "items": [
+    {
+      "slug": "reference",
+      "title": "Integrating with sonn"
+    },
+    {
+      "slug": "ref-design",
+      "title": "Design"
+    },
+    {
+      "slug": "ref-zone-object",
+      "title": "Zone object"
+    },
+    {
+      "slug": "ref-events",
+      "title": "Events"
+    },
+    {
+      "slug": "ref-reading",
+      "title": "Reading"
+    },
+    {
+      "slug": "ref-commands",
+      "title": "Commands"
+    },
+    {
+      "slug": "ref-destinations",
+      "title": "Destinations"
+    },
+    {
+      "slug": "ref-browsing",
+      "title": "Browsing"
+    },
+    {
+      "slug": "ref-mqtt",
+      "title": "MQTT"
+    },
+    {
+      "slug": "ref-examples",
+      "title": "Examples"
+    },
+    {
+      "slug": "ref-notes-for-integrators",
+      "title": "Notes for integrators"
+    }
+  ]
+}

@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <title>The HTTP API — sonn docs</title>
-    <meta name="description" content="The sonn HTTP API at /api/v1: the zone object, the event stream, commands, and the design rules that make curl a first-class client." />
+    <title>Notes for integrators — sonn docs</title>
+    <meta name="description" content="Notes for integrators — the sonn public API, rendered from core's INTEGRATING.md." />
     <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
     <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
@@ -58,10 +58,19 @@
           <li><a href="/docs/loxone/">Loxone</a></li>
           <li><a href="/docs/access/">Access</a></li>
         </ul>
-        <p class="docs-nav-k mono">for developers</p>
+        <p class="docs-nav-k mono">api reference</p>
         <ul>
-          <li><a class="on" aria-current="page" href="/docs/api/">The HTTP API</a></li>
-          <li><a href="/docs/mqtt/">MQTT</a></li>
+          <li><a href="/docs/reference/">Integrating with sonn</a></li>
+          <li><a href="/docs/ref-design/">Design</a></li>
+          <li><a href="/docs/ref-zone-object/">Zone object</a></li>
+          <li><a href="/docs/ref-events/">Events</a></li>
+          <li><a href="/docs/ref-reading/">Reading</a></li>
+          <li><a href="/docs/ref-commands/">Commands</a></li>
+          <li><a href="/docs/ref-destinations/">Destinations</a></li>
+          <li><a href="/docs/ref-browsing/">Browsing</a></li>
+          <li><a href="/docs/ref-mqtt/">MQTT</a></li>
+          <li><a href="/docs/ref-examples/">Examples</a></li>
+          <li><a class="on" aria-current="page" href="/docs/ref-notes-for-integrators/">Notes for integrators</a></li>
         </ul>
         <p class="docs-nav-k mono">help</p>
         <ul>
@@ -71,118 +80,12 @@
 
       <main class="docs-main">
         <article class="prose">
-<!-- description: The sonn HTTP API at /api/v1: the zone object, the event stream, commands, and the design rules that make curl a first-class client. -->
-<p class="eyebrow">for developers</p>
-<h1>The HTTP API</h1>
-
-<p>
-  sonn's public API lives at <code>/api/v1</code> and is always available — nothing to switch on. It is
-  the contract the web player itself is built on, and nothing else: if the contract can't carry a real
-  player, that's a bug.
-</p>
-
-<h2>Design</h2>
-
-<p>Two rules explain every choice below:</p>
-
-<ul>
-  <li>
-    <strong>Reading state never requires polling.</strong> Subscribe to <code>/api/v1/events</code>
-    once and you are told about every change. <code>GET /api/v1/zones</code> exists to bootstrap or
-    for one-shot scripts.
-  </li>
-  <li>
-    <strong>Commands are plain HTTP.</strong> No handshake, no socket, no correlation ids — a
-    <code>curl</code> one-liner or a five-line shell script is a first-class client.
-  </li>
-</ul>
-
-<p>
-  Every successful command is followed by an event, so you never have to read back after writing:
-  <code>zone.changed</code> for anything that alters a zone's state, and <code>queue.changed</code>,
-  <code>favorites.changed</code> or <code>recents.changed</code> for the collections — those say
-  <em>that</em> something changed and leave you to re-read the page you are showing.
-</p>
-
-<h2>The zone object</h2>
-
-<pre>{
-  "id": 3,
-  "name": "Kitchen",
-  "state": "playing",
-  "powerState": { "power": "on", "target": "on", "managed": true },
-  "position": 43,
-  "duration": 210,
-  "volume": 40,
-  "volumeLimits": { "max": 70, "default": 20, "step": 2 },
-  "repeat": "off",
-  "shuffle": false,
-  "track": {
-    "title": "Song",
-    "artist": "Artist",
-    "album": "Album",
-    "coverUrl": "http://server:7090/streams/3/…/cover",
-    "colors": { "primary": [120, 30, 40], "accent": [220, 80, 60], … }
-  },
-  "source": { "kind": "track", "name": "Library", "id": "library://track/9", "seekable": true },
-  "group": { "leader": 3, "members": [3, 7] },
-  "output": {
-    "protocol": "sendspin",
-    "capabilities": { "formats": [{ "codec": "pcm", "sampleRate": 44100, "bitDepth": 24 }], … }
-  }
-}</pre>
-
-<div class="note">
-  Unions are open by design: <code>source.kind</code>, <code>output.protocol</code> and friends accept
-  values your build has never heard of, and unknown event types should be ignored. New ones are not a
-  breaking change — a client that switches exhaustively breaks on a server upgrade.
-</div>
-
-<h2>Reading</h2>
-
-<pre># What is playing everywhere?
-curl http://server:7090/api/v1/zones
-
-# Follow every change — one subscription, no polling, ever
-curl -N http://server:7090/api/v1/events</pre>
-
-<h2>Commands</h2>
-
-<pre># Pause the kitchen, then turn it down a notch
-curl -X PUT http://server:7090/api/v1/zones/3/state  -d '{"state":"paused"}'
-curl -X PUT http://server:7090/api/v1/zones/3/volume -d '{"volume":"-5"}'
-
-# Play something a zone reported playing earlier
-curl -X POST http://server:7090/api/v1/zones/3/play -d '{"id":"library://track/9"}'
-
-# Say something in the kitchen; the music ducks and returns
-curl -X POST http://server:7090/api/v1/zones/3/announce -d '{"text":"Dinner!"}'</pre>
-
-<p>
-  Volume accepts absolute values and relative nudges (<code>"+5"</code>, <code>"-5"</code>), like a
-  remote.
-</p>
-
-<h2>Realtime analysis</h2>
-
-<p>
-  Each zone can stream live audio analysis — loudness, spectrum bins, beat strength and pitch — at up
-  to 60 fps, straight off the stream:
-</p>
-
-<pre>curl -N 'http://server:7090/api/v1/zones/3/analysis?types=loudness,spectrum,pitch&amp;rate=60&amp;bins=48'</pre>
-
-<p>Build a VU meter, a wall visualizer, a beat-synced light scene.</p>
-
-<h2>The full reference</h2>
-
-<p>
-  Browsing, search, playlists, the queue, favourites, recents, grouping, destinations, waveforms,
-  cover art, output delay and the supervision endpoints are documented down to the field in
-  <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> —
-  the API's canonical reference, kept next to the code it describes. Those chapters are moving into
-  these docs section by section.
-</p>
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Notes for integrators — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Notes for integrators</h1>
+<ul><li><strong>CORS</strong> is open (<code>Access-Control-Allow-Origin: *</code>), so browser clients work directly.</li><li>The API is <strong>unauthenticated on the LAN</strong>, like the other device-facing surfaces on port <code>7090</code>. Do not expose port <code>7090</code> to the internet.</li><li>The API works <strong>with or without the Loxone integration enabled</strong> — it is not a Loxone surface and does not depend on one.</li><li>Additive changes (new fields, new <code>source.kind</code> values, new event types) are <strong>not</strong> breaking. Ignore fields and event <code>type</code>s you do not know.</li><li><strong>A device that reconnects is put back to playing by the server.</strong> If a player drops off and returns while its zone was playing, the server starts its stream again by itself — the position restarts, the track and queue do not. You do not need to watch for this and you should not send a stop/play (or an off/on/play) to force it. Anything doing that today can drop it; if you still see a zone reporting <code>playing</code> with nothing audible after a device returns, that is a bug worth reporting rather than working around.</li><li><strong>The version is in the path.</strong> Within <code>v1</code>, fields are only ever added — nothing is renamed or removed under you. Anything that has to break appears as <code>v2</code>, served alongside <code>v1</code> rather than replacing it, so you migrate when it suits you. Calling <code>/api/...</code> without a version returns <code>404 api-version-required</code> and names the prefix to use, rather than failing in some way you have to guess at.</li></ul>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>
 
           <footer class="docs-foot">
             <p class="mono">

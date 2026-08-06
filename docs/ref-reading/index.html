@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>Reading — sonn docs</title>
+    <meta name="description" content="Reading — the sonn public API, rendered from core's INTEGRATING.md." />
+    <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="docs">
+    <header class="bar stuck" id="bar">
+      <div class="wrap bar-in">
+        <a class="bar-brand" href="/" aria-label="sonn — home">
+          <svg viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
+            <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+            <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+            <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
+            <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+            <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+            <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+            <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+            <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
+          </svg>
+          sonn <span class="docs-brand-suffix mono">docs</span>
+        </a>
+        <button class="bar-burger" id="docs-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="docs-nav">
+          <i></i><i></i><i></i>
+        </button>
+        <a class="btn btn-sm docs-gh" href="https://github.com/sonn-audio/core" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="wrap docs-shell">
+      <nav class="docs-nav" id="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-k mono">start here</p>
+        <ul>
+          <li><a href="/docs/">What sonn is</a></li>
+          <li><a href="/docs/install/">Install</a></li>
+          <li><a href="/docs/setup/">First setup</a></li>
+        </ul>
+        <p class="docs-nav-k mono">using it</p>
+        <ul>
+          <li><a href="/docs/content/">Content</a></li>
+          <li><a href="/docs/zones/">Zones & outputs</a></li>
+          <li><a href="/docs/loxone/">Loxone</a></li>
+          <li><a href="/docs/access/">Access</a></li>
+        </ul>
+        <p class="docs-nav-k mono">api reference</p>
+        <ul>
+          <li><a href="/docs/reference/">Integrating with sonn</a></li>
+          <li><a href="/docs/ref-design/">Design</a></li>
+          <li><a href="/docs/ref-zone-object/">Zone object</a></li>
+          <li><a href="/docs/ref-events/">Events</a></li>
+          <li><a class="on" aria-current="page" href="/docs/ref-reading/">Reading</a></li>
+          <li><a href="/docs/ref-commands/">Commands</a></li>
+          <li><a href="/docs/ref-destinations/">Destinations</a></li>
+          <li><a href="/docs/ref-browsing/">Browsing</a></li>
+          <li><a href="/docs/ref-mqtt/">MQTT</a></li>
+          <li><a href="/docs/ref-examples/">Examples</a></li>
+          <li><a href="/docs/ref-notes-for-integrators/">Notes for integrators</a></li>
+        </ul>
+        <p class="docs-nav-k mono">help</p>
+        <ul>
+          <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+        </ul>
+      </nav>
+
+      <main class="docs-main">
+        <article class="prose">
+<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
+<!-- description: Reading — the sonn public API, rendered from core's INTEGRATING.md. -->
+<p class="eyebrow">api reference</p>
+<h1>Reading</h1>
+<pre>GET /api/v1/zones                   →  { "zones": [ … ] }
+GET /api/v1/zones/{id}              →  { … }              404 zone-not-found
+GET /api/v1/zones/{id}/equalizer    →  { "zoneId": 3, "bands": [ …10 ] }
+GET /api/v1/zones/{id}/queue        →  { "items": [ … ], "start": 0, "total": 42, "currentIndex": 3 }
+GET /api/v1/zones/{id}/favorites    →  { "items": [ … ], "start": 0, "total": 8 }
+GET /api/v1/zones/{id}/recents      →  { "items": [ … ], "start": 0, "total": 20 }
+GET /api/v1/destinations            →  { "destinations": [ … ] }
+GET /api/v1/audio-servers           →  { "selfId": "…", "servers": [ … ] }
+GET /api/v1/services                →  { "services": [ … ] }
+GET /api/v1/browse                  →  the root: one entry per service
+GET /api/v1/browse/{id}             →  { "container": …, "items": [ … ], "start": 0, "total": 42 }
+GET /api/v1/items/{id}              →  one item                404 not-found
+GET /api/v1/search?q=…              →  { "items": { "track": [ … ] }, … }
+GET /api/v1/playlists               →  { "items": [ … ], "total": 1 }
+GET /api/v1/waveform?uri=…          →  { "uri": …, "buckets": [ … ] }   404 no-waveform
+GET /api/v1/inputs                  →  { "inputs": [ … ] }
+GET /api/v1/health                  →  { "status": "ok"|"degraded"|"unhealthy", … }
+GET /api/v1/ready                   →  { "ready": true, "phase": "ready" }   503 when not
+GET /api/v1/zones/{id}/cover        →  the image itself        404 when the zone has none</pre>
+<h2>Supervising the server</h2>
+<p>Two endpoints, because "is it working?" and "can I stop waiting?" are different questions.</p>
+<p><code>GET /api/v1/ready</code> is the cheap one — poll it every second if you like:</p>
+<pre>{ "ready": true, "phase": "ready" }</pre>
+<p><code>phase</code> is <code>starting</code>, <code>ready</code> or <code>failed</code>, and the status code carries the same answer: <strong>200</strong> when ready, <strong>503</strong> when not. That distinction is the point — a server that is still booting and one that died during boot both fail to answer, but only the second needs you. A <code>failed</code> phase adds <code>error</code> with the reason. This is also what to poll after a restart, instead of sleeping and hoping.</p>
+<p><code>GET /api/v1/health</code> gives a verdict you can act on:</p>
+<pre>{
+  "status": "degraded",
+  "version": "4.0.0-beta.17",
+  "uptimeSec": 451,
+  "phase": "ready",
+  "checks": [
+    { "name": "audio", "status": "degraded", "detail": "last playback attempt failed on Study (ffmpeg exited 1)" },
+    { "name": "loxone", "status": "ok" }
+  ]
+}</pre>
+<p>Three statuses, and the middle one matters most:</p>
+<table><thead><tr><th>status</th><th>code</th><th>what to do</th></tr></thead><tbody><tr><td><code>ok</code></td><td>200</td><td>nothing</td></tr><tr><td><code>degraded</code></td><td><strong>200</strong></td><td>look, but do not restart — it is still serving</td></tr><tr><td><code>unhealthy</code></td><td>503</td><td>intervene</td></tr></tbody></table>
+<p><code>degraded</code> deliberately stays a 200. The usual reaction to a non-2xx is a restart, and restarting a server whose Loxone link is down or whose one zone has a failing encoder fixes nothing while interrupting every zone that was fine. If you want a single boolean for a <code>docker healthcheck</code> or a load balancer, the status code already is one — only <code>unhealthy</code> fails.</p>
+<p><code>checks[]</code> is keyed by a stable <code>name</code>, so branch on that rather than parsing <code>detail</code> (which is prose, aimed at whoever has to fix it, and may change). Healthy checks carry no <code>detail</code>. A check appears only where it is meaningful: a server no Miniserver has ever paired with reports no <code>loxone</code> check at all, because an absent integration is not a broken one.</p>
+<p><code>uptimeSec</code> counts from when the server last became <strong>ready</strong>, not from process start — otherwise a restart keeps counting through a window in which nothing was served.</p>
+<p>Neither endpoint needs a session.</p>
+<h2>Cover art</h2>
+<p><code>track.coverUrl</code> is the artwork's real location, and it changes every track — it can be a remote CDN, a data uri, or a url only reachable from the server. That is fine if you read state and update an <code>&lt;img&gt;</code> each time, but not if you want one address you can point a wall panel or a Loxone visualisation at and forget about.</p>
+<p><code>animatedCoverUrl</code> sits beside it on a track, a queue entry and a browse item, when the provider has motion artwork for that release. It is <strong>absent rather than empty</strong> when there is none, which is the common case — so treat it as an enhancement over <code>coverUrl</code> and never as a replacement: <code>coverUrl</code> is always the one to fall back to, and a client that ignores <code>animatedCoverUrl</code> entirely is correct, just stiller.</p>
+<p><code>GET /api/v1/zones/{id}/cover</code> is that address. It names only the zone, returns the image bytes, and follows whatever that zone is playing:</p>
+<pre># Always shows the kitchen's current cover
+http://server:7090/api/v1/zones/3/cover
+http://server:7090/api/v1/zones/3/cover?size=300</pre>
+<p><code>size</code> is a hint. Where the provider offers variants (Apple Music, TuneIn, the image proxy) the server asks upstream for one near that size, which is sharper and cheaper than scaling here; otherwise it is ignored. Out-of-range or unparseable values fall back to the default rather than erroring, so an <code>&lt;img src&gt;</code> that cannot handle a <code>400</code> stays safe.</p>
+<p>A zone playing nothing, or an unknown zone, answers <code>404</code> — draw your own placeholder rather than expecting a blank image.</p>
+<h3>Keeping it fresh</h3>
+<p>Because the url does not change when the track does, caching needs a way to tell one cover from the next. Every response carries an <code>ETag</code> hashed from the artwork itself, alongside <code>Cache-Control: public, max-age=10</code>:</p>
+<pre>curl -s -o cover.jpg -D - http://server:7090/api/v1/zones/3/cover
+# ETag: "xLp3…"
+
+# Still the same cover → 304, no body transferred
+curl -s -o /dev/null -w '%{http_code}\n' \
+  -H 'If-None-Match: "xLp3…"' http://server:7090/api/v1/zones/3/cover</pre>
+<p>So polling costs almost nothing while a track plays, and the moment it changes you get bytes again. The tag is derived from the source and the requested size, which makes it stable across restarts and identical on two servers holding the same art — not a counter you have to store.</p>
+<p>Some clients ignore all of that. A Loxone visualisation will hold an <code>&lt;img src&gt;</code> far longer than <code>max-age</code> suggests, and there is no header that fixes it. For those, add any parameter of your own and vary it when the track changes — unknown parameters are ignored:</p>
+<pre>http://server:7090/api/v1/zones/3/cover?v=applemusic:track:b64_MTc4MDM4MjY5NQ==</pre>
+<p><code>track.coverUrl</code> from <code>/api/v1/events</code> is a convenient value to put there: it changes exactly when the picture does.</p>
+<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>
+
+          <footer class="docs-foot">
+            <p class="mono">
+              found a mistake? <a href="https://github.com/sonn-audio/core/issues" rel="noopener">open an issue</a>
+            </p>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      'use strict';
+      const burger = document.getElementById('docs-burger');
+      const nav = document.getElementById('docs-nav');
+      burger.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      nav.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
+</html>
