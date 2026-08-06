@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>MQTT — sonn docs</title>
+    <meta name="description" content="sonn's MQTT surface: retained zone state as JSON and plain scalars, and writable set/cmd topics — made for Home Assistant, Node-RED and KNX gateways." />
+    <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="docs">
+    <header class="bar stuck" id="bar">
+      <div class="wrap bar-in">
+        <a class="bar-brand" href="/" aria-label="sonn — home">
+          <svg viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
+            <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+            <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+            <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
+            <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+            <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+            <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+            <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+            <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
+          </svg>
+          sonn <span class="docs-brand-suffix mono">docs</span>
+        </a>
+        <button class="bar-burger" id="docs-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="docs-nav">
+          <i></i><i></i><i></i>
+        </button>
+        <a class="btn btn-sm docs-gh" href="https://github.com/sonn-audio/core" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="wrap docs-shell">
+      <nav class="docs-nav" id="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-k mono">start here</p>
+        <ul>
+          <li><a href="/docs/">What sonn is</a></li>
+          <li><a href="/docs/install/">Install</a></li>
+          <li><a href="/docs/setup/">First setup</a></li>
+        </ul>
+        <p class="docs-nav-k mono">using it</p>
+        <ul>
+          <li><a href="/docs/content/">Content</a></li>
+          <li><a href="/docs/zones/">Zones & outputs</a></li>
+          <li><a href="/docs/loxone/">Loxone</a></li>
+          <li><a href="/docs/access/">Access</a></li>
+        </ul>
+        <p class="docs-nav-k mono">for developers</p>
+        <ul>
+          <li><a href="/docs/api/">The HTTP API</a></li>
+          <li><a class="on" aria-current="page" href="/docs/mqtt/">MQTT</a></li>
+        </ul>
+        <p class="docs-nav-k mono">help</p>
+        <ul>
+          <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+        </ul>
+      </nav>
+
+      <main class="docs-main">
+        <article class="prose">
+<!-- description: sonn's MQTT surface: retained zone state as JSON and plain scalars, and writable set/cmd topics — made for Home Assistant, Node-RED and KNX gateways. -->
+<p class="eyebrow">for developers</p>
+<h1>MQTT</h1>
+
+<p>
+  An optional second surface, for setups already built around a broker. It is not a replacement for
+  the <a href="/docs/api/">HTTP API</a>: it carries zone state and the everyday transport controls,
+  and nothing else. Announcements, browsing, the queue, favourites, recents, the equalizer, grouping,
+  cover art and health checks are HTTP only.
+</p>
+
+<p>
+  Reach for it when a broker is already how your house talks to itself — then MQTT saves you writing
+  an HTTP client, and tools like Home Assistant or Node-RED consume it with no code at all. Both can
+  run at once, and both report the same state: MQTT publishes from the same event source the HTTP API
+  streams from, so the two cannot disagree.
+</p>
+
+<p>Switch it on under <strong>Access</strong> in the Admin UI and point it at your broker.</p>
+
+<h2>What it publishes</h2>
+
+<pre>sonn/server/online              1        (0 when the server dies — an MQTT will)
+sonn/zones/3                    {"id":3,"name":"Kitchen","state":"playing",…}
+sonn/zones/3/state              playing
+sonn/zones/3/volume             40
+sonn/zones/3/track/title        Song
+sonn/zones/3/source/name        Apple Music
+sonn/zones/3/output/protocol    sendspin</pre>
+
+<p>
+  Two shapes on purpose. The <code>zones/&lt;id&gt;</code> topic carries the whole object as JSON. The
+  per-field topics carry plain scalars, because a Miniserver or a KNX gateway can subscribe to a topic
+  and read a number but cannot parse JSON. Booleans are <code>1</code>/<code>0</code> for the same
+  reason, and a field with no value is published empty rather than dropped — so a display clears when
+  playback stops instead of keeping the last track.
+</p>
+
+<p>
+  Everything is <strong>retained</strong>, so a consumer that connects later sees current state
+  immediately instead of waiting for the next change.
+</p>
+
+<div class="note">
+  <code>sonn</code> is the default prefix and is configurable; two servers on one broker need
+  different ones. The playing-time counter (<code>position</code>) is off by default — it costs a
+  message per second per zone — and can be switched on in the same panel.
+</div>
+
+<h2>Controlling it</h2>
+
+<p>
+  Publish to <code>set/&lt;field&gt;</code> for a single value, or to <code>cmd</code> with JSON when
+  you need more than one at once:
+</p>
+
+<pre>mosquitto_pub -t 'sonn/zones/3/set/volume' -m '40'      # absolute
+mosquitto_pub -t 'sonn/zones/3/set/volume' -m '+5'      # relative, like a remote
+mosquitto_pub -t 'sonn/zones/3/set/state'  -m 'paused'
+mosquitto_pub -t 'sonn/zones/3/set/next'   -m '1'       # value ignored
+
+mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"power":"on","volume":40}'
+mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"play":"applemusic:track:…"}'</pre>
+
+<p>
+  Writable fields: <code>volume</code>, <code>state</code>, <code>power</code>,
+  <code>position</code>, <code>repeat</code>, <code>shuffle</code>, <code>next</code>,
+  <code>previous</code>, <code>play</code>. The values are the ones the state topics publish — write
+  <code>paused</code>, not some separate command word — and booleans accept
+  <code>1</code>/<code>true</code>/<code>on</code>/<code>yes</code> and their opposites. A message
+  carrying several fields is applied in a sensible order regardless of key order: power before volume,
+  so <code>{"power":"on","volume":40}</code> does what it looks like.
+</p>
+
+<p>
+  An invalid value is refused whole rather than applied in part, and an unknown field is ignored, so
+  echoing the state topics back does no harm.
+</p>
+
+<div class="note warn">
+  <strong>Publish commands unretained.</strong> A retained command is replayed every time the server
+  reconnects, which makes a zone lurch back to it after each restart. The server refuses replayed
+  commands and deletes the retained message, so the surprise happens once — but
+  <code>mosquitto_pub -r</code> on a command topic is never what you want.
+</div>
+
+<h2>Access control</h2>
+
+<p>
+  Access is your broker's business: anyone allowed to publish to these topics can control the audio,
+  exactly as anyone allowed to read the state topics can watch it. Use your broker's own credentials
+  and per-topic ACLs.
+</p>
+
+<h2>Home Assistant</h2>
+
+<p>
+  Today, Home Assistant talks to sonn over this MQTT surface and the HTTP API. A native integration is
+  on the roadmap — it will make the connection one-click, but the state it shows will be the same
+  state these topics carry.
+</p>
+
+          <footer class="docs-foot">
+            <p class="mono">
+              found a mistake? <a href="https://github.com/sonn-audio/sonn-audio.github.io/edit/main/docs-src/mqtt.html" rel="noopener">edit this page</a>
+              · <a href="https://github.com/sonn-audio/core/issues" rel="noopener">open an issue</a>
+            </p>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      'use strict';
+      const burger = document.getElementById('docs-burger');
+      const nav = document.getElementById('docs-nav');
+      burger.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      nav.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
+</html>

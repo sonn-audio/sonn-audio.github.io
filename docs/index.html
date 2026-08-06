@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>What sonn is — sonn docs</title>
+    <meta name="description" content="What sonn is, how its three sides fit together, and where to start." />
+    <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="docs">
+    <header class="bar stuck" id="bar">
+      <div class="wrap bar-in">
+        <a class="bar-brand" href="/" aria-label="sonn — home">
+          <svg viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
+            <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+            <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+            <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
+            <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+            <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+            <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+            <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+            <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
+          </svg>
+          sonn <span class="docs-brand-suffix mono">docs</span>
+        </a>
+        <button class="bar-burger" id="docs-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="docs-nav">
+          <i></i><i></i><i></i>
+        </button>
+        <a class="btn btn-sm docs-gh" href="https://github.com/sonn-audio/core" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="wrap docs-shell">
+      <nav class="docs-nav" id="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-k mono">start here</p>
+        <ul>
+          <li><a class="on" aria-current="page" href="/docs/">What sonn is</a></li>
+          <li><a href="/docs/install/">Install</a></li>
+          <li><a href="/docs/setup/">First setup</a></li>
+        </ul>
+        <p class="docs-nav-k mono">using it</p>
+        <ul>
+          <li><a href="/docs/content/">Content</a></li>
+          <li><a href="/docs/zones/">Zones & outputs</a></li>
+          <li><a href="/docs/loxone/">Loxone</a></li>
+          <li><a href="/docs/access/">Access</a></li>
+        </ul>
+        <p class="docs-nav-k mono">for developers</p>
+        <ul>
+          <li><a href="/docs/api/">The HTTP API</a></li>
+          <li><a href="/docs/mqtt/">MQTT</a></li>
+        </ul>
+        <p class="docs-nav-k mono">help</p>
+        <ul>
+          <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+        </ul>
+      </nav>
+
+      <main class="docs-main">
+        <article class="prose">
+<!-- description: What sonn is, how its three sides fit together, and where to start. -->
+<p class="eyebrow">documentation</p>
+<h1>What sonn is</h1>
+
+<p>
+  sonn is a complete multiroom audio solution: a self-hosted server that collects your music — local
+  files, streaming services, radio, line-in — and plays it in sync on the speakers you already own,
+  over almost any protocol they speak.
+</p>
+
+<p>
+  It runs in one of two shapes, and can be both at once. As a <strong>content server</strong> it makes
+  everything you listen to available to other apps and devices — DLNA TVs, Subsonic apps, the built-in
+  web player. As a <strong>multiroom system</strong> it owns fixed zones — up to 24, one device per
+  room — that you name, group and control centrally, from the web player, the Admin UI, or a Loxone app.
+</p>
+
+<h2>How it fits together</h2>
+
+<p>sonn has three sides, each configured independently in the Admin UI:</p>
+
+<table>
+  <thead>
+    <tr><th>side</th><th>what it is</th><th>required?</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Content</strong></td>
+      <td>Where the music comes from: local library, Spotify, Apple Music, Tidal, Deezer, radio, line-in</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Access</strong></td>
+      <td>How other apps and devices reach the server: DLNA/UPnP, Subsonic API, network drive, Loxone</td>
+      <td>Pick at least one way to listen</td>
+    </tr>
+    <tr>
+      <td><strong>Zones</strong></td>
+      <td>The devices this server drives itself, one per room</td>
+      <td>Optional</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Content plus Access is already a working audio server: point a DLNA TV or a Subsonic app at it and
+  browse your library, Apple Music or Tidal straight from the device — no zones involved, nothing to
+  configure per room.
+</p>
+
+<p>
+  Zones are for the other model: devices the server owns and controls centrally. Add them when you want
+  to name your rooms, group them to play in sync, and drive them from one place — or when you want to
+  give a device features it has no support for itself (see <a href="/docs/zones/">receivers</a>).
+</p>
+
+<div class="note">
+  The Loxone integration is zone-driven, so with it on, zones are always active: the Miniserver
+  supplies them and expects to control them. See <a href="/docs/loxone/">Loxone</a>.
+</div>
+
+<h2>Where to start</h2>
+
+<ol>
+  <li><a href="/docs/install/">Install</a> — one container, running before the coffee is.</li>
+  <li><a href="/docs/setup/">First setup</a> — the admin account and the three steps.</li>
+  <li><a href="/docs/content/">Content</a> — your library, streaming accounts, radio and line-in.</li>
+  <li><a href="/docs/zones/">Zones</a> — only if you want rooms; <a href="/docs/loxone/">Loxone</a> if a Miniserver supplies them.</li>
+</ol>
+
+<h2>Status</h2>
+
+<p>
+  sonn core is at <strong>4.0 beta</strong>: in active use and actively developed. Releases are tagged
+  from the <code>beta</code> branch, and breaking changes can still land between betas — check the
+  release notes before updating. The project is open source under Apache-2.0, on
+  <a href="https://github.com/sonn-audio/core" rel="noopener">GitHub</a>.
+</p>
+
+          <footer class="docs-foot">
+            <p class="mono">
+              found a mistake? <a href="https://github.com/sonn-audio/sonn-audio.github.io/edit/main/docs-src/index.html" rel="noopener">edit this page</a>
+              · <a href="https://github.com/sonn-audio/core/issues" rel="noopener">open an issue</a>
+            </p>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      'use strict';
+      const burger = document.getElementById('docs-burger');
+      const nav = document.getElementById('docs-nav');
+      burger.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      nav.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>Install — sonn docs</title>
+    <meta name="description" content="Install sonn with docker compose, docker run or bare Node.js — requirements, ports, host networking and data persistence." />
+    <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="docs">
+    <header class="bar stuck" id="bar">
+      <div class="wrap bar-in">
+        <a class="bar-brand" href="/" aria-label="sonn — home">
+          <svg viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
+            <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+            <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+            <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
+            <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+            <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+            <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+            <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+            <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
+          </svg>
+          sonn <span class="docs-brand-suffix mono">docs</span>
+        </a>
+        <button class="bar-burger" id="docs-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="docs-nav">
+          <i></i><i></i><i></i>
+        </button>
+        <a class="btn btn-sm docs-gh" href="https://github.com/sonn-audio/core" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="wrap docs-shell">
+      <nav class="docs-nav" id="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-k mono">start here</p>
+        <ul>
+          <li><a href="/docs/">What sonn is</a></li>
+          <li><a class="on" aria-current="page" href="/docs/install/">Install</a></li>
+          <li><a href="/docs/setup/">First setup</a></li>
+        </ul>
+        <p class="docs-nav-k mono">using it</p>
+        <ul>
+          <li><a href="/docs/content/">Content</a></li>
+          <li><a href="/docs/zones/">Zones & outputs</a></li>
+          <li><a href="/docs/loxone/">Loxone</a></li>
+          <li><a href="/docs/access/">Access</a></li>
+        </ul>
+        <p class="docs-nav-k mono">for developers</p>
+        <ul>
+          <li><a href="/docs/api/">The HTTP API</a></li>
+          <li><a href="/docs/mqtt/">MQTT</a></li>
+        </ul>
+        <p class="docs-nav-k mono">help</p>
+        <ul>
+          <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+        </ul>
+      </nav>
+
+      <main class="docs-main">
+        <article class="prose">
+<!-- description: Install sonn with docker compose, docker run or bare Node.js — requirements, ports, host networking and data persistence. -->
+<p class="eyebrow">start here</p>
+<h1>Install</h1>
+
+<p>
+  One container, host networking so it can discover your speakers, one folder that holds everything.
+  Back up that folder and you have backed up the install.
+</p>
+
+<h2>Requirements</h2>
+
+<ul>
+  <li><strong>Docker</strong> (recommended) — the quickest way to run the server. It can also run directly on Node.js 20 or newer.</li>
+  <li><strong>Port 7090</strong> free on the host. The Loxone integration additionally uses 7091 and 7095, but only while it is enabled.</li>
+  <li>A <strong>Linux host</strong> if you want to mount a network share as your music library — this needs Unix mount tooling such as <code>mount.cifs</code>. On Windows, point the library at a local folder instead.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr><th>port</th><th>used for</th><th>when</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>7090</code></td><td>Admin UI, web player, public API, Subsonic API, WebDAV, DLNA, audio streams</td><td>always</td></tr>
+    <tr><td><code>7091</code></td><td>Loxone native app protocol</td><td>Loxone enabled</td></tr>
+    <tr><td><code>7095</code></td><td>Loxone Miniserver protocol</td><td>Loxone enabled</td></tr>
+  </tbody>
+</table>
+
+<h2>Docker compose</h2>
+
+<pre>curl -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml
+docker compose up -d</pre>
+
+<p>
+  That starts a container named <code>sonn-core</code> in <strong>host network mode</strong>, which is
+  what lets the server discover Sonos, Chromecast, AirPlay and DLNA devices on your network without
+  extra flags. Because host mode bypasses port publishing, make sure ports 7090, 7091 and 7095 are free
+  on the host.
+</p>
+
+<p>
+  To keep your configuration and library across restarts, add a bind mount to the service in
+  <code>docker-compose.yml</code>:
+</p>
+
+<pre>    volumes:
+      - ./data:/app/data</pre>
+
+<p>
+  Everything the server stores lives in that one folder. Back it up and you have backed up the install.
+</p>
+
+<h2>Docker run</h2>
+
+<pre>docker run -d \
+  --name sonn-core \
+  --network host \
+  -v $(pwd)/data:/app/data \
+  ghcr.io/sonn-audio/core:latest</pre>
+
+<p>Then open <code>http://&lt;server-ip&gt;:7090</code> and continue with <a href="/docs/setup/">First setup</a>.</p>
+
+<h2>Bridge networking</h2>
+
+<p>
+  Host networking is recommended because discovery — how the server finds Sonos, Chromecast, AirPlay
+  and DLNA devices — needs it. On bridge networking, expect to assign some outputs by IP by hand. Drop
+  <code>--network host</code> and publish the ports instead:
+</p>
+
+<pre>-p 7090:7090 -p 7091:7091 -p 7095:7095</pre>
+
+<h2>Without Docker</h2>
+
+<p>Needs Node.js 20 or newer (Docker images and CI build on Node 24) and npm.</p>
+
+<pre>git clone https://github.com/sonn-audio/core.git
+cd core
+mkdir -p data          # config, logs and cache live here
+npm install
+npm run build
+npm start</pre>
+
+<h2>Building the image yourself</h2>
+
+<p>
+  <code>docker compose up -d</code> always pulls the published image and never builds, so it works on a
+  host without the source checkout. If you have the repository checked out and want to build locally
+  instead, layer the build override on top:
+</p>
+
+<pre>docker compose -f docker-compose.yml -f docker-compose.build.yml build
+docker compose up -d</pre>
+
+          <footer class="docs-foot">
+            <p class="mono">
+              found a mistake? <a href="https://github.com/sonn-audio/sonn-audio.github.io/edit/main/docs-src/install.html" rel="noopener">edit this page</a>
+              · <a href="https://github.com/sonn-audio/core/issues" rel="noopener">open an issue</a>
+            </p>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      'use strict';
+      const burger = document.getElementById('docs-burger');
+      const nav = document.getElementById('docs-nav');
+      burger.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      nav.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
+</html>

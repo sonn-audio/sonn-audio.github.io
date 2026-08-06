@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="color-scheme" content="dark" />
+    <title>Content — sonn docs</title>
+    <meta name="description" content="Content sources in sonn: the local library, streaming services, radio, line-in with the bridge or Sendspin source role, and the alert engine." />
+    <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
+    <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/assets/site.css" />
+    <script>document.documentElement.classList.add('js');</script>
+  </head>
+  <body class="docs">
+    <header class="bar stuck" id="bar">
+      <div class="wrap bar-in">
+        <a class="bar-brand" href="/" aria-label="sonn — home">
+          <svg viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
+            <path d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+            <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+            <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+            <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
+            <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
+            <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
+            <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+            <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+            <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+            <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
+          </svg>
+          sonn <span class="docs-brand-suffix mono">docs</span>
+        </a>
+        <button class="bar-burger" id="docs-burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="docs-nav">
+          <i></i><i></i><i></i>
+        </button>
+        <a class="btn btn-sm docs-gh" href="https://github.com/sonn-audio/core" rel="noopener">
+          <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+          GitHub
+        </a>
+      </div>
+    </header>
+
+    <div class="wrap docs-shell">
+      <nav class="docs-nav" id="docs-nav" aria-label="Documentation">
+        <p class="docs-nav-k mono">start here</p>
+        <ul>
+          <li><a href="/docs/">What sonn is</a></li>
+          <li><a href="/docs/install/">Install</a></li>
+          <li><a href="/docs/setup/">First setup</a></li>
+        </ul>
+        <p class="docs-nav-k mono">using it</p>
+        <ul>
+          <li><a class="on" aria-current="page" href="/docs/content/">Content</a></li>
+          <li><a href="/docs/zones/">Zones & outputs</a></li>
+          <li><a href="/docs/loxone/">Loxone</a></li>
+          <li><a href="/docs/access/">Access</a></li>
+        </ul>
+        <p class="docs-nav-k mono">for developers</p>
+        <ul>
+          <li><a href="/docs/api/">The HTTP API</a></li>
+          <li><a href="/docs/mqtt/">MQTT</a></li>
+        </ul>
+        <p class="docs-nav-k mono">help</p>
+        <ul>
+          <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
+        </ul>
+      </nav>
+
+      <main class="docs-main">
+        <article class="prose">
+<!-- description: Content sources in sonn: the local library, streaming services, radio, line-in with the bridge or Sendspin source role, and the alert engine. -->
+<p class="eyebrow">using it</p>
+<h1>Content</h1>
+
+<p>
+  Sources are configured under <strong>Content</strong>, and every source is available to every
+  consumer of the server — the web player, Loxone, DLNA devices and Subsonic apps alike. Configure it
+  once, reach it from everywhere.
+</p>
+
+<h2>Local library</h2>
+
+<ul>
+  <li>Local folders and mounted network shares (SMB/CIFS)</li>
+  <li>Tag-based index (albums, artists, tracks, folders) in SQLite, with cover art</li>
+  <li>Artist pictures fetched automatically from MusicBrainz → Wikidata → Wikimedia Commons — no API key</li>
+  <li>Incremental indexing: a dropped or copied file is picked up on its own, without a full rescan</li>
+  <li>Browse, search and delete tracks from the Admin UI</li>
+  <li>Add music by drag-and-drop in the browser, or by mounting the folder as a <a href="/docs/access/">network drive</a></li>
+</ul>
+
+<h2>Streaming services</h2>
+
+<p>
+  <strong>Spotify</strong>, <strong>Apple Music</strong>, <strong>Tidal</strong>,
+  <strong>Deezer</strong>, <strong>YouTube Music</strong>, <strong>YouTube</strong>,
+  <strong>SoundCloud</strong> — and <strong>Music Assistant</strong> as a source, exposing its own
+  providers.
+</p>
+
+<p>
+  Each configured account becomes its own browsable service, so several accounts of the same service
+  can coexist. The Loxone integration presents non-Spotify services to the Miniserver as virtual
+  Spotify accounts, since that is the only vocabulary the Loxone clients have for them; everywhere else
+  they appear under their own name.
+</p>
+
+<h2>Radio</h2>
+
+<ul>
+  <li><strong>TuneIn</strong> — adding a TuneIn username exposes your personal presets, while search scans the full directory</li>
+  <li><strong>Radio Paradise</strong> — curated, listener-supported streams (toggleable)</li>
+  <li><strong>Custom streams</strong> you manage yourself, with your own cover art</li>
+</ul>
+
+<h2>Line-in</h2>
+
+<p>
+  Play a turntable, CD player or any other analog or digital source through your zones, with optional
+  Shazam track recognition. Play, pause and skip are forwarded to the device that owns the source —
+  when that device can be driven over the network. B&amp;O Masterlink can: a Beosound&nbsp;9000
+  changes discs on command.
+</p>
+
+<p>Line-in audio reaches the server one of two ways:</p>
+
+<ul>
+  <li>
+    <strong>The line-in bridge</strong> — a small Linux helper that captures the audio and sends it to
+    the server. It runs on the machine the source is plugged into — typically a Raspberry Pi next to
+    the equipment — and is distributed as a prebuilt binary for x86-64 and ARM. It finds the server and
+    registers itself, so there is nothing to configure by hand; once registered, its inputs appear
+    under Content.
+  </li>
+  <li>
+    <strong>Sendspin's source role</strong> — a Sendspin endpoint can carry audio <em>into</em> the
+    server as well as out of it, on a dedicated endpoint or riding along with a player.
+  </li>
+</ul>
+
+<h2>Alert engine</h2>
+
+<ul>
+  <li>Text-to-speech, using the built-in engine or LoxBerry TTS over MQTT</li>
+  <li>Built-in alert sounds</li>
+  <li>Native Loxone alerts when the integration is on</li>
+</ul>
+
+          <footer class="docs-foot">
+            <p class="mono">
+              found a mistake? <a href="https://github.com/sonn-audio/sonn-audio.github.io/edit/main/docs-src/content.html" rel="noopener">edit this page</a>
+              · <a href="https://github.com/sonn-audio/core/issues" rel="noopener">open an issue</a>
+            </p>
+          </footer>
+        </article>
+      </main>
+    </div>
+
+    <script>
+      'use strict';
+      const burger = document.getElementById('docs-burger');
+      const nav = document.getElementById('docs-nav');
+      burger.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        burger.setAttribute('aria-expanded', String(open));
+      });
+      nav.addEventListener('click', (e) => {
+        if (e.target.closest('a')) {
+          nav.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!-- description: First launch of sonn: create the admin account, then walk Content, Access and Zones. Users and authentication explained. -->
+<p class="eyebrow">start here</p>
+<h1>First setup</h1>
+
+<p>
+  Open the Admin UI at <code>http://&lt;server-ip&gt;:7090</code>. On first launch it asks you to
+  create an admin account. A fresh install has no zones and nothing shared yet, so the whole setup is
+  three steps — and only the first two are required.
+</p>
+
+<ol>
+  <li>
+    <strong>Content</strong> — add your music: point the library at a folder or share, connect a
+    streaming account, set up radio. See <a href="/docs/content/">Content</a>.
+  </li>
+  <li>
+    <strong>Access</strong> — turn on how you want to reach it. Switch on DLNA or the Subsonic API and
+    your content is immediately browsable from a TV, receiver or phone app. See
+    <a href="/docs/access/">Access</a>.
+  </li>
+  <li>
+    <strong>Zones</strong> — only if you want rooms this server drives itself. Choose how zones are set
+    up, add one, and assign its output. See <a href="/docs/zones/">Zones &amp; outputs</a>.
+  </li>
+</ol>
+
+<div class="note">
+  Steps 1 and 2 are enough for a content server. Step 3 is required only for Loxone, which supplies
+  its own zones — see <a href="/docs/loxone/">Loxone</a>.
+</div>
+
+<h2>Users and authentication</h2>
+
+<p>
+  sonn has its own local user store. The first launch asks you to create an admin account, and sessions
+  persist across restarts. The Subsonic API and the network drive authenticate against these same
+  accounts. When the Loxone integration is connected, Miniserver credentials work as an additional
+  login.
+</p>
+
+<h2>Where everything lives</h2>
+
+<p>
+  Configuration, logs, the library index and caches all live in the <code>data</code> folder you
+  mounted at install time. Backing up that folder backs up the install; moving it moves the install.
+  The Admin UI can also export and import the configuration under <strong>Setup</strong>.
+</p>

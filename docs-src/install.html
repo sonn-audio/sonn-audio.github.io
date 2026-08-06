@@ -1,0 +1,93 @@
+<!-- description: Install sonn with docker compose, docker run or bare Node.js — requirements, ports, host networking and data persistence. -->
+<p class="eyebrow">start here</p>
+<h1>Install</h1>
+
+<p>
+  One container, host networking so it can discover your speakers, one folder that holds everything.
+  Back up that folder and you have backed up the install.
+</p>
+
+<h2>Requirements</h2>
+
+<ul>
+  <li><strong>Docker</strong> (recommended) — the quickest way to run the server. It can also run directly on Node.js 20 or newer.</li>
+  <li><strong>Port 7090</strong> free on the host. The Loxone integration additionally uses 7091 and 7095, but only while it is enabled.</li>
+  <li>A <strong>Linux host</strong> if you want to mount a network share as your music library — this needs Unix mount tooling such as <code>mount.cifs</code>. On Windows, point the library at a local folder instead.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr><th>port</th><th>used for</th><th>when</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>7090</code></td><td>Admin UI, web player, public API, Subsonic API, WebDAV, DLNA, audio streams</td><td>always</td></tr>
+    <tr><td><code>7091</code></td><td>Loxone native app protocol</td><td>Loxone enabled</td></tr>
+    <tr><td><code>7095</code></td><td>Loxone Miniserver protocol</td><td>Loxone enabled</td></tr>
+  </tbody>
+</table>
+
+<h2>Docker compose</h2>
+
+<pre>curl -LO https://raw.githubusercontent.com/sonn-audio/core/main/docker-compose.yml
+docker compose up -d</pre>
+
+<p>
+  That starts a container named <code>sonn-core</code> in <strong>host network mode</strong>, which is
+  what lets the server discover Sonos, Chromecast, AirPlay and DLNA devices on your network without
+  extra flags. Because host mode bypasses port publishing, make sure ports 7090, 7091 and 7095 are free
+  on the host.
+</p>
+
+<p>
+  To keep your configuration and library across restarts, add a bind mount to the service in
+  <code>docker-compose.yml</code>:
+</p>
+
+<pre>    volumes:
+      - ./data:/app/data</pre>
+
+<p>
+  Everything the server stores lives in that one folder. Back it up and you have backed up the install.
+</p>
+
+<h2>Docker run</h2>
+
+<pre>docker run -d \
+  --name sonn-core \
+  --network host \
+  -v $(pwd)/data:/app/data \
+  ghcr.io/sonn-audio/core:latest</pre>
+
+<p>Then open <code>http://&lt;server-ip&gt;:7090</code> and continue with <a href="/docs/setup/">First setup</a>.</p>
+
+<h2>Bridge networking</h2>
+
+<p>
+  Host networking is recommended because discovery — how the server finds Sonos, Chromecast, AirPlay
+  and DLNA devices — needs it. On bridge networking, expect to assign some outputs by IP by hand. Drop
+  <code>--network host</code> and publish the ports instead:
+</p>
+
+<pre>-p 7090:7090 -p 7091:7091 -p 7095:7095</pre>
+
+<h2>Without Docker</h2>
+
+<p>Needs Node.js 20 or newer (Docker images and CI build on Node 24) and npm.</p>
+
+<pre>git clone https://github.com/sonn-audio/core.git
+cd core
+mkdir -p data          # config, logs and cache live here
+npm install
+npm run build
+npm start</pre>
+
+<h2>Building the image yourself</h2>
+
+<p>
+  <code>docker compose up -d</code> always pulls the published image and never builds, so it works on a
+  host without the source checkout. If you have the repository checked out and want to build locally
+  instead, layer the build override on top:
+</p>
+
+<pre>docker compose -f docker-compose.yml -f docker-compose.build.yml build
+docker compose up -d</pre>

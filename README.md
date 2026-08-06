@@ -12,11 +12,22 @@ index.html            the page, and all of its behaviour — THE source of truth
 i18n/de.json          the German edition, as [english, german] pairs
 build.mjs             node build.mjs → regenerates de/index.html (node built-ins only)
 de/index.html         GENERATED — never edit by hand
-assets/site.css       the identity: tokens, layout, scrollytelling, microinteractions
+docs-src/             the documentation: one HTML fragment per page + nav.json + template
+build-docs.mjs        node build-docs.mjs → regenerates docs/ (node built-ins only)
+docs/                 GENERATED — never edit by hand
+assets/site.css       the identity: tokens, layout, scrollytelling, microinteractions, docs
 assets/fonts/         Hanken Grotesk + JetBrains Mono (variable, woff2)
 assets/sonn-mark.svg  favicon — the roofline over the level meter
 assets/og.png         social card, rendered from the hero itself
 ```
+
+## Docs
+
+Documentation pages are HTML fragments in `docs-src/` — pure content, no boilerplate. The
+sidebar lives in `docs-src/nav.json`, the shell in `docs-src/template.html`, and
+`node build-docs.mjs` wraps every fragment into `docs/<slug>/index.html`. Only pages that
+exist are in the nav — no dead links. English for now; German follows the same route as the
+landing once the chapters settle.
 
 ## Editing
 

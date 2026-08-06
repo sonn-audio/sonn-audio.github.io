@@ -1,0 +1,61 @@
+<!-- description: Access in sonn: DLNA/UPnP MediaServer, the Subsonic API, the WebDAV network drive, the built-in web player and the public HTTP API. -->
+<p class="eyebrow">using it</p>
+<h1>Access</h1>
+
+<p>
+  Everything under <strong>Access</strong> is off by default and independent of the others. Turn on
+  what you need.
+</p>
+
+<h2>Loxone Audio Server</h2>
+
+<p>
+  A complete Loxone Audioserver implementation: pair it with a Miniserver and it behaves like the real
+  thing. It gets its own chapter — see <a href="/docs/loxone/">Loxone</a>.
+</p>
+
+<h2>DLNA / UPnP MediaServer</h2>
+
+<p>
+  Publishes everything the server offers — including streaming services — to any DLNA client on the
+  network: smart TVs, receivers, network speakers. Albums, artists and playlists are announced with
+  their real UPnP classes, and UPnP Search is supported.
+</p>
+
+<div class="note">
+  This is where the "streaming services on devices that have no support for them" trick lives: a DLNA
+  TV has no Apple Music or Tidal app, yet it browses and plays your accounts, because sonn serves them
+  like any other content.
+</div>
+
+<h2>Subsonic API</h2>
+
+<p>
+  The same content served as an authenticated REST API at <code>/rest/*</code>, so apps like Symfonium,
+  Amperfy or DSub can browse and stream the whole server. Sign in with a local account.
+</p>
+
+<h2>Network drive (WebDAV)</h2>
+
+<p>
+  Mounts the music folder on your computer as a network drive at <code>/dav</code>, so albums can be
+  dragged in and organised with Finder or Explorer. Uses HTTP Basic against the same local accounts.
+  New files are indexed automatically. Off by default — it is a writable share.
+</p>
+
+<h2>Web player</h2>
+
+<p>
+  A built-in web player is served alongside the Admin UI, so any browser on the network can control
+  playback and see what's playing. The player also registers itself as a local destination — select it
+  as a room and play, and it plays right there in the browser.
+</p>
+
+<h2>Your own software</h2>
+
+<p>
+  sonn has its own HTTP API at <code>/api/v1</code> for reading zone state and controlling playback,
+  plus a live event stream so you never have to poll. It speaks its own vocabulary and works with or
+  without the Loxone integration. Unlike the rest of this page it needs nothing switched on — it is
+  always available. See <a href="/docs/api/">The HTTP API</a>.
+</p>

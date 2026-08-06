@@ -1,0 +1,35 @@
+{
+  "//": "The docs sidebar, in order. Every entry maps to docs-src/<slug>.html and builds to docs/<slug>/. Only pages that exist are listed — no dead links.",
+  "sections": [
+    {
+      "title": "start here",
+      "items": [
+        { "slug": "index", "title": "What sonn is" },
+        { "slug": "install", "title": "Install" },
+        { "slug": "setup", "title": "First setup" }
+      ]
+    },
+    {
+      "title": "using it",
+      "items": [
+        { "slug": "content", "title": "Content" },
+        { "slug": "zones", "title": "Zones & outputs" },
+        { "slug": "loxone", "title": "Loxone" },
+        { "slug": "access", "title": "Access" }
+      ]
+    },
+    {
+      "title": "for developers",
+      "items": [
+        { "slug": "api", "title": "The HTTP API" },
+        { "slug": "mqtt", "title": "MQTT" }
+      ]
+    },
+    {
+      "title": "help",
+      "items": [
+        { "slug": "troubleshooting", "title": "Troubleshooting" }
+      ]
+    }
+  ]
+}

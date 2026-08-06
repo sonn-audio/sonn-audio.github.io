@@ -1,0 +1,53 @@
+/**
+ * The docs build. Same philosophy as build.mjs: one command, node built-ins only.
+ *
+ *   node build-docs.mjs
+ *
+ * Every page is an HTML fragment in docs-src/<slug>.html — pure content, no boilerplate.
+ * This script wraps each fragment in docs-src/template.html, renders the sidebar from
+ * docs-src/nav.json (the current page lit), and writes docs/<slug>/index.html — except
+ * `index`, which becomes docs/index.html so /docs/ is the home.
+ *
+ * The fragment's first <h1> feeds the <title>; a leading
+ * <!-- description: ... --> comment feeds the meta description. Do not edit anything
+ * under docs/ by hand — it is generated, like de/.
+ */
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+
+const template = readFileSync('docs-src/template.html', 'utf8');
+const { sections } = JSON.parse(readFileSync('docs-src/nav.json', 'utf8'));
+
+const pages = sections.flatMap((s) => s.items);
+
+const navFor = (active) =>
+  sections
+    .map((s) => {
+      const items = s.items
+        .map((it) => {
+          const href = it.slug === 'index' ? '/docs/' : `/docs/${it.slug}/`;
+          const on = it.slug === active ? ' class="on" aria-current="page"' : '';
+          return `          <li><a${on} href="${href}">${it.title}</a></li>`;
+        })
+        .join('\n');
+      return `        <p class="docs-nav-k mono">${s.title}</p>\n        <ul>\n${items}\n        </ul>`;
+    })
+    .join('\n');
+
+let built = 0;
+for (const { slug } of pages) {
+  const fragment = readFileSync(`docs-src/${slug}.html`, 'utf8');
+  const title = /<h1[^>]*>(.*?)<\/h1>/s.exec(fragment)?.[1].replace(/<[^>]+>/g, '') ?? slug;
+  const description = /<!--\s*description:\s*(.*?)\s*-->/s.exec(fragment)?.[1] ?? 'sonn documentation';
+  const html = template
+    .replaceAll('{{title}}', title)
+    .replaceAll('{{description}}', description)
+    .replaceAll('{{slug}}', slug)
+    .replace('{{nav}}', navFor(slug))
+    .replace('{{content}}', fragment.trim());
+  const dir = slug === 'index' ? 'docs' : `docs/${slug}`;
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(`${dir}/index.html`, html);
+  built++;
+}
+
+console.log(`docs built: ${built} pages.`);

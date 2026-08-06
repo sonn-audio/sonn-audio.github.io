@@ -1,0 +1,59 @@
+<!-- description: Pair sonn with a Loxone Miniserver: a complete Audioserver implementation with zones, sources, favorites, alerts and the native Loxone app. -->
+<p class="eyebrow">using it</p>
+<h1>Loxone</h1>
+
+<p>
+  sonn is a complete Loxone Audioserver implementation — not an add-on that talks to Loxone. Pair it
+  with a Miniserver and it behaves like the real thing: zones, sources, favourites, alerts and the
+  native Loxone app, with up to 24 zones — the same ceiling as the original.
+</p>
+
+<h2>Enabling the integration</h2>
+
+<p>Under <strong>Zones</strong>, choose <strong>Loxone integrated</strong>. The server starts listening immediately, then:</p>
+
+<ol>
+  <li>Add the AudioServer in Loxone Config using the serial and host shown in the Admin UI.</li>
+  <li>Split the stereo outputs into 4 zones and drag them into your project.</li>
+  <li>Deploy the changes and reboot the Miniserver to start pairing.</li>
+</ol>
+
+<p>
+  When pairing succeeds, the Audio Server icon in Loxone Config turns green and the Miniserver pushes
+  its zones. You still configure each zone's output and receivers in the Admin UI.
+</p>
+
+<div class="note">
+  Any zones you set up yourself are kept while Loxone is connected and return when you disconnect.
+  Enabling or disabling the integration starts and stops only the Loxone protocol stack — it takes
+  effect without a restart.
+</div>
+
+<h2>Ports</h2>
+
+<p>
+  The integration uses <code>7091</code> (native Loxone app protocol) and <code>7095</code> (Miniserver
+  protocol) — but only while it is enabled. Port <code>7090</code> carries everything else, always.
+</p>
+
+<h2>How services appear to Loxone</h2>
+
+<p>
+  Non-Spotify streaming services are presented to the Miniserver as virtual Spotify accounts — that is
+  the only vocabulary the Loxone clients have for them. Everywhere else (web player, DLNA, Subsonic)
+  they keep their own name.
+</p>
+
+<h2>Alerts</h2>
+
+<p>
+  With the integration on, native Loxone alerts work as they do on the original hardware, alongside the
+  server's own text-to-speech and alert sounds — see <a href="/docs/content/">the alert engine</a>.
+</p>
+
+<h2>Credentials</h2>
+
+<p>
+  When the Loxone integration is connected, Miniserver credentials work as an additional login next to
+  sonn's own local accounts.
+</p>

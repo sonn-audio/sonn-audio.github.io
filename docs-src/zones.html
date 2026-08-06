@@ -1,0 +1,177 @@
+<!-- description: Zones in sonn: arrangements, outputs, Sendspin and the signal path, receivers, grouping, the equalizer, amplifier power management and the Beoremote One. -->
+<p class="eyebrow">using it</p>
+<h1>Zones &amp; outputs</h1>
+
+<p>
+  A zone is a single device you play music on. Zones are optional: skip them entirely if you only want
+  to serve your content to other apps and devices — that is what <a href="/docs/access/">Access</a>
+  does. Loxone is the exception: it drives zones by design, so with the Loxone integration on, zones
+  are always active and come from the Miniserver.
+</p>
+
+<p>Adding zones gets you:</p>
+
+<ul>
+  <li><strong>Central control</strong>: every zone in one place — web player, Admin UI, or a Loxone app</li>
+  <li><strong>Grouping</strong>: several zones in perfect sync, regrouped on the fly</li>
+  <li><strong>Receivers</strong>: features on a device that it doesn't support natively (below)</li>
+</ul>
+
+<p>
+  Each zone plays to exactly one device, with a per-zone equalizer, volume limits, recents and
+  favourites, and optional power management. You can add up to 24 zones — the same ceiling a Loxone
+  Audio Server has.
+</p>
+
+<h2>Arrangements</h2>
+
+<p>Under <strong>Zones</strong> you pick one of three arrangements, and can change it later:</p>
+
+<ul>
+  <li><strong>Disabled</strong> — no zones. The server shares your content through Access only. This is how a fresh install starts.</li>
+  <li><strong>Set up here</strong> — you add zones yourself: the speakers and rooms you name, group and cast to.</li>
+  <li><strong>Loxone integrated</strong> — your Miniserver pushes which zones exist and their names; you still configure each one's output and receivers here. See <a href="/docs/loxone/">Loxone</a>.</li>
+</ul>
+
+<h2>Outputs</h2>
+
+<p>
+  Sendspin, Google Cast (Chromecast), Sonos, AirPlay, DLNA/UPnP renderers, Snapcast, Squeezelite, and
+  Music Assistant players.
+</p>
+
+<h3>Sendspin, and the signal path</h3>
+
+<p>
+  sonn is built around one idea: the audio that leaves your library should reach the player exactly as
+  it was recorded. Every step in between — resampling, changing bit depth, re-encoding, gain — can only
+  lose something or alter it, so the server's job is to do none of them unless something makes that
+  impossible.
+</p>
+
+<p>
+  <strong>Sendspin is the output where that can be guaranteed</strong>, because its format is
+  negotiated per track. A Sendspin client tells the server which sample rates and bit depths it
+  accepts, and the server then follows the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC is streamed as
+  24-bit/192&nbsp;kHz, a 16-bit CD rip as 16-bit/44.1&nbsp;kHz, with no resampler in the path at all.
+  Sendspin with a USB DAC is therefore the perfect audio path: the file's own samples travel over the
+  network, the client hands them to the DAC untouched, and the DAC clocks them at the rate they were
+  recorded at.
+</p>
+
+<p>
+  The other outputs take a fixed format, so playing anything that does not match it means a
+  conversion. That is not a defect — it is what those protocols are — and the conversion is a good one
+  (SoX resampler, 28-bit precision). It is simply not the same as <em>not converting</em>.
+</p>
+
+<p>Two things deliberately stay out of the audio path either way:</p>
+
+<ul>
+  <li><strong>Volume</strong> is applied by the device, not by the server, so turning it down costs no resolution.</li>
+  <li><strong>The equalizer and crossfade</strong> are per zone and off by default. Switching either on is a choice to process the audio, and the player says so while it is on.</li>
+</ul>
+
+<p>
+  The web player's technical view shows all of this per zone, live: the source format, every stage that
+  touched the audio, and the verdict — <em>bit-perfect</em>, <em>untouched</em>, or <em>altered</em>,
+  with the reason. If it says "resampled — this output is fixed at 48&nbsp;kHz", that is the output's
+  ceiling talking, not a setting you missed.
+</p>
+
+<div class="note">
+  And if you just want music: use whatever output you already have. A Chromecast in the kitchen, an
+  old Sonos, a pair of Snapcast speakers on a Raspberry Pi — all of it works, all of it sounds good,
+  and none of it needs a thought about sample rates.
+</div>
+
+<h2>Receivers</h2>
+
+<p>
+  A receiver lets a phone or app play <em>to</em> a zone. The stream lands on the server, which sends
+  it on to that zone's output — the device itself needs no support for the protocol. Point AirPlay or
+  Spotify Connect at a pair of Snapcast speakers or an old amplifier on a line-out, and it works.
+</p>
+
+<p>Available receivers: <strong>Spotify Connect</strong>, <strong>AirPlay</strong>, <strong>DLNA</strong>, <strong>line-in</strong>, <strong>Music Assistant</strong> — and one zone can offer them all at once.</p>
+
+<h2>Grouping</h2>
+
+<p>
+  Any rooms play in sync, regrouped on the fly — from the app, the wall panel, or a Loxone scene. The
+  kitchen joins the terrace for dinner and leaves again after.
+</p>
+
+<h2>Power management</h2>
+
+<p>
+  A zone can switch an amplifier or power supply on when it starts and off after it stops, over either
+  a GPIO line (using libgpiod's <code>gpioset</code>) or a USB HID relay board (CRelay). Configure it
+  per zone under Zones.
+</p>
+
+<p>
+  <strong>From Docker</strong>, the container needs access to the host devices, or calls that work on a
+  host shell will still fail inside the container. Expose the relevant <code>/dev/gpiochip*</code>
+  and/or <code>/dev/hidraw*</code> entries, or run the container with elevated device access.
+</p>
+
+<div class="note warn">
+  <strong>GPIO line offsets</strong> are the most common source of trouble: configure the
+  <code>chip</code> plus the line offset <em>within that chip</em>. On a Raspberry Pi 4, header GPIO22
+  is typically line <code>22</code> on <code>/dev/gpiochip0</code>. The old sysfs-style global number
+  such as <code>534</code> is not what <code>gpioset</code> expects, and a correctly wired relay will
+  do nothing.
+</div>
+
+<h3>Shared amps and PSUs</h3>
+
+<p>
+  When several zones share one amplifier, switch it as a group instead of per zone. Configure the group
+  under <code>groups.powerGroups[]</code>, set each zone's <code>powerManager.powerGroupId</code> to
+  that group id, and give the group its own <code>powerManager.gpio</code> or
+  <code>powerManager.crelay</code>. The shared output turns on while any member is active and off
+  after the last one stops.
+</p>
+
+<h3>Timing</h3>
+
+<ul>
+  <li><code>activeModes</code> sets which states count as active (default <code>['play']</code>, so pause switches off)</li>
+  <li><code>playbackPreDelayMs</code> inserts a pre-delay so an amp can wake before the first sound</li>
+  <li><code>offDelayMs</code> delays switching off so short gaps don't cycle the amplifier (default 5 minutes; set <code>offDelayEnabled: false</code> for immediate)</li>
+</ul>
+
+<h3>HTTP power control</h3>
+
+<p>
+  For devices that need more than a simple GET, <code>url.offMethod</code> and <code>url.offBody</code>
+  can be used. The method defaults to GET; a configured body is sent as JSON. The ON side is optional —
+  for example for an autosensing amplifier:
+</p>
+
+<pre>{
+  "url": {
+    "enabled": true,
+    "offUrl": "http://192.168.1.43:8080/BeoDevice/powerManagement/standby",
+    "offMethod": "PUT",
+    "offBody": { "standby": { "powerState": "standby" } }
+  }
+}</pre>
+
+<h2>Bang &amp; Olufsen remotes</h2>
+
+<p>
+  A zone can be controlled with a <strong>Beoremote One</strong> — bidirectionally. The server builds
+  the menu the remote shows: radio stations and room favourites appear directly as playable items on
+  the remote's screen, and any line-in device such as a turntable or CD player is listed too. Each of
+  the coloured and dot buttons starts something in that room, and play, pause and skip route to
+  whatever the room is playing, including a line-in device that can be driven.
+</p>
+
+<p>
+  Volume stays on the device itself, so it keeps working even if the server is briefly unreachable.
+  Like line-in, this needs a separate helper — the remote pairs with it over Bluetooth, and it forwards
+  the keypresses to this server. It registers itself the same way, so once it is running you only pick
+  which remote belongs to which zone in the Admin UI.
+</p>

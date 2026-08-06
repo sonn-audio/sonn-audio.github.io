@@ -1,0 +1,78 @@
+<!-- description: What sonn is, how its three sides fit together, and where to start. -->
+<p class="eyebrow">documentation</p>
+<h1>What sonn is</h1>
+
+<p>
+  sonn is a complete multiroom audio solution: a self-hosted server that collects your music — local
+  files, streaming services, radio, line-in — and plays it in sync on the speakers you already own,
+  over almost any protocol they speak.
+</p>
+
+<p>
+  It runs in one of two shapes, and can be both at once. As a <strong>content server</strong> it makes
+  everything you listen to available to other apps and devices — DLNA TVs, Subsonic apps, the built-in
+  web player. As a <strong>multiroom system</strong> it owns fixed zones — up to 24, one device per
+  room — that you name, group and control centrally, from the web player, the Admin UI, or a Loxone app.
+</p>
+
+<h2>How it fits together</h2>
+
+<p>sonn has three sides, each configured independently in the Admin UI:</p>
+
+<table>
+  <thead>
+    <tr><th>side</th><th>what it is</th><th>required?</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Content</strong></td>
+      <td>Where the music comes from: local library, Spotify, Apple Music, Tidal, Deezer, radio, line-in</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td><strong>Access</strong></td>
+      <td>How other apps and devices reach the server: DLNA/UPnP, Subsonic API, network drive, Loxone</td>
+      <td>Pick at least one way to listen</td>
+    </tr>
+    <tr>
+      <td><strong>Zones</strong></td>
+      <td>The devices this server drives itself, one per room</td>
+      <td>Optional</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+  Content plus Access is already a working audio server: point a DLNA TV or a Subsonic app at it and
+  browse your library, Apple Music or Tidal straight from the device — no zones involved, nothing to
+  configure per room.
+</p>
+
+<p>
+  Zones are for the other model: devices the server owns and controls centrally. Add them when you want
+  to name your rooms, group them to play in sync, and drive them from one place — or when you want to
+  give a device features it has no support for itself (see <a href="/docs/zones/">receivers</a>).
+</p>
+
+<div class="note">
+  The Loxone integration is zone-driven, so with it on, zones are always active: the Miniserver
+  supplies them and expects to control them. See <a href="/docs/loxone/">Loxone</a>.
+</div>
+
+<h2>Where to start</h2>
+
+<ol>
+  <li><a href="/docs/install/">Install</a> — one container, running before the coffee is.</li>
+  <li><a href="/docs/setup/">First setup</a> — the admin account and the three steps.</li>
+  <li><a href="/docs/content/">Content</a> — your library, streaming accounts, radio and line-in.</li>
+  <li><a href="/docs/zones/">Zones</a> — only if you want rooms; <a href="/docs/loxone/">Loxone</a> if a Miniserver supplies them.</li>
+</ol>
+
+<h2>Status</h2>
+
+<p>
+  sonn core is at <strong>4.0 beta</strong>: in active use and actively developed. Releases are tagged
+  from the <code>beta</code> branch, and breaking changes can still land between betas — check the
+  release notes before updating. The project is open source under Apache-2.0, on
+  <a href="https://github.com/sonn-audio/core" rel="noopener">GitHub</a>.
+</p>
