@@ -176,6 +176,23 @@ svg {
   justify-content: center;
 }
 
+/* The positioning line over the headline — engraved, like every label in the product. */
+.hero-eyebrow {
+  margin-top: 30px;
+  color: var(--muted);
+}
+
+.hero-eyebrow::before {
+  background: var(--accent);
+  opacity: 1;
+  box-shadow: 0 0 8px rgb(74 222 128 / 60%);
+}
+
+.hero-eyebrow + h1,
+.hero-eyebrow ~ h1 {
+  margin-top: 14px;
+}
+
 /*
  * Headings are cut from light: white at the cap line falling to grey at the baseline.
  * It is the one indulgence the type allows itself, and it is what makes the near-black
