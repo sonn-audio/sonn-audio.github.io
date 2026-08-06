@@ -2814,6 +2814,19 @@ footer {
   gap: 34px;
 }
 
+/* On a phone the brand takes the full width and the link columns pair up below it —
+   the wide grid squeezed the brand blurb to one word a line. */
+@media (max-width: 700px) {
+  .foot-in {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px 20px;
+  }
+
+  .foot-in > div:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
 .foot-brand {
   display: flex;
   align-items: center;
