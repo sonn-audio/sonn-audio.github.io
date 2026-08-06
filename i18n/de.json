@@ -1,225 +1,829 @@
 {
   "//": "The German edition, as data. Each pair is [english-as-it-appears-in-index.html, german]. Matching is whitespace-insensitive; a pair whose English side no longer occurs FAILS the build, so copy edits cannot silently strand the translation. Product vocabulary (bit-perfect, zones · live, bypassed, grouped) is deliberately not translated — that is what the product UI itself says.",
   "pairs": [
-    ["sonn — multiroom audio for your whole home", "sonn — Multiroom-Audio für dein ganzes Zuhause"],
-    ["sonn is an open-source audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included.", "sonn ist ein Open-Source-Audioserver: deine Musik, Streamingdienste, Radio und Line-in — bereitgestellt für jede App oder synchron in jedem Raum, auf den Lautsprechern, die du schon besitzt. Vollständige Loxone-Audioserver-Emulation inklusive."],
-    ["The ultimate audio server. Run it as a pure content server, or as a full multiroom system with fixed zones. Loxone and Home Assistant friendly. Open source.", "Der ultimative Audioserver. Als reiner Content-Server, oder als komplettes Multiroom-System mit festen Zonen. Loxone- und Home-Assistant-freundlich. Open Source."],
-
-    ["aria-label=\"sonn — back to top\"", "aria-label=\"sonn — nach oben\""],
-    ["aria-label=\"Sections\"", "aria-label=\"Abschnitte\""],
-    ["aria-label=\"Menu\"", "aria-label=\"Menü\""],
-    ["aria-label=\"Language\"", "aria-label=\"Sprache\""],
-    [">Two ways<", ">Zwei Wege<"],
-    [">Signal path<", ">Signalweg<"],
-    [">Content<", ">Inhalte<"],
-    [">Zones<", ">Zonen<"],
-    [">Get started<", ">Loslegen<"],
-
-    ["the open audioserver", "der offene audioserver"],
-    [">One server.<", ">Ein Server.<"],
-    [">Every room.<", ">Jeder Raum.<"],
-    ["<em>Your speakers.</em>", "<em>Deine Lautsprecher.</em>"],
-    ["sonn collects your music — local library, Spotify, Apple&nbsp;Music, Tidal, radio, even the turntable — and plays it in sync on the speakers you already own, over almost any protocol they speak. Or skip the rooms entirely and serve your content to every app in the house.", "sonn sammelt deine Musik — lokale Bibliothek, Spotify, Apple&nbsp;Music, Tidal, Radio, sogar den Plattenspieler — und spielt sie synchron auf den Lautsprechern, die du schon besitzt, über fast jedes Protokoll, das sie sprechen. Oder lass die Räume ganz weg und stelle deine Inhalte jeder App im Haus bereit."],
-    ["aria-label=\"Copy: docker compose up -d\"", "aria-label=\"Kopieren: docker compose up -d\""],
-    ["<span class=\"copy\">copy</span>", "<span class=\"copy\">kopieren</span>"],
-
-    ["technical · living room", "technical · wohnzimmer"],
-    ["source → sendspin → usb dac · no resampler in the path", "quelle → sendspin → usb-dac · kein resampler im signalweg"],
-    ["4 rooms · 1 group", "4 räume · 1 gruppe"],
-    [">Living room<", ">Wohnzimmer<"],
-    ["Kitchen <span class=\"quiet\">+ Terrace</span>", "Küche <span class=\"quiet\">+ Terrasse</span>"],
-    [">Study<", ">Arbeitszimmer<"],
-    ["Turntable · line-in · Shazam: Nina Simone", "Plattenspieler · Line-in · Shazam: Nina Simone"],
-    [">Bedroom<", ">Schlafzimmer<"],
-    ["Idle · amp off · wakes on play", "Leerlauf · Amp aus · weckt bei Play"],
-
-    ["one server, two shapes", "ein server, zwei gestalten"],
-    ["Content server, or whole-home system. Or both.", "Content-Server oder Ganzhaus-System. Oder beides."],
-    ["A fresh install starts with no zones and nothing shared. What you switch on decides what it becomes — and you can change your mind later without starting over.", "Eine frische Installation startet ohne Zonen und ohne Freigaben. Was du einschaltest, bestimmt, was daraus wird — und du kannst es später ändern, ohne von vorn anzufangen."],
-    ["01 / content only", "01 / nur inhalte"],
-    ["Serve your music to everything", "Deine Musik für alles bereitstellen"],
-    ["Point your library, streaming accounts and radio at sonn, switch on how you want to reach it, and every app and device in the house can browse and play — no rooms to configure, nothing to manage per device.", "Richte deine Bibliothek, Streaming-Konten und Radio auf sonn, schalte ein, wie du sie erreichen willst — und jede App und jedes Gerät im Haus kann stöbern und abspielen. Keine Räume zu konfigurieren, nichts pro Gerät zu verwalten."],
-    ["DLNA / UPnP MediaServer — smart TVs, receivers, network speakers", "DLNA / UPnP MediaServer — Smart-TVs, Receiver, Netzwerklautsprecher"],
-    ["Subsonic API — Symfonium, Amperfy, DSub and friends", "Subsonic API — Symfonium, Amperfy, DSub und Co."],
-    ["Network drive (WebDAV) — drag albums in with Finder or Explorer", "Netzlaufwerk (WebDAV) — Alben per Finder oder Explorer hineinziehen"],
-    ["Built-in web player, from any browser on the network", "Eingebauter Web-Player, aus jedem Browser im Netzwerk"],
-    ["Streaming services included — on devices that have no support for them of their own. A DLNA TV has no Apple&nbsp;Music or Tidal app, yet it browses and plays your accounts straight from the couch, because sonn serves them like any other content.", "Streamingdienste inklusive — auf Geräten, die selbst keinerlei Unterstützung dafür haben. Ein DLNA-TV hat keine Apple&nbsp;Music- oder Tidal-App und stöbert trotzdem vom Sofa aus durch deine Konten, weil sonn sie wie jeden anderen Inhalt bereitstellt."],
-    ["Or own the rooms yourself", "Oder übernimm die Räume selbst"],
-    ["Add fixed zones — up to 24, one per room — and sonn drives the speakers directly: named rooms, synchronized groups, one place to control the whole house.", "Lege feste Zonen an — bis zu 24, eine pro Raum — und sonn steuert die Lautsprecher direkt: benannte Räume, synchrone Gruppen, ein Ort für das ganze Haus."],
-    ["Central control from the web player, Admin UI or a Loxone app", "Zentrale Steuerung über Web-Player, Admin-UI oder eine Loxone-App"],
-    ["Group any rooms to play in perfect sync", "Beliebige Räume perfekt synchron gruppieren"],
-    ["Per-zone equalizer, volume limits, favorites and recents", "Equalizer, Lautstärkegrenzen, Favoriten und Verlauf pro Zone"],
-    ["Amp power switching over GPIO or USB relay, per zone or shared", "Verstärker schalten über GPIO oder USB-Relais, pro Zone oder geteilt"],
-    ["With the Loxone integration on, the Miniserver supplies the zones — sonn behaves as a full Loxone Audio Server.", "Mit aktivierter Loxone-Integration liefert der Miniserver die Zonen — sonn verhält sich wie ein vollwertiger Loxone Audioserver."],
-
-    ["the signal path", "der signalweg"],
-    ["Your file, unchanged, at the speaker.", "Deine Datei, unverändert, am Lautsprecher."],
-    ["sonn is built around one idea: the audio that leaves your library should reach the player exactly as it was recorded. Every stage that could touch it is visible per zone — and the server does none of them unless something makes that impossible. Try it:", "sonn ist um eine Idee gebaut: Das Audio, das deine Bibliothek verlässt, soll den Player exakt so erreichen, wie es aufgenommen wurde. Jede Stufe, die es berühren könnte, ist pro Zone sichtbar — und der Server führt keine davon aus, solange nichts ihn dazu zwingt. Probier es aus:"],
-    ["<h4>source</h4>", "<h4>quelle</h4>"],
-    ["<h4>output</h4>", "<h4>ausgang</h4>"],
-    ["<h4>processing</h4>", "<h4>verarbeitung</h4>"],
-    ["aria-label=\"Source format\"", "aria-label=\"Quellformat\""],
-    ["aria-label=\"Output type\"", "aria-label=\"Ausgangstyp\""],
-    [">CD rip 16/44.1<", ">CD-Rip 16/44.1<"],
-    [">Sendspin + USB DAC<", ">Sendspin + USB-DAC<"],
-    ["<p class=\"node-k\">source</p>", "<p class=\"node-k\">quelle</p>"],
-    [">Library<", ">Bibliothek<"],
-    ["<p class=\"node-k\">volume</p>", "<p class=\"node-k\">lautstärke</p>"],
-    [">On the device<", ">Auf dem Gerät<"],
-    [">never in the stream<", ">nie im Stream<"],
-    [">10-band<", ">10-Band<"],
-    [">USB DAC<", ">USB-DAC<"],
-    ["Sendspin negotiates the format per track, so the server follows the source: the file's own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.", "Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht."],
-    ["This is not a diagram we drew for the website — it is the technical view the web player shows for every zone, live: the source format, every stage that touched the audio, and the verdict. <em>Bit-perfect</em>, <em>untouched</em>, or <em>altered</em> — with the reason. And if you just want music: use whatever output you already have. All of it works, all of it sounds good, and none of it needs a thought about sample rates.", "Das ist kein Diagramm, das wir für die Website gezeichnet haben — es ist die technische Ansicht, die der Web-Player für jede Zone live zeigt: das Quellformat, jede Stufe, die das Audio berührt hat, und das Urteil. <em>Bit-perfect</em>, <em>untouched</em> oder <em>altered</em> — mit Begründung. Und wenn du einfach nur Musik willst: Nimm den Ausgang, den du schon hast. Alles funktioniert, alles klingt gut, und nichts davon verlangt einen Gedanken an Sampleraten."],
-
-    ["<p class=\"eyebrow\">content</p>", "<p class=\"eyebrow\">inhalte</p>"],
-    ["Everything you listen to, in one place.", "Alles, was du hörst, an einem Ort."],
-    ["Every source is available to every consumer of the server — the web player, Loxone, DLNA devices and Subsonic apps alike. Configure it once, reach it from everywhere.", "Jede Quelle steht jedem Konsumenten des Servers zur Verfügung — dem Web-Player, Loxone, DLNA-Geräten und Subsonic-Apps gleichermaßen. Einmal einrichten, von überall erreichen."],
-    [">Local library<", ">Lokale Bibliothek<"],
-    ["Folders and network shares, indexed by tags into albums, artists and tracks — with cover art, and artist pictures fetched automatically.", "Ordner und Netzwerkfreigaben, per Tags indexiert zu Alben, Künstlern und Titeln — mit Cover-Art und automatisch geladenen Künstlerbildern."],
-    ["Incremental indexing — a dropped file just appears", "Inkrementeller Index — eine abgelegte Datei taucht einfach auf"],
-    ["Add music by drag-and-drop, or over the network drive", "Musik per Drag-and-drop hinzufügen, oder übers Netzlaufwerk"],
-    ["Browse, search and manage from the Admin UI", "Stöbern, suchen und verwalten in der Admin-UI"],
-    [">Streaming services<", ">Streamingdienste<"],
-    ["Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — and Music Assistant as a source, exposing its own providers.", "Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — und Music Assistant als Quelle, mit seinen eigenen Anbietern."],
-    ["Several accounts of one service can coexist", "Mehrere Konten desselben Dienstes können koexistieren"],
-    ["Each account is its own browsable service", "Jedes Konto ist ein eigener, durchsuchbarer Dienst"],
-    ["Served on to Loxone, DLNA and Subsonic too", "Weitergereicht an Loxone, DLNA und Subsonic"],
-    [">Radio &amp; line-in<", ">Radio &amp; Line-in<"],
-    ["The TuneIn directory, Radio Paradise, your own streams — plus the turntable or CD player, through any zone in the house.", "Das TuneIn-Verzeichnis, Radio Paradise, deine eigenen Streams — plus Plattenspieler oder CD-Player, durch jede Zone im Haus."],
-    ["Line-in with optional Shazam track recognition", "Line-in mit optionaler Shazam-Titelerkennung"],
-    ["Play/pause and skip reach the actual CD changer", "Play/Pause und Skip erreichen den echten CD-Wechsler"],
-    ["TTS and alert sounds, Loxone-native when paired", "TTS und Hinweistöne, Loxone-nativ wenn gekoppelt"],
-
-    ["the web player", "der web-player"],
-    ["The whole house, from any browser.", "Das ganze Haus, aus jedem Browser."],
-    ["The server serves its own player — open <code>:7090</code> on a phone, a laptop or the wall panel and every room is there. Nothing to install, nothing to update, and it can never be out of date: it comes from the same box that plays the music.", "Der Server liefert seinen eigenen Player aus — öffne <code>:7090</code> auf dem Handy, dem Laptop oder dem Wandpanel, und jeder Raum ist da. Nichts zu installieren, nichts zu aktualisieren, und er kann nie veralten: Er kommt aus derselben Kiste, die die Musik spielt."],
-    ["Search everything at once", "Alles auf einmal durchsuchen"],
-    ["One search across your library and every connected service, bucketed by kind. Find a track, tap it, and it plays in the room you have selected.", "Eine Suche über deine Bibliothek und jeden verbundenen Dienst, sortiert nach Art. Finde einen Titel, tippe ihn an, und er spielt im ausgewählten Raum."],
-    ["Favourites from any row", "Favoriten aus jeder Zeile"],
-    ["A star sits on everything that can play — browse results, search hits, queue entries, recents — and adds it to the zone's favourites: the same ones a Loxone wall switch or a Beoremote cycles through.", "Ein Stern sitzt an allem, was spielen kann — Browsing-Ergebnisse, Suchtreffer, Warteschlange, Verlauf — und legt es in die Favoriten der Zone: dieselben, durch die ein Loxone-Wandtaster oder eine Beoremote schaltet."],
-    ["The queue, grouping and a 10-band EQ", "Warteschlange, Gruppen und ein 10-Band-EQ"],
-    ["Reorder what plays next, pull rooms into a group mid-song, shape a zone with its own equalizer — and see the true stream format of every room, down to the <a class=\"hl\" href=\"#signal\">bit-perfect verdict</a>.", "Sortiere um, was als nächstes spielt, hole Räume mitten im Song in eine Gruppe, forme eine Zone mit ihrem eigenen Equalizer — und sieh das echte Streamformat jedes Raums, bis hin zum <a class=\"hl\" href=\"#signal\">bit-perfect-Urteil</a>."],
-    ["Always in agreement", "Immer einer Meinung"],
-    ["Two phones, the wall panel and the Loxone app all show the same state, live — nothing polls, and an edit made anywhere appears everywhere.", "Zwei Handys, das Wandpanel und die Loxone-App zeigen denselben Zustand, live — nichts pollt, und eine Änderung von irgendwo erscheint überall."],
-    ["The sonn web player on a phone, playing That Thing You Do by Ellem in the living room", "Der sonn Web-Player auf einem Handy, mit That Thing You Do von Ellem im Wohnzimmer"],
-    ["the actual player · not a mockup", "der echte player · kein mockup"],
-    ["The sonn Admin UI Zones screen: four zones named Living room, Kitchen, Study and Bedroom, each with AirPlay, Spotify Connect and DLNA receiver chips", "Der Zones-Bildschirm der sonn Admin-UI: vier Zonen namens Living room, Kitchen, Study und Bedroom, jede mit AirPlay-, Spotify-Connect- und DLNA-Empfänger-Chips"],
-    ["the admin ui, as it ships — every room a zone, receivers on each", "die admin-ui, wie sie ausgeliefert wird — jeder raum eine zone, empfänger an jeder"],
-
-    ["zones &amp; outputs", "zonen &amp; ausgänge"],
-    ["The speakers you already own are the system.", "Die Lautsprecher, die du schon besitzt, sind das System."],
-    ["A zone is one device in one room. sonn speaks to nearly anything that can make sound — and a zone can also <em>receive</em>: point AirPlay or Spotify&nbsp;Connect at an old amplifier, and it just works.", "Eine Zone ist ein Gerät in einem Raum. sonn spricht mit fast allem, was Klang erzeugen kann — und eine Zone kann auch <em>empfangen</em>: Richte AirPlay oder Spotify&nbsp;Connect auf einen alten Verstärker, und es funktioniert einfach."],
-    ["A house with five rooms playing music from one sonn server in the basement", "Ein Haus mit fünf Räumen, die Musik von einem sonn-Server im Keller spielen"],
-    [">bedroom<", ">schlafzimmer<"],
-    [">idle · amp off<", ">leerlauf · amp aus<"],
-    [">study<", ">arbeitszimmer<"],
-    [">turntable · line-in<", ">vinyl · line-in<"],
-    [">bath<", ">bad<"],
-    [">airplay receiver<", ">airplay-empfänger<"],
-    [">living room<", ">wohnzimmer<"],
-    [">kitchen<", ">küche<"],
-    [">grouped · in sync<", ">gruppiert · synchron<"],
-    [">24 zones max · :7090<", ">max. 24 zonen · :7090<"],
-    ["the mark, unfolded — a roofline over a level meter, with the rooms put back in", "das logo, aufgeklappt — eine dachlinie über einem pegelmeter, mit den räumen wieder darin"],
-    ["aria-label=\"Supported outputs\"", "aria-label=\"Unterstützte Ausgänge\""],
-    [">native<", ">nativ<"],
-    [">output + receiver<", ">ausgang + empfänger<"],
-    [">renderers<", ">renderer<"],
-    [">diy multiroom<", ">diy-multiroom<"],
-    [">lms players<", ">lms-player<"],
-    [">players<", ">player<"],
-    [">Receivers<", ">Empfänger<"],
-    ["A receiver lets a phone play <em>to</em> a zone. Spotify Connect, AirPlay, DLNA and line-in land on the server, which sends them on to that zone's output — so a pair of Snapcast speakers on a Raspberry&nbsp;Pi shows up as an AirPlay target with no support of its own.", "Ein Empfänger lässt ein Telefon <em>in</em> eine Zone spielen. Spotify Connect, AirPlay, DLNA und Line-in landen auf dem Server, der sie an den Ausgang der Zone weiterreicht — so erscheint ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi als AirPlay-Ziel, ganz ohne eigene Unterstützung."],
-    [">Grouping<", ">Gruppieren<"],
-    ["Any rooms play in sync, regrouped on the fly. The kitchen joins the terrace for dinner and leaves again after — from the app, the wall panel, or a Loxone scene.", "Beliebige Räume spielen synchron, jederzeit umgruppierbar. Die Küche kommt zum Abendessen zur Terrasse dazu und verlässt sie danach wieder — aus der App, vom Wandpanel oder per Loxone-Szene."],
-    [">Power management<", ">Verstärker schalten<"],
-    ["A zone can wake its amplifier before the first note and switch it off after the music stops — GPIO or USB relay, per zone or per shared amp group, with pre-delays and off-delays so short gaps never cycle the hardware.", "Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten."],
-    [">Bang &amp; Olufsen remotes<", ">Bang &amp; Olufsen Fernbedienungen<"],
-    ["A Beoremote One can own a room: the server builds the menu it shows — favorites, radio, the turntable — and play, pause and skip route to whatever the room is playing.", "Eine Beoremote One kann einen Raum übernehmen: Der Server baut das Menü, das sie zeigt — Favoriten, Radio, der Plattenspieler — und Play, Pause und Skip erreichen, was der Raum gerade spielt."],
-    [">This browser is a room<", ">Dieser Browser ist ein Raum<"],
-    ["The web player registers itself as a local destination: select it and play, and it plays here — driven by exactly the same controls as the hardware zones.", "Der Web-Player meldet sich selbst als lokales Ziel an: auswählen, abspielen, und es spielt hier — gesteuert mit exakt denselben Reglern wie die Hardware-Zonen."],
-
-    ["A drop-in Loxone Audio&nbsp;Server.", "Ein vollwertiger Loxone Audioserver."],
-    ["Not an add-on that talks to Loxone — a complete Audioserver implementation. Pair it with a Miniserver and it behaves like the real thing: zones, sources, favorites, alerts and the native Loxone app, with up to 24 zones — the same ceiling as the original.", "Kein Add-on, das mit Loxone redet — eine vollständige Audioserver-Implementierung. Kopple sie mit einem Miniserver und sie verhält sich wie das Original: Zonen, Quellen, Favoriten, Alarme und die native Loxone-App, mit bis zu 24 Zonen — derselben Obergrenze wie beim Original."],
-    ["Choose <em>Loxone integrated</em> under Zones — the server starts listening immediately.", "Wähle unter Zonen <em>Loxone integriert</em> — der Server hört sofort zu."],
-    ["Add the Audio Server in Loxone Config with the serial and host from the Admin UI.", "Lege den Audioserver in Loxone Config an, mit Seriennummer und Host aus der Admin-UI."],
-    ["Deploy and reboot the Miniserver. The icon turns green, and your zones arrive.", "Speichern und Miniserver neu starten. Das Symbol wird grün, und deine Zonen kommen an."],
-    ["Non-Spotify services are presented to the Miniserver as virtual Spotify accounts — the only vocabulary Loxone clients have for them. Everywhere else they keep their own name. Disconnecting takes effect without a restart, and your own zones return.", "Nicht-Spotify-Dienste werden dem Miniserver als virtuelle Spotify-Konten präsentiert — das einzige Vokabular, das Loxone-Clients dafür haben. Überall sonst behalten sie ihren eigenen Namen. Trennen wirkt ohne Neustart, und deine eigenen Zonen kehren zurück."],
-    ["home assistant &amp; your own tools", "home assistant &amp; deine eigenen tools"],
-    ["And it plays well with the rest of the house.", "Und es versteht sich mit dem Rest des Hauses."],
-    ["An optional MQTT surface publishes every zone as retained topics — whole objects as JSON, single fields as plain scalars — so Home&nbsp;Assistant, Node-RED or a KNX gateway consume it with no code at all. Control works the same way: publish a value, done.", "Eine optionale MQTT-Schnittstelle veröffentlicht jede Zone als retained Topics — ganze Objekte als JSON, einzelne Felder als schlichte Werte — sodass Home&nbsp;Assistant, Node-RED oder ein KNX-Gateway sie ganz ohne Code konsumieren. Steuern geht genauso: Wert publizieren, fertig."],
-    ["# state, retained — connect late, see everything", "# zustand, retained — spät verbinden, alles sehen"],
-    ["# control — a value, or a relative nudge", "# steuern — ein wert, oder ein relativer schubs"],
-    ["{\"name\":\"Kitchen\",\"state\":\"playing\",…}", "{\"name\":\"Küche\",\"state\":\"playing\",…}"],
-    ["A native Home&nbsp;Assistant integration is on the roadmap. Today, HA already talks to sonn over MQTT and the HTTP API — the native component will make it one-click.", "Eine native Home-Assistant-Integration steht auf der Roadmap. Heute spricht HA bereits über MQTT und die HTTP-API mit sonn — die native Komponente macht daraus einen Klick."],
-
-    ["for builders", "für entwickler"],
-    ["An API where <code>curl</code> is a first-class client.", "Eine API, in der <code>curl</code> ein vollwertiger Client ist."],
-    ["Commands are plain HTTP, and reading state never requires polling: subscribe to the event stream once and you are told about every change. No handshake, no correlation ids, no SDK to install — a five-line shell script is a complete integration.", "Befehle sind schlichtes HTTP, und Zustand lesen heißt nie pollen: Abonniere den Event-Stream einmal und du erfährst jede Änderung. Kein Handshake, keine Correlation-IDs, kein SDK zu installieren — ein Shell-Skript mit fünf Zeilen ist eine vollständige Integration."],
-    ["aria-label=\"API examples\"", "aria-label=\"API-Beispiele\""],
-    ["data-tab=\"t-zones\">zones</button>", "data-tab=\"t-zones\">zonen</button>"],
-    ["data-tab=\"t-control\">control</button>", "data-tab=\"t-control\">steuern</button>"],
-    ["data-tab=\"t-analysis\">live analysis</button>", "data-tab=\"t-analysis\">live-analyse</button>"],
-    ["# What is playing everywhere?", "# Was spielt gerade, überall?"],
-    [">\"Kitchen\"<", ">\"Küche\"<"],
-    ["# Pause the kitchen, then turn it down a notch", "# Küche pausieren, dann einen Tick leiser"],
-    ["# Say something in the kitchen; the music ducks and returns", "# Etwas in der Küche durchsagen; die Musik duckt sich und kehrt zurück"],
-    ["'{\"text\":\"Dinner!\"}'", "'{\"text\":\"Essen!\"}'"],
-    ["# Follow every change — one subscription, no polling, ever", "# Jeder Änderung folgen — ein Abo, nie pollen"],
-    ["# Every command is followed by an event — write, and watch it land.", "# Auf jeden Befehl folgt ein Event — schreib, und sieh ihn landen."],
-    ["# Realtime audio analysis, straight off the stream — up to 60 fps", "# Audio-Analyse in Echtzeit, direkt vom Stream — bis 60 fps"],
-    ["# Build a VU meter, a wall visualizer, a beat-synced light scene.", "# Bau ein VU-Meter, einen Wand-Visualizer, eine Lichtszene im Takt."],
-    [">Open by design<", ">Offen by design<"],
-    ["Apache-2.0, on GitHub. The public API is documented down to the field, and the web player is built on it and nothing else — if the contract can't carry a real player, that's a bug.", "Apache-2.0, auf GitHub. Die öffentliche API ist bis aufs Feld dokumentiert, und der Web-Player ist auf ihr gebaut und auf nichts sonst — trägt der Vertrag keinen echten Player, ist das ein Bug."],
-    [">Events over polling<", ">Events statt Polling<"],
-    ["Two tabs, a wall panel and the Loxone app all agree, because everyone renders the same <code>zone.changed</code>. An edit made anywhere shows up everywhere, with no code of yours involved.", "Zwei Tabs, ein Wandpanel und die Loxone-App sind sich einig, weil alle dasselbe <code>zone.changed</code> rendern. Eine Änderung von woanders erscheint hier — ohne eine Zeile eigenen Code."],
-    [">MQTT too<", ">MQTT dazu<"],
-    ["Same state, second surface: retained topics a Miniserver or KNX gateway can read without parsing JSON. Both run at once and cannot disagree — they publish from the same source.", "Derselbe Zustand, zweite Schnittstelle: retained Topics, die ein Miniserver oder ein KNX-Gateway ohne JSON-Parser lesen kann. Beide laufen gleichzeitig und können sich nicht widersprechen — sie publizieren aus derselben Quelle."],
-
-    ["<p class=\"eyebrow\">get started</p>", "<p class=\"eyebrow\">loslegen</p>"],
-    ["Running before the coffee is.", "Läuft, bevor der Kaffee durch ist."],
-    ["One container, host networking so it can discover your speakers, one folder that holds everything. Back up that folder and you have backed up the install.", "Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles enthält. Sichere den Ordner, und du hast die Installation gesichert."],
-    ["# docker-compose.yml is in the repo — or:", "# docker-compose.yml liegt im Repo — oder:"],
-    ["Then open <code>http://&lt;server-ip&gt;:7090</code>, create your admin account, and walk the three steps: <strong>Content</strong> — add your music. <strong>Access</strong> — switch on how to reach it. <strong>Zones</strong> — only if you want rooms. Steps one and two are already a working audio server.", "Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu. <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender Audioserver."],
-    [">carries<", ">trägt<"],
-    [">when<", ">wann<"],
-    ["Admin UI, web player, API, Subsonic, WebDAV, DLNA, audio streams", "Admin-UI, Web-Player, API, Subsonic, WebDAV, DLNA, Audiostreams"],
-    [">always<", ">immer<"],
-    ["Loxone native app protocol", "Natives Loxone-App-Protokoll"],
-    [">loxone on<", ">loxone an<"],
-    ["Loxone Miniserver protocol", "Loxone-Miniserver-Protokoll"],
-    ["Prefer bare metal? It runs directly on Node.js&nbsp;20+ — clone, <code>npm install</code>, <code>npm run build</code>, <code>npm start</code>.", "Lieber ohne Docker? Läuft direkt auf Node.js&nbsp;20+ — klonen, <code>npm install</code>, <code>npm run build</code>, <code>npm start</code>."],
-
-    ["open source · self-hosted · yours", "open source · self-hosted · deins"],
-    ["Your music deserves a server this good.", "Deine Musik verdient einen Server wie diesen."],
-    ["No subscription, no cloud dependency, no speakers to replace. Everything runs on your own network — pull the internet cable, and your library keeps playing.", "Kein Abo, keine Cloud-Abhängigkeit, keine Lautsprecher zu ersetzen. Alles läuft in deinem eigenen Netzwerk — zieh das Internetkabel, und deine Bibliothek spielt weiter."],
-    ["Get sonn on GitHub", "sonn auf GitHub holen"],
-    [">Quick start<", ">Quick Start<"],
-
-    ["Multiroom audio for your whole home. Open source, self-hosted, and built to leave your music exactly as it was recorded.", "Multiroom-Audio für dein ganzes Zuhause. Open Source, self-hosted, und gebaut, um deine Musik exakt so zu lassen, wie sie aufgenommen wurde."],
-    ["<h5>product</h5>", "<h5>produkt</h5>"],
-    ["Two ways to run it", "Zwei Wege, es zu betreiben"],
-    ["The signal path", "Der Signalweg"],
-    ["Zones &amp; outputs", "Zonen &amp; Ausgänge"],
-    ["<h5>developers</h5>", "<h5>entwickler</h5>"],
-    ["Integrating with sonn", "Mit sonn integrieren"],
-    [">Documentation<", ">Dokumentation<"],
-    ["Source on GitHub", "Quellcode auf GitHub"],
-    ["Issues &amp; support", "Issues &amp; Support"],
-    ["<h5>project</h5>", "<h5>projekt</h5>"],
-    ["Apache-2.0 license", "Apache-2.0-Lizenz"],
-    [">Contributing<", ">Mitmachen<"],
-    ["sonn is an independent open-source project. Loxone is a trademark of Loxone Electronics GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google and all other product names are trademarks of their respective owners. sonn is not affiliated with or endorsed by any of them.", "sonn ist ein unabhängiges Open-Source-Projekt. Loxone ist eine Marke der Loxone Electronics GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google und alle weiteren Produktnamen sind Marken ihrer jeweiligen Inhaber. sonn ist mit keinem von ihnen verbunden und wird von keinem von ihnen unterstützt."],
-
-    ["name: 'Library'", "name: 'Bibliothek'"],
-    ["sendspin ? 'USB DAC' : 'Speaker'", "sendspin ? 'USB-DAC' : 'Lautsprecher'"],
-    ["'active — your choice'", "'aktiv — deine Wahl'"],
-    ["'The equalizer is on — a per-zone choice to process the audio, off by default, and the player says so while it is on. Switch it off and the path below returns.'", "'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.'"],
-    ["'Resampled — this output is fixed at 48 kHz. That is the output’s ceiling talking, not a setting you missed, and the conversion is a good one: SoX at 28-bit precision.'", "'Resampelt — dieser Ausgang ist fest auf 48 kHz. Das ist die Obergrenze des Ausgangs, keine Einstellung, die du übersehen hast, und die Umwandlung ist eine gute: SoX mit 28-bit-Präzision.'"],
-    ["'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.'", "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Der Stream wird durchgereicht wie geliefert — kein zweites Encoding, kein Resampler im Weg.'"],
-    ["'Sendspin negotiates the format per track, so the server follows the source: the file’s own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.'", "'Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.'"],
-    ["textContent = '✓ copied'", "textContent = '✓ kopiert'"],
-    ["textContent = 'copy'", "textContent = 'kopieren'"]
+    [
+      "sonn — multiroom audio for your whole home",
+      "sonn — Multiroom-Audio für dein ganzes Zuhause"
+    ],
+    [
+      "sonn is an open-source audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included.",
+      "sonn ist ein Open-Source-Audioserver: deine Musik, Streamingdienste, Radio und Line-in — bereitgestellt für jede App oder synchron in jedem Raum, auf den Lautsprechern, die du schon besitzt. Vollständige Loxone-Audioserver-Emulation inklusive."
+    ],
+    [
+      "The ultimate audio server. Run it as a pure content server, or as a full multiroom system with fixed zones. Loxone and Home Assistant friendly. Open source.",
+      "Der ultimative Audioserver. Als reiner Content-Server, oder als komplettes Multiroom-System mit festen Zonen. Loxone- und Home-Assistant-freundlich. Open Source."
+    ],
+    [
+      "aria-label=\"sonn — back to top\"",
+      "aria-label=\"sonn — nach oben\""
+    ],
+    [
+      "aria-label=\"Sections\"",
+      "aria-label=\"Abschnitte\""
+    ],
+    [
+      "aria-label=\"Menu\"",
+      "aria-label=\"Menü\""
+    ],
+    [
+      "aria-label=\"Language\"",
+      "aria-label=\"Sprache\""
+    ],
+    [
+      ">Two ways<",
+      ">Zwei Wege<"
+    ],
+    [
+      ">Signal path<",
+      ">Signalweg<"
+    ],
+    [
+      ">Content<",
+      ">Inhalte<"
+    ],
+    [
+      ">Zones<",
+      ">Zonen<"
+    ],
+    [
+      ">Get started<",
+      ">Loslegen<"
+    ],
+    [
+      "the open audioserver",
+      "der offene audioserver"
+    ],
+    [
+      ">One server.<",
+      ">Ein Server.<"
+    ],
+    [
+      ">Every room.<",
+      ">Jeder Raum.<"
+    ],
+    [
+      "<em>Your speakers.</em>",
+      "<em>Deine Lautsprecher.</em>"
+    ],
+    [
+      "sonn collects your music — local library, Spotify, Apple&nbsp;Music, Tidal, radio, even the turntable — and plays it in sync on the speakers you already own, over almost any protocol they speak. Or skip the rooms entirely and serve your content to every app in the house.",
+      "sonn sammelt deine Musik — lokale Bibliothek, Spotify, Apple&nbsp;Music, Tidal, Radio, sogar den Plattenspieler — und spielt sie synchron auf den Lautsprechern, die du schon besitzt, über fast jedes Protokoll, das sie sprechen. Oder lass die Räume ganz weg und stelle deine Inhalte jeder App im Haus bereit."
+    ],
+    [
+      "aria-label=\"Copy: docker compose up -d\"",
+      "aria-label=\"Kopieren: docker compose up -d\""
+    ],
+    [
+      "<span class=\"copy\">copy</span>",
+      "<span class=\"copy\">kopieren</span>"
+    ],
+    [
+      "technical · living room",
+      "technical · wohnzimmer"
+    ],
+    [
+      "source → sendspin → usb dac · no resampler in the path",
+      "quelle → sendspin → usb-dac · kein resampler im signalweg"
+    ],
+    [
+      "4 rooms · 1 group",
+      "4 räume · 1 gruppe"
+    ],
+    [
+      ">Living room<",
+      ">Wohnzimmer<"
+    ],
+    [
+      "Kitchen <span class=\"quiet\">+ Terrace</span>",
+      "Küche <span class=\"quiet\">+ Terrasse</span>"
+    ],
+    [
+      ">Study<",
+      ">Arbeitszimmer<"
+    ],
+    [
+      "Turntable · line-in · Shazam: Nina Simone",
+      "Plattenspieler · Line-in · Shazam: Nina Simone"
+    ],
+    [
+      ">Bedroom<",
+      ">Schlafzimmer<"
+    ],
+    [
+      "Idle · amp off · wakes on play",
+      "Leerlauf · Amp aus · weckt bei Play"
+    ],
+    [
+      "one server, two shapes",
+      "ein server, zwei gestalten"
+    ],
+    [
+      "Content server, or whole-home system. Or both.",
+      "Content-Server oder Ganzhaus-System. Oder beides."
+    ],
+    [
+      "A fresh install starts with no zones and nothing shared. What you switch on decides what it becomes — and you can change your mind later without starting over.",
+      "Eine frische Installation startet ohne Zonen und ohne Freigaben. Was du einschaltest, bestimmt, was daraus wird — und du kannst es später ändern, ohne von vorn anzufangen."
+    ],
+    [
+      "01 / content only",
+      "01 / nur inhalte"
+    ],
+    [
+      "Serve your music to everything",
+      "Deine Musik für alles bereitstellen"
+    ],
+    [
+      "Point your library, streaming accounts and radio at sonn, switch on how you want to reach it, and every app and device in the house can browse and play — no rooms to configure, nothing to manage per device.",
+      "Richte deine Bibliothek, Streaming-Konten und Radio auf sonn, schalte ein, wie du sie erreichen willst — und jede App und jedes Gerät im Haus kann stöbern und abspielen. Keine Räume zu konfigurieren, nichts pro Gerät zu verwalten."
+    ],
+    [
+      "DLNA / UPnP MediaServer — smart TVs, receivers, network speakers",
+      "DLNA / UPnP MediaServer — Smart-TVs, Receiver, Netzwerklautsprecher"
+    ],
+    [
+      "Subsonic API — Symfonium, Amperfy, DSub and friends",
+      "Subsonic API — Symfonium, Amperfy, DSub und Co."
+    ],
+    [
+      "Network drive (WebDAV) — drag albums in with Finder or Explorer",
+      "Netzlaufwerk (WebDAV) — Alben per Finder oder Explorer hineinziehen"
+    ],
+    [
+      "Built-in web player, from any browser on the network",
+      "Eingebauter Web-Player, aus jedem Browser im Netzwerk"
+    ],
+    [
+      "Streaming services included — on devices that have no support for them of their own. A DLNA TV has no Apple&nbsp;Music or Tidal app, yet it browses and plays your accounts straight from the couch, because sonn serves them like any other content.",
+      "Streamingdienste inklusive — auf Geräten, die selbst keinerlei Unterstützung dafür haben. Ein DLNA-TV hat keine Apple&nbsp;Music- oder Tidal-App und stöbert trotzdem vom Sofa aus durch deine Konten, weil sonn sie wie jeden anderen Inhalt bereitstellt."
+    ],
+    [
+      "Or own the rooms yourself",
+      "Oder übernimm die Räume selbst"
+    ],
+    [
+      "Add fixed zones — up to 24, one per room — and sonn drives the speakers directly: named rooms, synchronized groups, one place to control the whole house.",
+      "Lege feste Zonen an — bis zu 24, eine pro Raum — und sonn steuert die Lautsprecher direkt: benannte Räume, synchrone Gruppen, ein Ort für das ganze Haus."
+    ],
+    [
+      "Central control from the web player, Admin UI or a Loxone app",
+      "Zentrale Steuerung über Web-Player, Admin-UI oder eine Loxone-App"
+    ],
+    [
+      "Group any rooms to play in perfect sync",
+      "Beliebige Räume perfekt synchron gruppieren"
+    ],
+    [
+      "Per-zone equalizer, volume limits, favorites and recents",
+      "Equalizer, Lautstärkegrenzen, Favoriten und Verlauf pro Zone"
+    ],
+    [
+      "Amp power switching over GPIO or USB relay, per zone or shared",
+      "Verstärker schalten über GPIO oder USB-Relais, pro Zone oder geteilt"
+    ],
+    [
+      "With the Loxone integration on, the Miniserver supplies the zones — sonn behaves as a full Loxone Audio Server.",
+      "Mit aktivierter Loxone-Integration liefert der Miniserver die Zonen — sonn verhält sich wie ein vollwertiger Loxone Audioserver."
+    ],
+    [
+      "the signal path",
+      "der signalweg"
+    ],
+    [
+      "Your file, unchanged, at the speaker.",
+      "Deine Datei, unverändert, am Lautsprecher."
+    ],
+    [
+      "sonn is built around one idea: the audio that leaves your library should reach the player exactly as it was recorded. Every stage that could touch it is visible per zone — and the server does none of them unless something makes that impossible. Try it:",
+      "sonn ist um eine Idee gebaut: Das Audio, das deine Bibliothek verlässt, soll den Player exakt so erreichen, wie es aufgenommen wurde. Jede Stufe, die es berühren könnte, ist pro Zone sichtbar — und der Server führt keine davon aus, solange nichts ihn dazu zwingt. Probier es aus:"
+    ],
+    [
+      "<h4>source</h4>",
+      "<h4>quelle</h4>"
+    ],
+    [
+      "<h4>output</h4>",
+      "<h4>ausgang</h4>"
+    ],
+    [
+      "<h4>processing</h4>",
+      "<h4>verarbeitung</h4>"
+    ],
+    [
+      "aria-label=\"Source format\"",
+      "aria-label=\"Quellformat\""
+    ],
+    [
+      "aria-label=\"Output type\"",
+      "aria-label=\"Ausgangstyp\""
+    ],
+    [
+      ">CD rip 16/44.1<",
+      ">CD-Rip 16/44.1<"
+    ],
+    [
+      ">Sendspin + USB DAC<",
+      ">Sendspin + USB-DAC<"
+    ],
+    [
+      "<p class=\"node-k\">source</p>",
+      "<p class=\"node-k\">quelle</p>"
+    ],
+    [
+      ">Library<",
+      ">Bibliothek<"
+    ],
+    [
+      "<p class=\"node-k\">volume</p>",
+      "<p class=\"node-k\">lautstärke</p>"
+    ],
+    [
+      ">On the device<",
+      ">Auf dem Gerät<"
+    ],
+    [
+      ">never in the stream<",
+      ">nie im Stream<"
+    ],
+    [
+      ">10-band<",
+      ">10-Band<"
+    ],
+    [
+      ">USB DAC<",
+      ">USB-DAC<"
+    ],
+    [
+      "Sendspin negotiates the format per track, so the server follows the source: the file's own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.",
+      "Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht."
+    ],
+    [
+      "This is not a diagram we drew for the website — it is the technical view the web player shows for every zone, live: the source format, every stage that touched the audio, and the verdict. <em>Bit-perfect</em>, <em>untouched</em>, or <em>altered</em> — with the reason. And if you just want music: use whatever output you already have. All of it works, all of it sounds good, and none of it needs a thought about sample rates.",
+      "Das ist kein Diagramm, das wir für die Website gezeichnet haben — es ist die technische Ansicht, die der Web-Player für jede Zone live zeigt: das Quellformat, jede Stufe, die das Audio berührt hat, und das Urteil. <em>Bit-perfect</em>, <em>untouched</em> oder <em>altered</em> — mit Begründung. Und wenn du einfach nur Musik willst: Nimm den Ausgang, den du schon hast. Alles funktioniert, alles klingt gut, und nichts davon verlangt einen Gedanken an Sampleraten."
+    ],
+    [
+      "<p class=\"eyebrow\">content</p>",
+      "<p class=\"eyebrow\">inhalte</p>"
+    ],
+    [
+      "Everything you listen to, in one place.",
+      "Alles, was du hörst, an einem Ort."
+    ],
+    [
+      "Every source is available to every consumer of the server — the web player, Loxone, DLNA devices and Subsonic apps alike. Configure it once, reach it from everywhere.",
+      "Jede Quelle steht jedem Konsumenten des Servers zur Verfügung — dem Web-Player, Loxone, DLNA-Geräten und Subsonic-Apps gleichermaßen. Einmal einrichten, von überall erreichen."
+    ],
+    [
+      ">Local library<",
+      ">Lokale Bibliothek<"
+    ],
+    [
+      "Folders and network shares, indexed by tags into albums, artists and tracks — with cover art, and artist pictures fetched automatically.",
+      "Ordner und Netzwerkfreigaben, per Tags indexiert zu Alben, Künstlern und Titeln — mit Cover-Art und automatisch geladenen Künstlerbildern."
+    ],
+    [
+      "Incremental indexing — a dropped file just appears",
+      "Inkrementeller Index — eine abgelegte Datei taucht einfach auf"
+    ],
+    [
+      "Add music by drag-and-drop, or over the network drive",
+      "Musik per Drag-and-drop hinzufügen, oder übers Netzlaufwerk"
+    ],
+    [
+      "Browse, search and manage from the Admin UI",
+      "Stöbern, suchen und verwalten in der Admin-UI"
+    ],
+    [
+      ">Streaming services<",
+      ">Streamingdienste<"
+    ],
+    [
+      "Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — and Music Assistant as a source, exposing its own providers.",
+      "Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube, SoundCloud — und Music Assistant als Quelle, mit seinen eigenen Anbietern."
+    ],
+    [
+      "Several accounts of one service can coexist",
+      "Mehrere Konten desselben Dienstes können koexistieren"
+    ],
+    [
+      "Each account is its own browsable service",
+      "Jedes Konto ist ein eigener, durchsuchbarer Dienst"
+    ],
+    [
+      "Served on to Loxone, DLNA and Subsonic too",
+      "Weitergereicht an Loxone, DLNA und Subsonic"
+    ],
+    [
+      ">Radio &amp; line-in<",
+      ">Radio &amp; Line-in<"
+    ],
+    [
+      "The TuneIn directory, Radio Paradise, your own streams — plus the turntable or CD player, through any zone in the house.",
+      "Das TuneIn-Verzeichnis, Radio Paradise, deine eigenen Streams — plus Plattenspieler oder CD-Player, durch jede Zone im Haus."
+    ],
+    [
+      "Line-in with optional Shazam track recognition",
+      "Line-in mit optionaler Shazam-Titelerkennung"
+    ],
+    [
+      "Play/pause and skip reach the actual CD changer",
+      "Play/Pause und Skip erreichen den echten CD-Wechsler"
+    ],
+    [
+      "TTS and alert sounds, Loxone-native when paired",
+      "TTS und Hinweistöne, Loxone-nativ wenn gekoppelt"
+    ],
+    [
+      "the web player",
+      "der web-player"
+    ],
+    [
+      "The whole house, from any browser.",
+      "Das ganze Haus, aus jedem Browser."
+    ],
+    [
+      "The server serves its own player — open <code>:7090</code> on a phone, a laptop or the wall panel and every room is there. Nothing to install, nothing to update, and it can never be out of date: it comes from the same box that plays the music.",
+      "Der Server liefert seinen eigenen Player aus — öffne <code>:7090</code> auf dem Handy, dem Laptop oder dem Wandpanel, und jeder Raum ist da. Nichts zu installieren, nichts zu aktualisieren, und er kann nie veralten: Er kommt aus derselben Kiste, die die Musik spielt."
+    ],
+    [
+      "Search everything at once",
+      "Alles auf einmal durchsuchen"
+    ],
+    [
+      "One search across your library and every connected service, bucketed by kind. Find a track, tap it, and it plays in the room you have selected.",
+      "Eine Suche über deine Bibliothek und jeden verbundenen Dienst, sortiert nach Art. Finde einen Titel, tippe ihn an, und er spielt im ausgewählten Raum."
+    ],
+    [
+      "Favourites from any row",
+      "Favoriten aus jeder Zeile"
+    ],
+    [
+      "A star sits on everything that can play — browse results, search hits, queue entries, recents — and adds it to the zone's favourites: the same ones a Loxone wall switch or a Beoremote cycles through.",
+      "Ein Stern sitzt an allem, was spielen kann — Browsing-Ergebnisse, Suchtreffer, Warteschlange, Verlauf — und legt es in die Favoriten der Zone: dieselben, durch die ein Loxone-Wandtaster oder eine Beoremote schaltet."
+    ],
+    [
+      "The queue, grouping and a 10-band EQ",
+      "Warteschlange, Gruppen und ein 10-Band-EQ"
+    ],
+    [
+      "Reorder what plays next, pull rooms into a group mid-song, shape a zone with its own equalizer — and see the true stream format of every room, down to the <a class=\"hl\" href=\"#signal\">bit-perfect verdict</a>.",
+      "Sortiere um, was als nächstes spielt, hole Räume mitten im Song in eine Gruppe, forme eine Zone mit ihrem eigenen Equalizer — und sieh das echte Streamformat jedes Raums, bis hin zum <a class=\"hl\" href=\"#signal\">bit-perfect-Urteil</a>."
+    ],
+    [
+      "Always in agreement",
+      "Immer einer Meinung"
+    ],
+    [
+      "Two phones, the wall panel and the Loxone app all show the same state, live — nothing polls, and an edit made anywhere appears everywhere.",
+      "Zwei Handys, das Wandpanel und die Loxone-App zeigen denselben Zustand, live — nichts pollt, und eine Änderung von irgendwo erscheint überall."
+    ],
+    [
+      "The sonn web player on a phone, playing That Thing You Do by Ellem in the living room",
+      "Der sonn Web-Player auf einem Handy, mit That Thing You Do von Ellem im Wohnzimmer"
+    ],
+    [
+      "player · living room · :7090",
+      "player · wohnzimmer · :7090"
+    ],
+    [
+      "The sonn Admin UI Zones screen: four zones named Living room, Kitchen, Study and Bedroom, each with AirPlay, Spotify Connect and DLNA receiver chips",
+      "Der Zones-Bildschirm der sonn Admin-UI: vier Zonen namens Living room, Kitchen, Study und Bedroom, jede mit AirPlay-, Spotify-Connect- und DLNA-Empfänger-Chips"
+    ],
+    [
+      "zones — one per room, receivers on every one",
+      "zonen — eine pro raum, empfänger an jeder"
+    ],
+    [
+      "zones &amp; outputs",
+      "zonen &amp; ausgänge"
+    ],
+    [
+      "The speakers you already own are the system.",
+      "Die Lautsprecher, die du schon besitzt, sind das System."
+    ],
+    [
+      "A zone is one device in one room. sonn speaks to nearly anything that can make sound — and a zone can also <em>receive</em>: point AirPlay or Spotify&nbsp;Connect at an old amplifier, and it just works.",
+      "Eine Zone ist ein Gerät in einem Raum. sonn spricht mit fast allem, was Klang erzeugen kann — und eine Zone kann auch <em>empfangen</em>: Richte AirPlay oder Spotify&nbsp;Connect auf einen alten Verstärker, und es funktioniert einfach."
+    ],
+    [
+      "A house with five rooms playing music from one sonn server in the basement",
+      "Ein Haus mit fünf Räumen, die Musik von einem sonn-Server im Keller spielen"
+    ],
+    [
+      ">bedroom<",
+      ">schlafzimmer<"
+    ],
+    [
+      ">idle · amp off<",
+      ">leerlauf · amp aus<"
+    ],
+    [
+      ">study<",
+      ">arbeitszimmer<"
+    ],
+    [
+      ">turntable · line-in<",
+      ">vinyl · line-in<"
+    ],
+    [
+      ">bath<",
+      ">bad<"
+    ],
+    [
+      ">airplay receiver<",
+      ">airplay-empfänger<"
+    ],
+    [
+      ">living room<",
+      ">wohnzimmer<"
+    ],
+    [
+      ">kitchen<",
+      ">küche<"
+    ],
+    [
+      ">grouped · in sync<",
+      ">gruppiert · synchron<"
+    ],
+    [
+      ">24 zones max · :7090<",
+      ">max. 24 zonen · :7090<"
+    ],
+    [
+      "one server in the basement, every room in sync",
+      "ein server im keller, jeder raum synchron"
+    ],
+    [
+      "aria-label=\"Supported outputs\"",
+      "aria-label=\"Unterstützte Ausgänge\""
+    ],
+    [
+      ">native<",
+      ">nativ<"
+    ],
+    [
+      ">output + receiver<",
+      ">ausgang + empfänger<"
+    ],
+    [
+      ">renderers<",
+      ">renderer<"
+    ],
+    [
+      ">diy multiroom<",
+      ">diy-multiroom<"
+    ],
+    [
+      ">lms players<",
+      ">lms-player<"
+    ],
+    [
+      ">players<",
+      ">player<"
+    ],
+    [
+      ">Receivers<",
+      ">Empfänger<"
+    ],
+    [
+      "A receiver lets a phone play <em>to</em> a zone. Spotify Connect, AirPlay, DLNA and line-in land on the server, which sends them on to that zone's output — so a pair of Snapcast speakers on a Raspberry&nbsp;Pi shows up as an AirPlay target with no support of its own.",
+      "Ein Empfänger lässt ein Telefon <em>in</em> eine Zone spielen. Spotify Connect, AirPlay, DLNA und Line-in landen auf dem Server, der sie an den Ausgang der Zone weiterreicht — so erscheint ein Paar Snapcast-Lautsprecher am Raspberry&nbsp;Pi als AirPlay-Ziel, ganz ohne eigene Unterstützung."
+    ],
+    [
+      ">Grouping<",
+      ">Gruppieren<"
+    ],
+    [
+      "Any rooms play in sync, regrouped on the fly. The kitchen joins the terrace for dinner and leaves again after — from the app, the wall panel, or a Loxone scene.",
+      "Beliebige Räume spielen synchron, jederzeit umgruppierbar. Die Küche kommt zum Abendessen zur Terrasse dazu und verlässt sie danach wieder — aus der App, vom Wandpanel oder per Loxone-Szene."
+    ],
+    [
+      ">Power management<",
+      ">Verstärker schalten<"
+    ],
+    [
+      "A zone can wake its amplifier before the first note and switch it off after the music stops — GPIO or USB relay, per zone or per shared amp group, with pre-delays and off-delays so short gaps never cycle the hardware.",
+      "Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten."
+    ],
+    [
+      ">Bang &amp; Olufsen remotes<",
+      ">Bang &amp; Olufsen Fernbedienungen<"
+    ],
+    [
+      "A Beoremote One can own a room: the server builds the menu it shows — favorites, radio, the turntable — and play, pause and skip route to whatever the room is playing.",
+      "Eine Beoremote One kann einen Raum übernehmen: Der Server baut das Menü, das sie zeigt — Favoriten, Radio, der Plattenspieler — und Play, Pause und Skip erreichen, was der Raum gerade spielt."
+    ],
+    [
+      ">This browser is a room<",
+      ">Dieser Browser ist ein Raum<"
+    ],
+    [
+      "The web player registers itself as a local destination: select it and play, and it plays here — driven by exactly the same controls as the hardware zones.",
+      "Der Web-Player meldet sich selbst als lokales Ziel an: auswählen, abspielen, und es spielt hier — gesteuert mit exakt denselben Reglern wie die Hardware-Zonen."
+    ],
+    [
+      "A drop-in Loxone Audio&nbsp;Server.",
+      "Ein vollwertiger Loxone Audioserver."
+    ],
+    [
+      "Not an add-on that talks to Loxone — a complete Audioserver implementation. Pair it with a Miniserver and it behaves like the real thing: zones, sources, favorites, alerts and the native Loxone app, with up to 24 zones — the same ceiling as the original.",
+      "Kein Add-on, das mit Loxone redet — eine vollständige Audioserver-Implementierung. Kopple sie mit einem Miniserver und sie verhält sich wie das Original: Zonen, Quellen, Favoriten, Alarme und die native Loxone-App, mit bis zu 24 Zonen — derselben Obergrenze wie beim Original."
+    ],
+    [
+      "Choose <em>Loxone integrated</em> under Zones — the server starts listening immediately.",
+      "Wähle unter Zonen <em>Loxone integriert</em> — der Server hört sofort zu."
+    ],
+    [
+      "Add the Audio Server in Loxone Config with the serial and host from the Admin UI.",
+      "Lege den Audioserver in Loxone Config an, mit Seriennummer und Host aus der Admin-UI."
+    ],
+    [
+      "Deploy and reboot the Miniserver. The icon turns green, and your zones arrive.",
+      "Speichern und Miniserver neu starten. Das Symbol wird grün, und deine Zonen kommen an."
+    ],
+    [
+      "Non-Spotify services are presented to the Miniserver as virtual Spotify accounts — the only vocabulary Loxone clients have for them. Everywhere else they keep their own name. Disconnecting takes effect without a restart, and your own zones return.",
+      "Nicht-Spotify-Dienste werden dem Miniserver als virtuelle Spotify-Konten präsentiert — das einzige Vokabular, das Loxone-Clients dafür haben. Überall sonst behalten sie ihren eigenen Namen. Trennen wirkt ohne Neustart, und deine eigenen Zonen kehren zurück."
+    ],
+    [
+      "home assistant &amp; your own tools",
+      "home assistant &amp; deine eigenen tools"
+    ],
+    [
+      "And it plays well with the rest of the house.",
+      "Und es versteht sich mit dem Rest des Hauses."
+    ],
+    [
+      "An optional MQTT surface publishes every zone as retained topics — whole objects as JSON, single fields as plain scalars — so Home&nbsp;Assistant, Node-RED or a KNX gateway consume it with no code at all. Control works the same way: publish a value, done.",
+      "Eine optionale MQTT-Schnittstelle veröffentlicht jede Zone als retained Topics — ganze Objekte als JSON, einzelne Felder als schlichte Werte — sodass Home&nbsp;Assistant, Node-RED oder ein KNX-Gateway sie ganz ohne Code konsumieren. Steuern geht genauso: Wert publizieren, fertig."
+    ],
+    [
+      "# state, retained — connect late, see everything",
+      "# zustand, retained — spät verbinden, alles sehen"
+    ],
+    [
+      "# control — a value, or a relative nudge",
+      "# steuern — ein wert, oder ein relativer schubs"
+    ],
+    [
+      "{\"name\":\"Kitchen\",\"state\":\"playing\",…}",
+      "{\"name\":\"Küche\",\"state\":\"playing\",…}"
+    ],
+    [
+      "A native Home&nbsp;Assistant integration is on the roadmap. Today, HA already talks to sonn over MQTT and the HTTP API — the native component will make it one-click.",
+      "Eine native Home-Assistant-Integration steht auf der Roadmap. Heute spricht HA bereits über MQTT und die HTTP-API mit sonn — die native Komponente macht daraus einen Klick."
+    ],
+    [
+      "for builders",
+      "für entwickler"
+    ],
+    [
+      "An API where <code>curl</code> is a first-class client.",
+      "Eine API, in der <code>curl</code> ein vollwertiger Client ist."
+    ],
+    [
+      "Commands are plain HTTP, and reading state never requires polling: subscribe to the event stream once and you are told about every change. No handshake, no correlation ids, no SDK to install — a five-line shell script is a complete integration.",
+      "Befehle sind schlichtes HTTP, und Zustand lesen heißt nie pollen: Abonniere den Event-Stream einmal und du erfährst jede Änderung. Kein Handshake, keine Correlation-IDs, kein SDK zu installieren — ein Shell-Skript mit fünf Zeilen ist eine vollständige Integration."
+    ],
+    [
+      "aria-label=\"API examples\"",
+      "aria-label=\"API-Beispiele\""
+    ],
+    [
+      "data-tab=\"t-zones\">zones</button>",
+      "data-tab=\"t-zones\">zonen</button>"
+    ],
+    [
+      "data-tab=\"t-control\">control</button>",
+      "data-tab=\"t-control\">steuern</button>"
+    ],
+    [
+      "data-tab=\"t-analysis\">live analysis</button>",
+      "data-tab=\"t-analysis\">live-analyse</button>"
+    ],
+    [
+      "# What is playing everywhere?",
+      "# Was spielt gerade, überall?"
+    ],
+    [
+      ">\"Kitchen\"<",
+      ">\"Küche\"<"
+    ],
+    [
+      "# Pause the kitchen, then turn it down a notch",
+      "# Küche pausieren, dann einen Tick leiser"
+    ],
+    [
+      "# Say something in the kitchen; the music ducks and returns",
+      "# Etwas in der Küche durchsagen; die Musik duckt sich und kehrt zurück"
+    ],
+    [
+      "'{\"text\":\"Dinner!\"}'",
+      "'{\"text\":\"Essen!\"}'"
+    ],
+    [
+      "# Follow every change — one subscription, no polling, ever",
+      "# Jeder Änderung folgen — ein Abo, nie pollen"
+    ],
+    [
+      "# Every command is followed by an event — write, and watch it land.",
+      "# Auf jeden Befehl folgt ein Event — schreib, und sieh ihn landen."
+    ],
+    [
+      "# Realtime audio analysis, straight off the stream — up to 60 fps",
+      "# Audio-Analyse in Echtzeit, direkt vom Stream — bis 60 fps"
+    ],
+    [
+      "# Build a VU meter, a wall visualizer, a beat-synced light scene.",
+      "# Bau ein VU-Meter, einen Wand-Visualizer, eine Lichtszene im Takt."
+    ],
+    [
+      ">Open by design<",
+      ">Offen by design<"
+    ],
+    [
+      "Apache-2.0, on GitHub. The public API is documented down to the field, and the web player is built on it and nothing else — if the contract can't carry a real player, that's a bug.",
+      "Apache-2.0, auf GitHub. Die öffentliche API ist bis aufs Feld dokumentiert, und der Web-Player ist auf ihr gebaut und auf nichts sonst — trägt der Vertrag keinen echten Player, ist das ein Bug."
+    ],
+    [
+      ">Events over polling<",
+      ">Events statt Polling<"
+    ],
+    [
+      "Two tabs, a wall panel and the Loxone app all agree, because everyone renders the same <code>zone.changed</code>. An edit made anywhere shows up everywhere, with no code of yours involved.",
+      "Zwei Tabs, ein Wandpanel und die Loxone-App sind sich einig, weil alle dasselbe <code>zone.changed</code> rendern. Eine Änderung von woanders erscheint hier — ohne eine Zeile eigenen Code."
+    ],
+    [
+      ">MQTT too<",
+      ">MQTT dazu<"
+    ],
+    [
+      "Same state, second surface: retained topics a Miniserver or KNX gateway can read without parsing JSON. Both run at once and cannot disagree — they publish from the same source.",
+      "Derselbe Zustand, zweite Schnittstelle: retained Topics, die ein Miniserver oder ein KNX-Gateway ohne JSON-Parser lesen kann. Beide laufen gleichzeitig und können sich nicht widersprechen — sie publizieren aus derselben Quelle."
+    ],
+    [
+      "<p class=\"eyebrow\">get started</p>",
+      "<p class=\"eyebrow\">loslegen</p>"
+    ],
+    [
+      "Running before the coffee is.",
+      "Läuft, bevor der Kaffee durch ist."
+    ],
+    [
+      "One container, host networking so it can discover your speakers, one folder that holds everything. Back up that folder and you have backed up the install.",
+      "Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles enthält. Sichere den Ordner, und du hast die Installation gesichert."
+    ],
+    [
+      "# docker-compose.yml is in the repo — or:",
+      "# docker-compose.yml liegt im Repo — oder:"
+    ],
+    [
+      "Then open <code>http://&lt;server-ip&gt;:7090</code>, create your admin account, and walk the three steps: <strong>Content</strong> — add your music. <strong>Access</strong> — switch on how to reach it. <strong>Zones</strong> — only if you want rooms. Steps one and two are already a working audio server.",
+      "Öffne dann <code>http://&lt;server-ip&gt;:7090</code>, lege dein Admin-Konto an und geh die drei Schritte: <strong>Inhalte</strong> — füge deine Musik hinzu. <strong>Zugriff</strong> — schalte ein, wie du sie erreichst. <strong>Zonen</strong> — nur wenn du Räume willst. Schritt eins und zwei sind bereits ein funktionierender Audioserver."
+    ],
+    [
+      ">carries<",
+      ">trägt<"
+    ],
+    [
+      ">when<",
+      ">wann<"
+    ],
+    [
+      "Admin UI, web player, API, Subsonic, WebDAV, DLNA, audio streams",
+      "Admin-UI, Web-Player, API, Subsonic, WebDAV, DLNA, Audiostreams"
+    ],
+    [
+      ">always<",
+      ">immer<"
+    ],
+    [
+      "Loxone native app protocol",
+      "Natives Loxone-App-Protokoll"
+    ],
+    [
+      ">loxone on<",
+      ">loxone an<"
+    ],
+    [
+      "Loxone Miniserver protocol",
+      "Loxone-Miniserver-Protokoll"
+    ],
+    [
+      "Prefer bare metal? It runs directly on Node.js&nbsp;20+ — clone, <code>npm install</code>, <code>npm run build</code>, <code>npm start</code>.",
+      "Lieber ohne Docker? Läuft direkt auf Node.js&nbsp;20+ — klonen, <code>npm install</code>, <code>npm run build</code>, <code>npm start</code>."
+    ],
+    [
+      "open source · self-hosted · yours",
+      "open source · self-hosted · deins"
+    ],
+    [
+      "Your music deserves a server this good.",
+      "Deine Musik verdient einen Server wie diesen."
+    ],
+    [
+      "No subscription, no cloud dependency, no speakers to replace. Everything runs on your own network — pull the internet cable, and your library keeps playing.",
+      "Kein Abo, keine Cloud-Abhängigkeit, keine Lautsprecher zu ersetzen. Alles läuft in deinem eigenen Netzwerk — zieh das Internetkabel, und deine Bibliothek spielt weiter."
+    ],
+    [
+      "Get sonn on GitHub",
+      "sonn auf GitHub holen"
+    ],
+    [
+      ">Quick start<",
+      ">Quick Start<"
+    ],
+    [
+      "Multiroom audio for your whole home. Open source, self-hosted, and built to leave your music exactly as it was recorded.",
+      "Multiroom-Audio für dein ganzes Zuhause. Open Source, self-hosted, und gebaut, um deine Musik exakt so zu lassen, wie sie aufgenommen wurde."
+    ],
+    [
+      "<h5>product</h5>",
+      "<h5>produkt</h5>"
+    ],
+    [
+      "Two ways to run it",
+      "Zwei Wege, es zu betreiben"
+    ],
+    [
+      "The signal path",
+      "Der Signalweg"
+    ],
+    [
+      "Zones &amp; outputs",
+      "Zonen &amp; Ausgänge"
+    ],
+    [
+      "<h5>developers</h5>",
+      "<h5>entwickler</h5>"
+    ],
+    [
+      "Integrating with sonn",
+      "Mit sonn integrieren"
+    ],
+    [
+      ">Documentation<",
+      ">Dokumentation<"
+    ],
+    [
+      "Source on GitHub",
+      "Quellcode auf GitHub"
+    ],
+    [
+      "Issues &amp; support",
+      "Issues &amp; Support"
+    ],
+    [
+      "<h5>project</h5>",
+      "<h5>projekt</h5>"
+    ],
+    [
+      "Apache-2.0 license",
+      "Apache-2.0-Lizenz"
+    ],
+    [
+      ">Contributing<",
+      ">Mitmachen<"
+    ],
+    [
+      "sonn is an independent open-source project. Loxone is a trademark of Loxone Electronics GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google and all other product names are trademarks of their respective owners. sonn is not affiliated with or endorsed by any of them.",
+      "sonn ist ein unabhängiges Open-Source-Projekt. Loxone ist eine Marke der Loxone Electronics GmbH; Sonos, Apple, Spotify, Tidal, Deezer, Google und alle weiteren Produktnamen sind Marken ihrer jeweiligen Inhaber. sonn ist mit keinem von ihnen verbunden und wird von keinem von ihnen unterstützt."
+    ],
+    [
+      "name: 'Library'",
+      "name: 'Bibliothek'"
+    ],
+    [
+      "sendspin ? 'USB DAC' : 'Speaker'",
+      "sendspin ? 'USB-DAC' : 'Lautsprecher'"
+    ],
+    [
+      "'active — your choice'",
+      "'aktiv — deine Wahl'"
+    ],
+    [
+      "'The equalizer is on — a per-zone choice to process the audio, off by default, and the player says so while it is on. Switch it off and the path below returns.'",
+      "'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.'"
+    ],
+    [
+      "'Resampled — this output is fixed at 48 kHz. That is the output’s ceiling talking, not a setting you missed, and the conversion is a good one: SoX at 28-bit precision.'",
+      "'Resampelt — dieser Ausgang ist fest auf 48 kHz. Das ist die Obergrenze des Ausgangs, keine Einstellung, die du übersehen hast, und die Umwandlung ist eine gute: SoX mit 28-bit-Präzision.'"
+    ],
+    [
+      "'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.'",
+      "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Der Stream wird durchgereicht wie geliefert — kein zweites Encoding, kein Resampler im Weg.'"
+    ],
+    [
+      "'Sendspin negotiates the format per track, so the server follows the source: the file’s own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.'",
+      "'Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.'"
+    ],
+    [
+      "textContent = '✓ copied'",
+      "textContent = '✓ kopiert'"
+    ],
+    [
+      "textContent = 'copy'",
+      "textContent = 'kopieren'"
+    ]
   ]
 }
