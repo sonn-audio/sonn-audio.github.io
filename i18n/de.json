@@ -314,22 +314,6 @@
       "Weitergereicht an Loxone, DLNA und Subsonic"
     ],
     [
-      ">Radio &amp; line-in<",
-      ">Radio &amp; Line-in<"
-    ],
-    [
-      "The TuneIn directory, Radio Paradise, your own streams — plus the turntable or CD player, through any zone in the house.",
-      "Das TuneIn-Verzeichnis, Radio Paradise, deine eigenen Streams — plus Plattenspieler oder CD-Player, durch jede Zone im Haus."
-    ],
-    [
-      "Line-in with optional Shazam track recognition",
-      "Line-in mit optionaler Shazam-Titelerkennung"
-    ],
-    [
-      "Play/pause and skip reach the actual CD changer",
-      "Play/Pause und Skip erreichen den echten CD-Wechsler"
-    ],
-    [
       "TTS and alert sounds, Loxone-native when paired",
       "TTS und Hinweistöne, Loxone-nativ wenn gekoppelt"
     ],
@@ -824,6 +808,42 @@
     [
       "textContent = 'copy'",
       "textContent = 'kopieren'"
+    ],
+    [
+      ">Radio<",
+      ">Radio<"
+    ],
+    [
+      "The TuneIn directory, Radio Paradise and your own custom streams — with artwork, through any zone and any app in the house.",
+      "Das TuneIn-Verzeichnis, Radio Paradise und deine eigenen Streams — mit Artwork, durch jede Zone und jede App im Haus."
+    ],
+    [
+      "TuneIn presets, and search across the full directory",
+      "TuneIn-Presets, und Suche durchs komplette Verzeichnis"
+    ],
+    [
+      "Custom streams, with your own cover art",
+      "Eigene Streams, mit eigenem Cover"
+    ],
+    [
+      ">Line-in<",
+      ">Line-in<"
+    ],
+    [
+      "The turntable or CD player, through any zone — captured by the line-in bridge, or by Sendspin's source role: on a dedicated endpoint, or riding along with a player.",
+      "Plattenspieler oder CD-Player, durch jede Zone — eingefangen von der Line-in-Bridge oder von Sendspins Source-Rolle: auf einem eigenen Endpoint, oder huckepack bei einem Player."
+    ],
+    [
+      "Optional Shazam track recognition",
+      "Optionale Shazam-Titelerkennung"
+    ],
+    [
+      "Play, pause and skip — when the endpoint supports control",
+      "Play, Pause und Skip — wenn der Endpoint Steuerung unterstützt"
+    ],
+    [
+      "Masterlink B&amp;O players under full control: a Beosound&nbsp;9000 obeys completely",
+      "Masterlink-B&amp;O-Player unter voller Kontrolle: eine Beosound&nbsp;9000 lässt sich komplett steuern"
     ]
   ]
 }
