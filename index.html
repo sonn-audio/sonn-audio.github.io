@@ -93,16 +93,16 @@
             <svg class="hero-mark" id="hero-mark" viewBox="8 12 84 68" aria-hidden="true" fill="currentColor">
               <path id="mark-roof" class="mark-roof" d="M14 46 L50 18 L86 46" fill="none" stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
               <g class="mark-bars">
-                <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" opacity="0.4" />
-                <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" opacity="0.6" />
-                <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" opacity="0.8" />
+                <rect x="20" y="63.1" width="2.17" height="5.78" rx="1.08" fill-opacity="0.4" />
+                <rect x="25.78" y="59.5" width="2.17" height="13.01" rx="1.08" fill-opacity="0.6" />
+                <rect x="31.57" y="61.66" width="2.17" height="8.67" rx="1.08" fill-opacity="0.8" />
                 <rect x="37.35" y="58.05" width="2.17" height="15.9" rx="1.08" />
                 <rect x="46.03" y="56.6" width="2.89" height="18.8" rx="1.45" />
                 <rect x="54.69" y="58.05" width="2.17" height="15.9" rx="1.08" />
-                <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" opacity="0.9" />
-                <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" opacity="0.8" />
-                <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" opacity="0.7" />
-                <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" opacity="0.6" />
+                <rect x="60.48" y="60.94" width="2.17" height="10.12" rx="1.08" fill-opacity="0.9" />
+                <rect x="66.26" y="58.77" width="2.17" height="14.46" rx="1.08" fill-opacity="0.8" />
+                <rect x="72.05" y="62.38" width="2.17" height="7.23" rx="1.08" fill-opacity="0.7" />
+                <rect x="77.83" y="63.83" width="2.17" height="4.34" rx="1.08" fill-opacity="0.6" />
               </g>
             </svg>
 
@@ -1180,13 +1180,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       // Roofline first — a pen stroke — then the meter bars rise under it, then the
       // headline steps out line by line. The CSS holds the choreography; this only
       // measures the path and fires the class.
-      {
-        const roof = $('mark-roof');
-        const len = roof.getTotalLength();
-        roof.style.strokeDasharray = String(len);
-        roof.style.strokeDashoffset = reduced ? '0' : String(len);
-        requestAnimationFrame(() => document.documentElement.classList.add('hero-go'));
-      }
+      requestAnimationFrame(() => document.documentElement.classList.add('hero-go'));
 
       /* ============================== live level meters ================================ */
       if (!reduced) {
@@ -1194,32 +1188,15 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
         document.querySelectorAll('.meter[data-meter] i').forEach((el, i) => {
           bars.push({ el, phase: Math.PI * 2 * (i / 10) + i * 1.7, min: 0.12 });
         });
-        // The hero mark IS a level meter, so it meters: gentle, around its designed shape.
-        document.querySelectorAll('#hero-mark .mark-bars rect').forEach((el, i) => {
-          el.style.transformBox = 'fill-box';
-          el.style.transformOrigin = 'center bottom';
-          bars.push({ el, phase: i * 1.13, min: 0.45, soft: true });
-        });
         let last = 0;
         tasks.push((t) => {
           if (t - last < 66) return;
           last = t;
           for (const b of bars) {
-            // The mark's own bars belong to the entrance choreography first: driving them
-            // per-frame while their rise transition runs would restart it forever and pin
-            // them at zero. Take over only once the entrance is done, transitions off.
-            if (b.soft) {
-              if (t < 2400) continue;
-              if (!b.freed) {
-                b.el.style.transition = 'none';
-                b.freed = true;
-              }
-            }
-            let v =
+            const v =
               0.25 +
               0.38 * Math.abs(Math.sin(t / 640 + b.phase)) +
               0.3 * Math.abs(Math.sin(t / 210 + b.phase * 2.3));
-            if (b.soft) v = b.min + (1 - b.min) * (0.55 + 0.45 * Math.sin(t / 520 + b.phase));
             b.el.style.transform = `scaleY(${Math.max(b.min, Math.min(1, v)).toFixed(3)})`;
           }
         });
