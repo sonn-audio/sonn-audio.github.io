@@ -1020,20 +1020,93 @@ section[data-num]::before {
   }
 }
 
+/*
+ * The mark's entrance — the Admin UI's own hello, complete and verbatim: the mark
+ * settles from large, the roofline draws, each bar dances once, two pulse rings
+ * radiate outward while a glow swells and recedes — and then the logo simply STANDS
+ * in its designed shape. One-shot, pure CSS; it ends static because the logo is the
+ * brand, not a meter. (Admin's --spring and this file's --ease are the same curve.)
+ */
 .hero-mark {
+  position: relative;
   width: 66px;
   height: 53px;
   color: var(--accent);
   view-transition-name: sonn-mark;
   filter: drop-shadow(0 0 16px rgb(74 222 128 / 40%));
+  animation:
+    mark-intro 2.2s var(--ease) backwards,
+    mark-glow 2s var(--ease) backwards;
 }
 
-/*
- * The mark's own entrance — ported from the Admin UI, where the product introduces
- * itself the same way: the roofline draws, each bar dances once (overshoot, settle),
- * and then the logo simply STANDS in its designed shape. One-shot, pure CSS; it ends
- * static because the logo is the brand, not a meter.
- */
+/* The two pulse rings, radiating from the mark's centre one after the other. */
+.hero-mark::before,
+.hero-mark::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 96px;
+  height: 96px;
+  border: 1px solid rgb(74 222 128 / 60%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.hero-mark::before {
+  animation: mark-ring 1.4s var(--ease) 1s backwards;
+}
+
+.hero-mark::after {
+  animation: mark-ring 1.6s var(--ease) 1.2s backwards;
+}
+
+@keyframes mark-intro {
+  0% {
+    transform: scale(1.11);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes mark-ring {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(4);
+  }
+}
+
+@keyframes mark-glow {
+  0% {
+    filter: drop-shadow(0 0 0 rgb(74 222 128 / 0%));
+  }
+  25% {
+    filter: drop-shadow(0 0 12px rgb(74 222 128 / 30%));
+  }
+  55% {
+    filter: drop-shadow(0 0 28px rgb(74 222 128 / 50%));
+  }
+  80% {
+    filter: drop-shadow(0 0 56px rgb(74 222 128 / 85%));
+  }
+  to {
+    filter: drop-shadow(0 0 16px rgb(74 222 128 / 40%));
+  }
+}
+
 .mark-roof {
   stroke-dasharray: 96;
   stroke-dashoffset: 96;
@@ -3346,6 +3419,16 @@ footer {
   }
 
   /* The mark, the headline and the chain stand finished instead of performing. */
+  .hero-mark {
+    animation: none;
+  }
+
+  .hero-mark::before,
+  .hero-mark::after {
+    animation: none;
+    opacity: 0;
+  }
+
   .mark-roof {
     animation: none;
     stroke-dashoffset: 0;
