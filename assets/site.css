@@ -2124,6 +2124,22 @@ section[data-num]::before {
   color: var(--muted);
 }
 
+/* The announcement engine gets the full row: it is not a source, it is what the
+   sources play through — and the home-automation crowd should not have to hunt for it. */
+.card-wide {
+  grid-column: 1 / -1;
+}
+
+.card-wide p {
+  max-width: 68ch;
+}
+
+.card-wide ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 4px 32px;
+}
+
 .card ul {
   margin-top: 13px;
   display: grid;

@@ -306,10 +306,6 @@
       "Weitergereicht an Loxone, DLNA und Subsonic"
     ],
     [
-      "TTS and alert sounds, Loxone-native when paired",
-      "TTS und Hinweistöne, Loxone-nativ wenn gekoppelt"
-    ],
-    [
       "the web player",
       "der web-player"
     ],
@@ -1008,6 +1004,26 @@
     [
       "Questions &amp; ideas",
       "Fragen &amp; Ideen"
+    ],
+    [
+      "Announcements &amp; alerts",
+      "Ansagen &amp; Alarme"
+    ],
+    [
+      "Text-to-speech and alert sounds through any zone — the music ducks, the message plays, the music returns. Built for home automation, and fully part of the API.",
+      "Text-to-Speech und Alarmklänge durch jede Zone — die Musik duckt sich, die Meldung spielt, die Musik kehrt zurück. Gebaut für Home Automation, und voll Teil der API."
+    ],
+    [
+      "One call from your automation: <code>POST /zones/3/announce</code>",
+      "Ein Aufruf aus deiner Automation: <code>POST /zones/3/announce</code>"
+    ],
+    [
+      "Doorbell, alarm, dinner call — TTS built in, LoxBerry TTS over MQTT if you prefer",
+      "Türklingel, Alarm, Essensruf — TTS eingebaut, LoxBerry-TTS über MQTT, wenn du magst"
+    ],
+    [
+      "Loxone-native when paired: bell, alarm, fire and TTS behave like the original",
+      "Loxone-nativ, wenn gekoppelt: Bell, Alarm, Fire und TTS verhalten sich wie beim Original"
     ]
   ]
 }

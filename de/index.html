@@ -535,7 +535,6 @@
               <ul>
                 <li>TuneIn-Presets, und Suche durchs komplette Verzeichnis</li>
                 <li>Eigene Streams, mit eigenem Cover</li>
-                <li>TTS und Hinweistöne, Loxone-nativ wenn gekoppelt</li>
               </ul>
             </div>
 
@@ -553,6 +552,23 @@
                 <li>Optionale Shazam-Titelerkennung</li>
                 <li>Play, Pause und Skip gehen ans Gerät weiter — wenn es sich übers Netzwerk steuern lässt</li>
                 <li>B&amp;O Masterlink erlaubt volle Kontrolle — Play, Pause, Vor, Zurück, und eine Beosound&nbsp;9000 wechselt auf Kommando sogar die Disc</li>
+              </ul>
+            </div>
+
+            <div class="card card-wide rise">
+              <span class="card-ico">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M3 10v4h4l6 5V5l-6 5H3z" /><path d="M17 9c1.2 1.6 1.2 4.4 0 6" /><path d="M19.5 6.5c2.4 3 2.4 8 0 11" opacity="0.5" />
+                </svg>
+              </span>
+              <h3>Ansagen &amp; Alarme</h3>
+              <p>
+                Text-to-Speech und Alarmklänge durch jede Zone — die Musik duckt sich, die Meldung spielt, die Musik kehrt zurück. Gebaut für Home Automation, und voll Teil der API.
+              </p>
+              <ul>
+                <li>Ein Aufruf aus deiner Automation: <code>POST /zones/3/announce</code></li>
+                <li>Türklingel, Alarm, Essensruf — TTS eingebaut, LoxBerry-TTS über MQTT, wenn du magst</li>
+                <li>Loxone-nativ, wenn gekoppelt: Bell, Alarm, Fire und TTS verhalten sich wie beim Original</li>
               </ul>
             </div>
           </div>

@@ -152,12 +152,20 @@
   </li>
 </ul>
 
-<h2>Alert engine</h2>
+<h2>Announcements &amp; alerts</h2>
+
+<p>
+  Text-to-speech and alert sounds play through any zone: the music ducks, the message plays, and the
+  music returns. It is built for home automation and fully part of the API — one call from
+  Home&nbsp;Assistant, Node-RED or a shell script announces in any room:
+</p>
+
+<pre><code>curl -X POST http://server:7090/api/v1/zones/3/announce -d '{"text":"Dinner!"}'</code></pre>
 
 <ul>
   <li>Text-to-speech, using the built-in engine or LoxBerry TTS over MQTT</li>
-  <li>Built-in alert sounds</li>
-  <li>Native Loxone alerts when the integration is on</li>
+  <li>Built-in alert sounds, and per-zone volumes for TTS, bell, alarm, fire and buzzer</li>
+  <li>Native Loxone alerts when the integration is on — bell, alarm, fire and TTS behave like the original</li>
 </ul>
 
           <footer class="docs-foot">
