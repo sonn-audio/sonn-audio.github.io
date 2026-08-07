@@ -131,6 +131,31 @@ svg {
   border-radius: 4px;
 }
 
+/* --- the ambient: one glow, travelling with the chapters -------------------- */
+
+/*
+ * A fixed layer behind everything whose hue is steered per chapter from the frame loop.
+ * Green at home, teal in the signal path, amber where Loxone lives, a whisper of violet
+ * for the API. Barely-there on purpose: light temperature, not decoration.
+ */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(64% 52% at 50% 24%, hsl(var(--amb, 145) 70% 55% / 5.5%), transparent 70%),
+    radial-gradient(120% 90% at 50% 110%, rgb(0 0 0 / 55%), transparent 60%);
+}
+
+main,
+footer,
+.bar,
+.marquee {
+  position: relative;
+  z-index: 1;
+}
+
 /* --- reading progress ------------------------------------------------------ */
 
 .progress {
@@ -304,6 +329,9 @@ section[data-num]::before {
   -webkit-text-stroke: 1px rgb(255 255 255 / 6%);
   pointer-events: none;
   user-select: none;
+  /* a layer further back: the frame loop drifts it slower than the page */
+  transform: translateY(var(--pnum, 0px));
+  will-change: transform;
 }
 
 .section-head {
@@ -763,9 +791,18 @@ section[data-num]::before {
 .mark-bars rect:nth-child(9) { animation: bar-dance-c 1.5s var(--ease) 0.48s backwards; }
 .mark-bars rect:nth-child(10) { animation: bar-dance-a 1.5s var(--ease) 0.55s backwards; }
 
+/* The roofline at architectural scale — the same stroke as the mark, engraved. */
+.hero-roofline {
+  position: absolute;
+  inset: auto -6% -12%;
+  height: 78%;
+  color: rgb(74 222 128 / 4.5%);
+  pointer-events: none;
+}
+
 .hero h1 {
   margin-top: 26px;
-  font-size: clamp(42px, 7.4vw, 84px);
+  font-size: clamp(42px, 7.6vw, 92px);
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.048em;
@@ -3399,4 +3436,48 @@ body.docs .bar {
 
 .docs-foot a:hover {
   color: var(--accent);
+}
+
+
+/* --- craft: scrollbar, icons ------------------------------------------------ */
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(255 255 255 / 14%) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border: 3px solid var(--bg);
+  border-radius: 6px;
+  background: rgb(255 255 255 / 14%);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(74 222 128 / 45%);
+}
+
+.card-ico svg {
+  transition: transform 0.35s var(--ease);
+}
+
+.card:hover .card-ico svg {
+  transform: translateY(-2px) rotate(-4deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  section[data-num]::before {
+    transform: none;
+  }
+
+  .card:hover .card-ico svg {
+    transform: none;
+  }
 }

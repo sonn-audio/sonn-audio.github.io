@@ -33,6 +33,10 @@
     <script>document.documentElement.classList.add('js');</script>
   </head>
   <body>
+    <!-- The light of the page: one fixed glow whose colour travels with the chapters —
+         green at home, teal in der signalweg, amber where Loxone lives. -->
+    <div class="ambient" id="ambient" aria-hidden="true"></div>
+
     <!-- Reading progress — a hairline of accent across the very top. -->
     <div class="progress" id="progress" aria-hidden="true"></div>
 
@@ -84,9 +88,13 @@
 
     <main id="top">
       <!-- ============================================================= hero -->
-      <section class="hero">
-        <!-- The identity, as weather: aurora overhead, a 3D sea of samples along the ground. -->
+      <section class="hero" data-amb="145">
+        <!-- The identity, as weather: aurora overhead, a 3D sea of samples along the ground,
+             and the roofline itself — engraved into the dark at architectural scale. -->
         <div class="hero-aurora" aria-hidden="true"></div>
+        <svg class="hero-roofline" viewBox="0 0 100 40" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M2 38 L50 6 L98 38" fill="none" stroke="currentColor" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
         <canvas class="hero-wave" id="wave" aria-hidden="true"></canvas>
 
         <div class="wrap hero-in">
@@ -223,7 +231,7 @@
       </section>
 
       <!-- ======================================================== two ways -->
-      <section id="two-ways" data-num="01">
+      <section id="two-ways" data-num="01" data-amb="145">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">ein server, zwei gestalten</p>
@@ -274,7 +282,7 @@
       </section>
 
       <!-- ===================================================== signal path -->
-      <section id="signal" data-num="02">
+      <section id="signal" data-num="02" data-amb="172">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">der signalweg</p>
@@ -375,7 +383,7 @@
       </section>
 
       <!-- ========================================================= content -->
-      <section id="content" data-num="03">
+      <section id="content" data-num="03" data-amb="145">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">inhalte</p>
@@ -458,7 +466,7 @@
       </section>
 
       <!-- ========================================================== player -->
-      <section id="player" data-num="04">
+      <section id="player" data-num="04" data-amb="158">
         <div class="wrap">
           <div class="split">
             <div class="rise">
@@ -508,7 +516,7 @@
       </section>
 
       <!-- =========================================================== zones -->
-      <section id="zones" data-num="05">
+      <section id="zones" data-num="05" data-amb="145">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">zonen &amp; ausgänge</p>
@@ -742,7 +750,7 @@
       </section>
 
       <!-- ==================================================== integrations -->
-      <section id="integrations" data-num="06">
+      <section id="integrations" data-num="06" data-amb="38">
         <div class="wrap">
           <div class="split">
             <div class="rise">
@@ -819,7 +827,7 @@ sonn/zones/3/track/title    <span class="c-str">Song</span>
       </section>
 
       <!-- ============================================================= api -->
-      <section id="api" data-num="07">
+      <section id="api" data-num="07" data-amb="262">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">für entwickler</p>
@@ -897,7 +905,7 @@ data: <span class="c-key">{</span><span class="c-str">"type"</span>:<span class=
       </section>
 
       <!-- =========================================================== start -->
-      <section id="start" data-num="08">
+      <section id="start" data-num="08" data-amb="145">
         <div class="wrap">
           <div class="section-head rise">
             <p class="eyebrow">loslegen</p>
@@ -984,7 +992,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
       </section>
 
       <!-- ========================================================= closing -->
-      <section class="closing" id="closing">
+      <section class="closing" id="closing" data-amb="145">
         <!-- The name of the thing, poster-sized: engraved outline that fills with light as you arrive. -->
         <span class="closing-word" aria-hidden="true">
           <i class="cw-outline">sonn</i>
@@ -1122,6 +1130,42 @@ npm start"><span class="c-com"># Node.js 20+</span>
         });
       }
 
+      /* ============================== the light travels ================================ */
+      // Every chapter carries a hue; the fixed ambient layer eases toward the hue of
+      // whatever chapter holds the middle of the screen. Amber where Loxone lives.
+      {
+        const ambient = $('ambient');
+        const chapters = [...document.querySelectorAll('[data-amb]')];
+        let hue = 145;
+        let target = 145;
+        tasks.push(() => {
+          const mid = innerHeight * 0.5;
+          for (const c of chapters) {
+            const r = c.getBoundingClientRect();
+            if (r.top <= mid && r.bottom >= mid) {
+              target = Number(c.dataset.amb);
+              break;
+            }
+          }
+          if (Math.abs(target - hue) > 0.5) {
+            hue += (target - hue) * 0.06;
+            ambient.style.setProperty('--amb', hue.toFixed(1));
+          }
+        });
+      }
+
+      // The engraved chapter numbers drift slower than the page — a layer further back.
+      if (!reduced) {
+        const numbered = [...document.querySelectorAll('section[data-num]')];
+        tasks.push(() => {
+          for (const sec of numbered) {
+            const r = sec.getBoundingClientRect();
+            if (r.bottom < 0 || r.top > innerHeight) continue;
+            sec.style.setProperty('--pnum', `${(r.top * -0.12).toFixed(1)}px`);
+          }
+        });
+      }
+
       /* ============================== reveal on scroll ================================ */
       let batch = 0;
       let batchAt = 0;
@@ -1190,12 +1234,16 @@ npm start"><span class="c-com"># Node.js 20+</span>
 
         const ROWS = 24;
         const FOV = 340;
+        let mx = 0;
+        if (hoverable) {
+          addEventListener('pointermove', (e) => (mx = (e.clientX / innerWidth - 0.5) * 2), { passive: true });
+        }
         let last = 0;
         tasks.push((t) => {
           if (t - last < 50 || scrollY > innerHeight) return; // 20fps, and only while visible
           last = t;
           ctx.clearRect(0, 0, w, h);
-          const cx = w / 2;
+          const cx = w / 2 - mx * w * 0.015;
           const horizon = h * 0.18;
           const cols = Math.min(110, Math.ceil(w / 14));
           for (let r = ROWS - 1; r >= 0; r--) {
