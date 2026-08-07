@@ -82,8 +82,8 @@
       "technical · wohnzimmer"
     ],
     [
-      "source → sendspin → usb dac · no resampler in the path",
-      "quelle → sendspin → usb-dac · kein resampler im signalweg"
+      "source → sendspin → endpoint · no resampler in the path",
+      "quelle → sendspin → endpoint · kein resampler im signalweg"
     ],
     [
       "4 rooms · 1 group",
