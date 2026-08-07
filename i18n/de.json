@@ -794,8 +794,8 @@
       ">Line-in<"
     ],
     [
-      "The turntable or CD player, through any zone — captured by the line-in bridge, or by sonn's Sendspin source role: on a dedicated endpoint, or riding along with a player.",
-      "Plattenspieler oder CD-Player, durch jede Zone — eingefangen von der Line-in-Bridge oder von sonns Sendspin-Source-Rolle: auf einem eigenen Endpoint, oder huckepack bei einem Player."
+      "The turntable or CD player, through any zone — captured by the line-in bridge, or by the Sendspin source role: on a dedicated endpoint, or riding along with a player.",
+      "Plattenspieler oder CD-Player, durch jede Zone — eingefangen von der Line-in-Bridge oder von der Sendspin-Source-Rolle: auf einem eigenen Endpoint, oder huckepack bei einem Player."
     ],
     [
       "Optional Shazam track recognition",
@@ -822,8 +822,8 @@
       "Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Mit einem USB-DAC erreichen die Samples der Datei selbst den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden."
     ],
     [
-      "Every other output takes a fixed format, so anything else means a conversion — a good one, but a conversion. Sendspin is the one output that lets the server skip converting entirely: an endpoint that accepts the source format gets exactly that, always. And it carries more than playback: the visualizer role streams live analysis for VU meters and light scenes, and sonn extends the protocol with a source role that brings line-in devices in.",
-      "Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem der Server das Umwandeln ganz auslassen kann: Ein Endpoint, der das Quellformat akzeptiert, bekommt genau das, immer. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und sonn erweitert das Protokoll um eine Source-Rolle, die Line-in-Geräte hereinbringt."
+      "Every other output takes a fixed format, so anything else means a conversion — a good one, but a conversion. Sendspin is the one output that lets the server skip converting entirely: an endpoint that accepts the source format gets exactly that, always. And it carries more than playback: the visualizer role streams live analysis for VU meters and light scenes, and the source role brings line-in devices in — a part of the spec that started life here, in sonn.",
+      "Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem der Server das Umwandeln ganz auslassen kann: Ein Endpoint, der das Quellformat akzeptiert, bekommt genau das, immer. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist."
     ],
     [
       "beoremote one",
