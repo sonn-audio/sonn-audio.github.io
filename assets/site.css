@@ -2473,16 +2473,6 @@ section[data-num]::before {
   letter-spacing: -0.01em;
 }
 
-.tile small {
-  display: block;
-  margin-top: 1px;
-  font-family: var(--mono);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-
 .tile .glyph {
   flex: 0 0 auto;
   display: grid;
