@@ -482,12 +482,12 @@
               recorded at.
             </p>
             <p>
-              Every other output takes a fixed format, so anything else means a conversion — a good one,
-              but a conversion. Sendspin is the one output that lets the server skip converting entirely:
-              an endpoint that accepts the source format gets exactly that, always. And it carries more
-              than playback: the visualizer role streams live analysis for VU meters and light scenes,
-              and the source role brings line-in devices in — a part of the spec that started life
-              here, in sonn.
+              Every other output sonn drives with one continuous stream in one fixed format — the
+              price of keeping a grouped house in lockstep — so anything else means a conversion: a
+              good one, but a conversion. Sendspin is the one output where the format is free to
+              follow the source, per track. And it carries more than playback: the visualizer role
+              streams live analysis for VU meters and light scenes, and the source role brings
+              line-in devices in — a part of the spec that started life here, in sonn.
             </p>
           </aside>
 
@@ -1696,8 +1696,8 @@ npm start"><span class="c-com"># Node.js 20+</span>
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
           why.textContent = resamples
-            ? 'Resampled and encoded — this output takes one fixed stream: 44.1 kHz, carried as MP3. That is the output’s ceiling talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'
-            : 'No resampling needed — the source is already at this output’s fixed 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.';
+            ? 'Resampled and encoded — sonn drives this output with one continuous stream, 44.1 kHz carried as MP3, so a grouped house stays in lockstep. That is the design talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'
+            : 'No resampling needed — the source is already at the stream’s 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.';
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';

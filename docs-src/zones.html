@@ -60,9 +60,10 @@
 </p>
 
 <p>
-  The other outputs take a fixed format, so playing anything that does not match it means a
-  conversion. That is not a defect — it is what those protocols are — and the conversion is a good one
-  (SoX resampler, 28-bit precision). It is simply not the same as <em>not converting</em>.
+  The other outputs sonn feeds one continuous stream in one fixed format. That is a design choice,
+  not a hard limit of every protocol involved: a single stream in a format the device is guaranteed
+  to accept is what keeps groups in lockstep and playback gapless. The conversion it implies is a
+  good one (SoX resampler, 28-bit precision) — it is simply not the same as <em>not converting</em>.
 </p>
 
 <p>Two things deliberately stay out of the audio path either way:</p>

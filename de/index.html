@@ -461,7 +461,7 @@
               Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Mit einem USB-DAC erreichen die Samples der Datei selbst den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden.
             </p>
             <p>
-              Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem der Server das Umwandeln ganz auslassen kann: Ein Endpoint, der das Quellformat akzeptiert, bekommt genau das, immer. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist.
+              Jeden anderen Ausgang fährt sonn mit einem durchgehenden Stream in einem festen Format — der Preis dafür, dass ein gruppiertes Haus im Gleichschritt bleibt — also bedeutet alles andere eine Umwandlung: eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem das Format der Quelle folgen darf, pro Titel. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist.
             </p>
           </aside>
 
@@ -1618,8 +1618,8 @@ npm start"><span class="c-com"># Node.js 20+</span>
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
           why.textContent = resamples
-            ? 'Resampelt und enkodiert — dieser Ausgang nimmt einen festen Stream: 44,1 kHz, getragen als MP3. Das ist die Obergrenze des Ausgangs, keine Einstellung, die du übersehen hast — und der Resampler ist ein guter: SoX mit 28-bit-Präzision.'
-            : 'Kein Resampling nötig — die Quelle liegt schon auf den festen 44,1 kHz dieses Ausgangs — aber der Stream wird zum Transport enkodiert, und der Player ist ehrlich dazu: altered.';
+            ? 'Resampelt und enkodiert — sonn fährt diesen Ausgang mit einem durchgehenden Stream, 44,1 kHz als MP3, damit ein gruppiertes Haus im Gleichschritt bleibt. Das ist das Design, keine Einstellung, die du übersehen hast — und der Resampler ist ein guter: SoX mit 28-bit-Präzision.'
+            : 'Kein Resampling nötig — die Quelle liegt schon auf den 44,1 kHz des Streams — aber der Stream wird zum Transport enkodiert, und der Player ist ehrlich dazu: altered.';
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';
