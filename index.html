@@ -409,7 +409,12 @@
                 <h4>output</h4>
                 <div class="chips" role="radiogroup" aria-label="Output type">
                   <button class="chip" role="radio" aria-checked="true" data-out="sendspin">Sendspin + USB DAC</button>
-                  <button class="chip" role="radio" aria-checked="false" data-out="fixed">Chromecast / Sonos</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="squeezelite">Squeezelite</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="snapcast">Snapcast</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="dlna">DLNA / UPnP</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="cast">Chromecast</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="sonos">Sonos</button>
+                  <button class="chip" role="radio" aria-checked="false" data-out="airplay">AirPlay</button>
                 </div>
               </div>
               <div class="sig-group">
@@ -1635,12 +1640,69 @@ npm start"><span class="c-com"># Node.js 20+</span>
       }
 
       /* ============================== the signal-path simulator ======================== */
-      // Mirrors the rules the server actually applies; see README "The goal: your
-      // file, unchanged, at the speaker".
+      // Mirrors the rule the server applies: follow the source wherever the protocol
+      // can switch formats; convert only where a fixed format or a device ceiling
+      // forces it — once, well. Each output below carries its own honest ceiling.
       const SOURCES = {
-        hires: { name: 'Library', fmt: 'FLAC · 24-bit / 192 kHz', rate: '24-bit / 192 kHz', lossless: true },
-        cd: { name: 'Library', fmt: 'FLAC · 16-bit / 44.1 kHz', rate: '16-bit / 44.1 kHz', lossless: true },
-        lossy: { name: 'Streaming', fmt: 'AAC · 320 kbps', rate: '16-bit / 44.1 kHz', lossless: false },
+        hires: { name: 'Library', fmt: 'FLAC · 24-bit / 192 kHz', rate: '24-bit / 192 kHz', hz: 192000, bits: 24, lossless: true },
+        cd: { name: 'Library', fmt: 'FLAC · 16-bit / 44.1 kHz', rate: '16-bit / 44.1 kHz', hz: 44100, bits: 16, lossless: true },
+        lossy: { name: 'Streaming', fmt: 'AAC · 320 kbps', rate: '16-bit / 44.1 kHz', hz: 44100, bits: 16, lossless: false },
+      };
+
+      const OUTPUTS = {
+        sendspin: {
+          name: 'sendspin',
+          device: 'USB DAC',
+          hz: Infinity,
+          bits: 32,
+          ok: 'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.',
+        },
+        squeezelite: {
+          name: 'squeezelite',
+          device: 'Squeezebox',
+          hz: Infinity,
+          bits: 32,
+          ok: 'slimproto states the stream format per track, and squeezelite plays FLAC natively — so sonn states the source, and the file’s own samples arrive at the player.',
+        },
+        snapcast: {
+          name: 'snapcast',
+          device: 'Raspberry Pi',
+          hz: Infinity,
+          bits: 32,
+          ok: 'Snapcast takes whatever stream format the server gives it — so sonn gives it the source, and every client in the group clocks the same samples.',
+        },
+        dlna: {
+          name: 'dlna / upnp',
+          device: 'Renderer',
+          hz: 48000,
+          bits: 24,
+          ok: 'The renderer advertises what it accepts, and this source sits well within it — so it travels as-is.',
+          ceil: 'Resampled — this renderer advertises a 48 kHz ceiling, so hi-res comes down to it once, well: SoX at 28-bit precision. Renderers differ: one that accepts hi-res FLAC gets the source as-is.',
+        },
+        cast: {
+          name: 'chromecast',
+          device: 'Nest speaker',
+          hz: 96000,
+          bits: 24,
+          ok: 'Cast devices decode FLAC themselves, up to 24-bit / 96 kHz — this source sits within that, so it travels as-is.',
+          ceil: 'Resampled — Cast devices decode FLAC up to 24-bit / 96 kHz, so 192 comes down to 96 once, well: SoX at 28-bit precision.',
+        },
+        sonos: {
+          name: 'sonos',
+          device: 'Sonos speaker',
+          hz: 48000,
+          bits: 24,
+          ok: 'Sonos accepts FLAC up to 24-bit / 48 kHz — this source sits within that, so it travels as-is.',
+          ceil: 'Resampled — Sonos tops out at 48 kHz, so hi-res comes down to 24-bit / 48 once, well: SoX at 28-bit precision.',
+        },
+        airplay: {
+          name: 'airplay',
+          device: 'HomePod / AVR',
+          hz: 44100,
+          bits: 16,
+          ok: 'AirPlay is fixed at 16-bit / 44.1 kHz — exactly what this source is. Carried as lossless ALAC, the samples arrive unchanged.',
+          ceil: 'Resampled — the AirPlay protocol itself is fixed at 16-bit / 44.1 kHz, whatever the speaker behind it could do. Hi-res comes down to it once, well: SoX at 28-bit precision.',
+        },
       };
       const state = { src: 'hires', out: 'sendspin', eq: false };
 
@@ -1651,11 +1713,12 @@ npm start"><span class="c-com"># Node.js 20+</span>
 
       function render() {
         const src = SOURCES[state.src];
+        const out = OUTPUTS[state.out];
         const sendspin = state.out === 'sendspin';
-        // sonn follows the source wherever the protocol can switch formats. The fixed
-        // option models a typical cast/sonos device with a 48 kHz ceiling — so only a
-        // hi-res source meets the resampler; everything else travels as-is.
-        const resamples = !sendspin && state.src === 'hires';
+        // Only a lossless source above the output's ceiling meets the resampler;
+        // everything else travels as-is.
+        const resamples = src.lossless && (src.hz > out.hz || src.bits > out.bits);
+        const fmt = `${Math.min(src.bits, out.bits)}-bit / ${Math.min(src.hz, out.hz) / 1000} kHz`;
 
         $('n-src').textContent = src.name;
         $('n-src-f').textContent = src.fmt;
@@ -1663,16 +1726,16 @@ npm start"><span class="c-com"># Node.js 20+</span>
         const resample = $('n-resample');
         resample.classList.toggle('bypass', !resamples);
         resample.classList.toggle('touches', resamples);
-        $('n-resample-f').textContent = resamples ? '→ 24-bit / 48 kHz' : 'bypassed';
+        $('n-resample-f').textContent = resamples ? `→ ${fmt}` : 'bypassed';
 
         const eq = $('n-eq');
         eq.classList.toggle('bypass', !state.eq);
         eq.classList.toggle('touches', state.eq);
         $('n-eq-f').textContent = state.eq ? 'active — your choice' : 'bypassed';
 
-        $('n-out-k').textContent = sendspin ? 'sendspin' : 'cast / sonos';
-        $('n-out').textContent = sendspin ? 'USB DAC' : 'Speaker';
-        $('n-out-f').textContent = resamples ? '24-bit / 48 kHz' : src.rate;
+        $('n-out-k').textContent = out.name;
+        $('n-out').textContent = out.device;
+        $('n-out-f').textContent = resamples ? fmt : src.rate;
 
         // The three verdicts the player's technical view hands out, with the reason.
         const badge = $('verdict');
@@ -1695,21 +1758,18 @@ npm start"><span class="c-com"># Node.js 20+</span>
           badge.dataset.v = 'altered';
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
-          why.textContent =
-            'Resampled — this device tops out at 48 kHz, so the server converts once, well: SoX at 28-bit precision. That is the device’s ceiling talking, not a setting you missed.';
+          why.textContent = out.ceil;
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';
           svg.innerHTML = verdictIcons.check;
           why.textContent =
-            'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.';
+            'A lossy source we did not make worse: nothing lossy happens to it again and no resampler runs — it arrives at its own 16-bit / 44.1 kHz.';
         } else {
           badge.dataset.v = 'perfect';
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
-          why.textContent = sendspin
-            ? 'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.'
-            : 'This device accepts the source’s format, so the server sends the file’s own samples, untouched. A conversion would only appear if the source rose above the device’s ceiling.';
+          why.textContent = out.ok;
         }
       }
 

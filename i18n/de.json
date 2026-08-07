@@ -742,24 +742,12 @@
       "name: 'Bibliothek'"
     ],
     [
-      "sendspin ? 'USB DAC' : 'Speaker'",
-      "sendspin ? 'USB-DAC' : 'Lautsprecher'"
-    ],
-    [
       "'active — your choice'",
       "'aktiv — deine Wahl'"
     ],
     [
       "'The equalizer is on — a per-zone choice to process the audio, off by default, and the player says so while it is on. Switch it off and the path below returns.'",
       "'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.'"
-    ],
-    [
-      "'Resampled — this device tops out at 48 kHz, so the server converts once, well: SoX at 28-bit precision. That is the device’s ceiling talking, not a setting you missed.'",
-      "'Resampelt — dieses Gerät endet bei 48 kHz, also wandelt der Server einmal um, gut: SoX mit 28-bit-Präzision. Das ist die Obergrenze des Geräts, keine Einstellung, die du übersehen hast.'"
-    ],
-    [
-      "'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.'",
-      "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Der Stream wird durchgereicht wie geliefert — kein zweites Encoding, kein Resampler im Weg.'"
     ],
     [
       "'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.'",
@@ -978,8 +966,56 @@
       "HTTP-API, Live-Events und MQTT"
     ],
     [
-      "'This device accepts the source’s format, so the server sends the file’s own samples, untouched. A conversion would only appear if the source rose above the device’s ceiling.'",
-      "'Dieses Gerät akzeptiert das Format der Quelle, also schickt der Server die Samples der Datei selbst, unangetastet. Eine Umwandlung erschiene erst, wenn die Quelle über die Obergrenze des Geräts stiege.'"
+      "'slimproto states the stream format per track, and squeezelite plays FLAC natively — so sonn states the source, and the file’s own samples arrive at the player.'",
+      "'slimproto benennt das Streamformat pro Titel, und squeezelite spielt FLAC nativ — also benennt sonn die Quelle, und die Samples der Datei selbst kommen am Player an.'"
+    ],
+    [
+      "'Snapcast takes whatever stream format the server gives it — so sonn gives it the source, and every client in the group clocks the same samples.'",
+      "'Snapcast nimmt das Streamformat, das der Server ihm gibt — also gibt sonn ihm die Quelle, und jeder Client der Gruppe taktet dieselben Samples.'"
+    ],
+    [
+      "'The renderer advertises what it accepts, and this source sits well within it — so it travels as-is.'",
+      "'Der Renderer meldet, was er akzeptiert, und diese Quelle liegt gut darin — also reist sie unverändert.'"
+    ],
+    [
+      "'Resampled — this renderer advertises a 48 kHz ceiling, so hi-res comes down to it once, well: SoX at 28-bit precision. Renderers differ: one that accepts hi-res FLAC gets the source as-is.'",
+      "'Resampelt — dieser Renderer meldet eine 48-kHz-Obergrenze, also kommt Hi-Res einmal darauf herunter, gut: SoX mit 28-bit-Präzision. Renderer unterscheiden sich: Einer, der Hi-Res-FLAC akzeptiert, bekommt die Quelle unverändert.'"
+    ],
+    [
+      "'Cast devices decode FLAC themselves, up to 24-bit / 96 kHz — this source sits within that, so it travels as-is.'",
+      "'Cast-Geräte dekodieren FLAC selbst, bis 24-bit / 96 kHz — diese Quelle liegt darin, also reist sie unverändert.'"
+    ],
+    [
+      "'Resampled — Cast devices decode FLAC up to 24-bit / 96 kHz, so 192 comes down to 96 once, well: SoX at 28-bit precision.'",
+      "'Resampelt — Cast-Geräte dekodieren FLAC bis 24-bit / 96 kHz, also kommt 192 einmal auf 96 herunter, gut: SoX mit 28-bit-Präzision.'"
+    ],
+    [
+      "'Sonos accepts FLAC up to 24-bit / 48 kHz — this source sits within that, so it travels as-is.'",
+      "'Sonos akzeptiert FLAC bis 24-bit / 48 kHz — diese Quelle liegt darin, also reist sie unverändert.'"
+    ],
+    [
+      "'Resampled — Sonos tops out at 48 kHz, so hi-res comes down to 24-bit / 48 once, well: SoX at 28-bit precision.'",
+      "'Resampelt — Sonos endet bei 48 kHz, also kommt Hi-Res einmal auf 24-bit / 48 herunter, gut: SoX mit 28-bit-Präzision.'"
+    ],
+    [
+      "'AirPlay is fixed at 16-bit / 44.1 kHz — exactly what this source is. Carried as lossless ALAC, the samples arrive unchanged.'",
+      "'AirPlay ist fest auf 16-bit / 44,1 kHz — genau das, was diese Quelle ist. Getragen als verlustfreies ALAC kommen die Samples unverändert an.'"
+    ],
+    [
+      "'Resampled — the AirPlay protocol itself is fixed at 16-bit / 44.1 kHz, whatever the speaker behind it could do. Hi-res comes down to it once, well: SoX at 28-bit precision.'",
+      "'Resampelt — das AirPlay-Protokoll selbst ist fest auf 16-bit / 44,1 kHz, egal was der Lautsprecher dahinter könnte. Hi-Res kommt einmal darauf herunter, gut: SoX mit 28-bit-Präzision.'"
+    ],
+    [
+      "'A lossy source we did not make worse: nothing lossy happens to it again and no resampler runs — it arrives at its own 16-bit / 44.1 kHz.'",
+      "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Ihr passiert nichts Verlustbehaftetes mehr und kein Resampler läuft — sie kommt mit ihren eigenen 16-bit / 44,1 kHz an.'"
+    ],
+    [
+      "device: 'Nest speaker',",
+      "device: 'Nest-Lautsprecher',"
+    ],
+    [
+      "device: 'Sonos speaker',",
+      "device: 'Sonos-Lautsprecher',"
     ]
   ]
 }
