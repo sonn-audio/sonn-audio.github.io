@@ -610,8 +610,8 @@
       "Läuft, bevor der Kaffee durch ist."
     ],
     [
-      "One container, host networking so it can discover your speakers, one folder that holds everything. Back up that folder and you have backed up the install.",
-      "Ein Container, Host-Networking, damit er deine Lautsprecher findet, ein Ordner, der alles enthält. Sichere den Ordner, und du hast die Installation gesichert."
+      "One container on the always-on machine you already have — a Raspberry&nbsp;Pi, a NAS, a mini-PC. Host networking so it can discover your speakers, and one folder that holds everything: back up that folder and you have backed up the install.",
+      "Ein Container auf der Always-on-Maschine, die du schon hast — ein Raspberry&nbsp;Pi, ein NAS, ein Mini-PC. Host-Networking, damit er deine Lautsprecher findet, und ein Ordner, der alles enthält: Sichere den Ordner, und du hast die Installation gesichert."
     ],
     [
       "Then open <code>http://&lt;server-ip&gt;:7090</code>, create your admin account, and walk the three steps: <strong>Content</strong> — add your music. <strong>Access</strong> — switch on how to reach it. <strong>Zones</strong> — only if you want rooms. Steps one and two are already a working audio server.",
@@ -706,8 +706,8 @@
       "Quellcode auf GitHub"
     ],
     [
-      "Issues &amp; support",
-      "Issues &amp; Support"
+      "Issues &amp; bugs",
+      "Issues &amp; Bugs"
     ],
     [
       "<h5>project</h5>",
@@ -1004,6 +1004,10 @@
     [
       "device: 'Sonos speaker',",
       "device: 'Sonos-Lautsprecher',"
+    ],
+    [
+      "Questions &amp; ideas",
+      "Fragen &amp; Ideen"
     ]
   ]
 }
