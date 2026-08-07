@@ -2,8 +2,8 @@
   "//": "The German edition, as data. Each pair is [english-as-it-appears-in-index.html, german]. Matching is whitespace-insensitive; a pair whose English side no longer occurs FAILS the build, so copy edits cannot silently strand the translation. Product vocabulary (bit-perfect, zones · live, bypassed, grouped) is deliberately not translated — that is what the product UI itself says.",
   "pairs": [
     [
-      "sonn — multiroom audio for your whole home",
-      "sonn — Multiroom-Audio für dein ganzes Zuhause"
+      "sonn — open-source multiroom audio server for your home",
+      "sonn — Open-Source-Multiroom-Audioserver für dein Zuhause"
     ],
     [
       "sonn is an open-source audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included.",
@@ -896,6 +896,98 @@
     [
       "rail.setAttribute('aria-label', 'Chapters');",
       "rail.setAttribute('aria-label', 'Kapitel');"
+    ],
+    [
+      "aria-label=\"sonn in familiar terms\"",
+      "aria-label=\"sonn in vertrauten Begriffen\""
+    ],
+    [
+      "the gist",
+      "kurz gesagt"
+    ],
+    [
+      "Place it next to what you already know.",
+      "Stell es neben das, was du schon kennst."
+    ],
+    [
+      "sonn sits where a few products you may know sit — it just refuses to pick one lane. Whichever door you come in through, it is the same server behind it.",
+      "sonn steht dort, wo ein paar Produkte stehen, die du vielleicht kennst — es weigert sich nur, sich auf eine Spur festzulegen. Durch welche Tür du auch hereinkommst: Dahinter steht derselbe Server."
+    ],
+    [
+      "if you know sonos",
+      "wenn du sonos kennst"
+    ],
+    [
+      "The whole-home experience, unbranded",
+      "Das Ganzhaus-Erlebnis, ohne Markenbindung"
+    ],
+    [
+      "Grouped rooms, one app, music everywhere — without buying into one brand of speaker. sonn does the brains; the speakers you already own do the sound.",
+      "Gruppierte Räume, eine App, Musik überall — ohne sich bei einer Lautsprechermarke einzukaufen. sonn übernimmt das Gehirn; die Lautsprecher, die du schon besitzt, machen den Klang."
+    ],
+    [
+      "if you know plex or jellyfin",
+      "wenn du plex oder jellyfin kennst"
+    ],
+    [
+      "A media server, for music",
+      "Ein Medienserver, für Musik"
+    ],
+    [
+      "Self-hosted, one place for everything you listen to, reachable from every app in the house. And unlike a media server, it can also drive the rooms itself — in sync.",
+      "Self-hosted, ein Ort für alles, was du hörst, erreichbar für jede App im Haus. Und anders als ein Medienserver kann er die Räume auch selbst bespielen — synchron."
+    ],
+    [
+      "if you run loxone",
+      "wenn du loxone hast"
+    ],
+    [
+      "A drop-in Audioserver",
+      "Ein Drop-in-Audioserver"
+    ],
+    [
+      "Pair it with the Miniserver and zones, wall switches and the Loxone app just work. And if Loxone means nothing to you: nothing here requires it.",
+      "Mit dem Miniserver gekoppelt funktionieren Zonen, Wandtaster und die Loxone-App einfach. Und falls dir Loxone nichts sagt: Nichts hier setzt es voraus."
+    ],
+    [
+      "out of the box",
+      "ab werk"
+    ],
+    [
+      "aria-label=\"What it does out of the box\"",
+      "aria-label=\"Was es ab Werk kann\""
+    ],
+    [
+      "Every room in perfect sync",
+      "Jeder Raum in perfektem Sync"
+    ],
+    [
+      "Spotify, Apple Music &amp; Tidal on devices that lack them",
+      "Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben"
+    ],
+    [
+      "Bit-perfect playback to a USB DAC",
+      "Bit-perfect bis zum USB-DAC"
+    ],
+    [
+      "AirPlay &amp; Spotify Connect target for any zone",
+      "AirPlay- &amp; Spotify-Connect-Ziel für jede Zone"
+    ],
+    [
+      "The turntable, through the whole house",
+      "Der Plattenspieler, durchs ganze Haus"
+    ],
+    [
+      "Amplifiers wake before the first note",
+      "Verstärker wachen vor der ersten Note auf"
+    ],
+    [
+      "Full Loxone Audio Server, drop-in",
+      "Voller Loxone Audio Server, drop-in"
+    ],
+    [
+      "HTTP API, live events and MQTT",
+      "HTTP-API, Live-Events und MQTT"
     ]
   ]
 }

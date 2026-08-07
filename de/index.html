@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <title>sonn — Multiroom-Audio für dein ganzes Zuhause</title>
+    <title>sonn — Open-Source-Multiroom-Audioserver für dein Zuhause</title>
     <meta
       name="description"
       content="sonn ist ein Open-Source-Audioserver: deine Musik, Streamingdienste, Radio und Line-in — bereitgestellt für jede App oder synchron in jedem Raum, auf den Lautsprechern, die du schon besitzt. Vollständige Loxone-Audioserver-Emulation inklusive."
     />
-    <meta property="og:title" content="sonn — Multiroom-Audio für dein ganzes Zuhause" />
+    <meta property="og:title" content="sonn — Open-Source-Multiroom-Audioserver für dein Zuhause" />
     <meta
       property="og:description"
       content="Der ultimative Audioserver. Als reiner Content-Server, oder als komplettes Multiroom-System mit festen Zonen. Loxone- und Home-Assistant-freundlich. Open Source."
@@ -25,6 +25,21 @@
     <link rel="alternate" hreflang="de" href="https://sonn-audio.github.io/de/" />
     <link rel="alternate" hreflang="x-default" href="https://sonn-audio.github.io/" />
     <link rel="icon" type="image/svg+xml" href="../assets/sonn-mark.svg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "sonn",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Linux, Docker, Node.js",
+        "description": "Open-source, self-hosted multiroom audio server: local library, Spotify, Apple Music, Tidal, radio and line-in, played in sync on the speakers you already own. Includes a complete Loxone Audio Server implementation and works with Home Assistant over MQTT and HTTP.",
+        "url": "https://sonn-audio.github.io/",
+        "downloadUrl": "https://github.com/sonn-audio/core",
+        "softwareVersion": "4.0 beta",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+      }
+    </script>
     <link rel="preload" href="../assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="../assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="../assets/site.css" />
@@ -249,6 +264,57 @@
             <p class="stat-n"><b data-count="0">0</b></p>
             <p class="stat-k">Cloud nötig</p>
           </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== kurz gesagt -->
+      <!-- The translation layer: sonn, placed next to things a first-time visitor
+           already knows — and the one sentence Loxone-less visitors need to read. -->
+      <section class="gist" aria-label="sonn in vertrauten Begriffen" data-amb="145">
+        <div class="wrap">
+          <div class="section-head rise">
+            <p class="eyebrow">kurz gesagt</p>
+            <h2 class="h2">Stell es neben das, was du schon kennst.</h2>
+            <p class="lede">
+              sonn steht dort, wo ein paar Produkte stehen, die du vielleicht kennst — es weigert sich nur, sich auf eine Spur festzulegen. Durch welche Tür du auch hereinkommst: Dahinter steht derselbe Server.
+            </p>
+          </div>
+
+          <div class="cols cols-3 mt-l">
+            <div class="card rise">
+              <p class="gist-k">wenn du sonos kennst</p>
+              <h3>Das Ganzhaus-Erlebnis, ohne Markenbindung</h3>
+              <p>
+                Gruppierte Räume, eine App, Musik überall — ohne sich bei einer Lautsprechermarke einzukaufen. sonn übernimmt das Gehirn; die Lautsprecher, die du schon besitzt, machen den Klang.
+              </p>
+            </div>
+            <div class="card rise">
+              <p class="gist-k">wenn du plex oder jellyfin kennst</p>
+              <h3>Ein Medienserver, für Musik</h3>
+              <p>
+                Self-hosted, ein Ort für alles, was du hörst, erreichbar für jede App im Haus. Und anders als ein Medienserver kann er die Räume auch selbst bespielen — synchron.
+              </p>
+            </div>
+            <div class="card rise">
+              <p class="gist-k">wenn du loxone hast</p>
+              <h3>Ein Drop-in-Audioserver</h3>
+              <p>
+                Mit dem Miniserver gekoppelt funktionieren Zonen, Wandtaster und die Loxone-App einfach. Und falls dir Loxone nichts sagt: Nichts hier setzt es voraus.
+              </p>
+            </div>
+          </div>
+
+          <p class="eyebrow mt-l rise">ab werk</p>
+          <ul class="gist-list rise" aria-label="Was es ab Werk kann">
+            <li>Jeder Raum in perfektem Sync</li>
+            <li>Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben</li>
+            <li>Bit-perfect bis zum USB-DAC</li>
+            <li>AirPlay- &amp; Spotify-Connect-Ziel für jede Zone</li>
+            <li>Der Plattenspieler, durchs ganze Haus</li>
+            <li>Verstärker wachen vor der ersten Note auf</li>
+            <li>Voller Loxone Audio Server, drop-in</li>
+            <li>HTTP-API, Live-Events und MQTT</li>
+          </ul>
         </div>
       </section>
 

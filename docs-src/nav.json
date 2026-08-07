@@ -43,6 +43,10 @@
       "title": "help",
       "items": [
         {
+          "slug": "faq",
+          "title": "FAQ"
+        },
+        {
           "slug": "troubleshooting",
           "title": "Troubleshooting"
         }

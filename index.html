@@ -4,12 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <title>sonn — multiroom audio for your whole home</title>
+    <title>sonn — open-source multiroom audio server for your home</title>
     <meta
       name="description"
       content="sonn is an open-source audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included."
     />
-    <meta property="og:title" content="sonn — multiroom audio for your whole home" />
+    <meta property="og:title" content="sonn — open-source multiroom audio server for your home" />
     <meta
       property="og:description"
       content="The ultimate audio server. Run it as a pure content server, or as a full multiroom system with fixed zones. Loxone and Home Assistant friendly. Open source."
@@ -24,6 +24,21 @@
     <link rel="alternate" hreflang="de" href="https://sonn-audio.github.io/de/" />
     <link rel="alternate" hreflang="x-default" href="https://sonn-audio.github.io/" />
     <link rel="icon" type="image/svg+xml" href="assets/sonn-mark.svg" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "sonn",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Linux, Docker, Node.js",
+        "description": "Open-source, self-hosted multiroom audio server: local library, Spotify, Apple Music, Tidal, radio and line-in, played in sync on the speakers you already own. Includes a complete Loxone Audio Server implementation and works with Home Assistant over MQTT and HTTP.",
+        "url": "https://sonn-audio.github.io/",
+        "downloadUrl": "https://github.com/sonn-audio/core",
+        "softwareVersion": "4.0 beta",
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" }
+      }
+    </script>
     <link rel="preload" href="assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="assets/site.css" />
@@ -250,6 +265,61 @@
             <p class="stat-n"><b data-count="0">0</b></p>
             <p class="stat-k">cloud required</p>
           </div>
+        </div>
+      </section>
+
+      <!-- ======================================================== the gist -->
+      <!-- The translation layer: sonn, placed next to things a first-time visitor
+           already knows — and the one sentence Loxone-less visitors need to read. -->
+      <section class="gist" aria-label="sonn in familiar terms" data-amb="145">
+        <div class="wrap">
+          <div class="section-head rise">
+            <p class="eyebrow">the gist</p>
+            <h2 class="h2">Place it next to what you already know.</h2>
+            <p class="lede">
+              sonn sits where a few products you may know sit — it just refuses to pick one lane.
+              Whichever door you come in through, it is the same server behind it.
+            </p>
+          </div>
+
+          <div class="cols cols-3 mt-l">
+            <div class="card rise">
+              <p class="gist-k">if you know sonos</p>
+              <h3>The whole-home experience, unbranded</h3>
+              <p>
+                Grouped rooms, one app, music everywhere — without buying into one brand of speaker.
+                sonn does the brains; the speakers you already own do the sound.
+              </p>
+            </div>
+            <div class="card rise">
+              <p class="gist-k">if you know plex or jellyfin</p>
+              <h3>A media server, for music</h3>
+              <p>
+                Self-hosted, one place for everything you listen to, reachable from every app in the
+                house. And unlike a media server, it can also drive the rooms itself — in sync.
+              </p>
+            </div>
+            <div class="card rise">
+              <p class="gist-k">if you run loxone</p>
+              <h3>A drop-in Audioserver</h3>
+              <p>
+                Pair it with the Miniserver and zones, wall switches and the Loxone app just work.
+                And if Loxone means nothing to you: nothing here requires it.
+              </p>
+            </div>
+          </div>
+
+          <p class="eyebrow mt-l rise">out of the box</p>
+          <ul class="gist-list rise" aria-label="What it does out of the box">
+            <li>Every room in perfect sync</li>
+            <li>Spotify, Apple Music &amp; Tidal on devices that lack them</li>
+            <li>Bit-perfect playback to a USB DAC</li>
+            <li>AirPlay &amp; Spotify Connect target for any zone</li>
+            <li>The turntable, through the whole house</li>
+            <li>Amplifiers wake before the first note</li>
+            <li>Full Loxone Audio Server, drop-in</li>
+            <li>HTTP API, live events and MQTT</li>
+          </ul>
         </div>
       </section>
 

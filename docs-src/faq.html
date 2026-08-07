@@ -1,0 +1,103 @@
+<!-- description: The questions everyone asks before installing — Loxone, Sonos, hardware, bit-perfect, cost and stability. -->
+<p class="eyebrow">help</p>
+<h1>Frequently asked questions</h1>
+
+<p>
+  The questions people ask before their first <code>docker compose up</code> — answered short.
+  Everything here is covered in depth elsewhere in the documentation; the links point there.
+</p>
+
+<h2>Do I need Loxone?</h2>
+
+<p>
+  No. Loxone is one integration among several — switched off on a fresh install. Everything else on
+  this site — the library, streaming services, zones, grouping, receivers, the web player, the API —
+  works without a Miniserver anywhere on the network. If you <em>do</em> run Loxone, sonn behaves as
+  a complete <a href="/docs/loxone/">Loxone Audio Server</a>: zones, wall switches and the native
+  Loxone app just work.
+</p>
+
+<h2>Does it replace Sonos?</h2>
+
+<p>
+  It replaces the reason to buy into one: sonn provides the brains — grouped rooms, one app, music
+  everywhere — while the speakers can be any mix of brands and protocols. If you already own Sonos
+  speakers, sonn drives them as <a href="/docs/zones/">zones</a> next to everything else, so an
+  existing pair is a head start, not a conflict.
+</p>
+
+<h2>What hardware does it need?</h2>
+
+<p>
+  Anything that runs Docker or Node.js&nbsp;20+ — a NAS, a mini-PC, a single-board computer, the
+  machine that already runs your other services. There is no cloud component and no account with us;
+  see the <a href="/docs/install/">install guide</a> for the one command.
+</p>
+
+<h2>Which streaming services does it support?</h2>
+
+<p>
+  Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube and SoundCloud — plus Music Assistant
+  as a source, which brings its own providers along. Several accounts of one service can coexist, and
+  every account is served on to every consumer: the web player, Loxone, DLNA devices and Subsonic
+  apps alike. Details in <a href="/docs/content/">Content</a>.
+</p>
+
+<h2>Can my phone cast to it?</h2>
+
+<p>
+  Yes — a zone can <em>receive</em>. Switch on its receivers and the zone shows up as an AirPlay,
+  Spotify Connect or DLNA target on the network, whatever the speaker behind it actually is. A pair
+  of Snapcast speakers on a Raspberry&nbsp;Pi becomes an AirPlay target with no support of its own.
+  See <a href="/docs/zones/">receivers</a>.
+</p>
+
+<h2>Is playback bit-perfect?</h2>
+
+<p>
+  On the output built for it, yes: Sendspin negotiates the format per track, so the file's own
+  samples reach a USB DAC unchanged, clocked at the rate they were recorded at. Fixed-format outputs
+  (Chromecast, Sonos, AirPlay …) take a conversion — a good one, SoX at 28-bit precision — and the
+  web player shows the true signal path of every zone, with the verdict and the reason. The
+  <a href="/">landing page</a> has an interactive version of exactly that view.
+</p>
+
+<h2>Does my music leave my network?</h2>
+
+<p>
+  sonn is self-hosted and has no cloud component: control, state and your library stay on your own
+  machine, and the system keeps playing with the internet cable pulled. Streaming services are the
+  exception by nature — those tracks come from the service's own servers, using the accounts you
+  connected.
+</p>
+
+<h2>What does it cost?</h2>
+
+<p>
+  Nothing. sonn is open source under Apache-2.0 — no license, no subscription, no tiers.
+  Streaming service subscriptions are between you and the service.
+</p>
+
+<h2>How does Home Assistant fit in?</h2>
+
+<p>
+  Today over <a href="/docs/access/">MQTT and the HTTP API</a>: every zone is published as retained
+  topics that HA consumes without custom code, and control is publishing a value back. A native Home
+  Assistant integration is on the roadmap to make it one-click.
+</p>
+
+<h2>How stable is it?</h2>
+
+<p>
+  sonn core is at <strong>4.0 beta</strong>: in active daily use and actively developed, with
+  releases tagged from the <code>beta</code> branch. Breaking changes can still land between betas —
+  read the release notes before updating.
+</p>
+
+<h2>Where do I get help?</h2>
+
+<p>
+  Start with <a href="/docs/troubleshooting/">troubleshooting</a>; for everything else, open an
+  issue on <a href="https://github.com/sonn-audio/core/issues" rel="noopener">GitHub</a> — bug,
+  question or idea.
+</p>

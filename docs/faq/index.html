@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="color-scheme" content="dark" />
-    <title>MQTT — sonn docs</title>
-    <meta name="description" content="MQTT — the sonn public API, rendered from core's INTEGRATING.md." />
+    <title>Frequently asked questions — sonn docs</title>
+    <meta name="description" content="The questions everyone asks before installing — Loxone, Sonos, hardware, bit-perfect, cost and stability." />
     <link rel="icon" type="image/svg+xml" href="/assets/sonn-mark.svg" />
     <link rel="preload" href="/assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
@@ -68,51 +68,122 @@
           <li><a href="/docs/ref-commands/">Commands</a></li>
           <li><a href="/docs/ref-destinations/">Destinations</a></li>
           <li><a href="/docs/ref-browsing/">Browsing</a></li>
-          <li><a class="on" aria-current="page" href="/docs/ref-mqtt/">MQTT</a></li>
+          <li><a href="/docs/ref-mqtt/">MQTT</a></li>
           <li><a href="/docs/ref-examples/">Examples</a></li>
           <li><a href="/docs/ref-notes-for-integrators/">Notes for integrators</a></li>
         </ul>
         <p class="docs-nav-k mono">help</p>
         <ul>
-          <li><a href="/docs/faq/">FAQ</a></li>
+          <li><a class="on" aria-current="page" href="/docs/faq/">FAQ</a></li>
           <li><a href="/docs/troubleshooting/">Troubleshooting</a></li>
         </ul>
       </nav>
 
       <main class="docs-main">
         <article class="prose">
-<!-- GENERATED from https://raw.githubusercontent.com/sonn-audio/core/main/INTEGRATING.md — edit INTEGRATING.md in sonn-audio/core, then rerun build-api.mjs. -->
-<!-- description: MQTT — the sonn public API, rendered from core's INTEGRATING.md. -->
-<p class="eyebrow">api reference</p>
-<h1>MQTT</h1>
-<p>An optional second surface, for setups already built around a broker. It is not a replacement for the API above: it carries zone state and the everyday transport controls, and nothing else. Announcements, browsing, the queue, favourites, recents, the equalizer, grouping, cover art and health checks are HTTP only.</p>
-<p>Reach for it when a broker is already how your house talks to itself — then MQTT saves you writing an HTTP client, and tools like Home Assistant or Node-RED consume it with no code at all. Reach for the HTTP API when you want the whole feature set, or when adding a broker would be infrastructure you do not otherwise need. Both can run at once, and both report the same state: MQTT publishes from the same event source <code>/api/v1/events</code> streams from, so the two cannot disagree.</p>
-<p>Switch it on under <strong>Access</strong> in the admin UI and point it at your broker. The payload is the same zone object described above — the API model, not Loxone's field names.</p>
-<h2>What it publishes</h2>
-<pre>sonn/server/online              1        (0 when the server dies — this is an MQTT will)
-sonn/zones/3                    {"id":3,"name":"Kitchen","state":"playing",…}
-sonn/zones/3/state              playing
-sonn/zones/3/volume             40
-sonn/zones/3/track/title        Song
-sonn/zones/3/source/name        Apple Music
-sonn/zones/3/output/protocol    sendspin</pre>
-<p>Two shapes on purpose. The <code>zones/&lt;id&gt;</code> topic carries the whole object as JSON. The per-field topics carry plain scalars, because a Miniserver or a KNX gateway can subscribe to a topic and read a number but cannot parse JSON. Booleans are <code>1</code>/<code>0</code> for the same reason, and a field with no value is published empty rather than dropped — so a display clears when playback stops instead of keeping the last track.</p>
-<p>Everything is <strong>retained</strong>, so a consumer that connects later sees current state immediately instead of waiting for the next change.</p>
-<p><code>sonn</code> is the default prefix and is configurable; two servers on one broker need different ones. The playing-time counter (<code>position</code>) is off by default — it costs a message per second per zone — and can be switched on in the same panel.</p>
-<h2>Controlling it</h2>
-<p>Publish to <code>set/&lt;field&gt;</code> for a single value, or to <code>cmd</code> with JSON when you need more than one at once:</p>
-<pre>mosquitto_pub -t 'sonn/zones/3/set/volume' -m '40'      # absolute
-mosquitto_pub -t 'sonn/zones/3/set/volume' -m '+5'      # relative, like a remote
-mosquitto_pub -t 'sonn/zones/3/set/state'  -m 'paused'
-mosquitto_pub -t 'sonn/zones/3/set/next'   -m '1'       # value ignored
+<!-- description: The questions everyone asks before installing — Loxone, Sonos, hardware, bit-perfect, cost and stability. -->
+<p class="eyebrow">help</p>
+<h1>Frequently asked questions</h1>
 
-mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"power":"on","volume":40}'
-mosquitto_pub -t 'sonn/zones/3/cmd' -m '{"play":"applemusic:track:…"}'</pre>
-<p>Writable fields: <code>volume</code>, <code>state</code>, <code>power</code>, <code>position</code>, <code>repeat</code>, <code>shuffle</code>, <code>next</code>, <code>previous</code>, <code>play</code>. The values are the ones the state topics publish — write <code>paused</code>, not some separate command word — and booleans accept <code>1</code>/<code>true</code>/<code>on</code>/<code>yes</code> and their opposites. A message carrying several fields is applied in a sensible order regardless of key order: power before volume, so <code>{"power":"on","volume":40}</code> does what it looks like.</p>
-<p>An invalid value is refused whole rather than applied in part, and an unknown field is ignored, so echoing our own state topics back does no harm.</p>
-<div class="note"><strong>Publish commands unretained.</strong> A retained command is replayed to us every time we reconnect, which makes a zone lurch back to it after each restart. The server refuses replayed commands and <em>deletes</em> the retained message, so the surprise happens once — but <code>mosquitto_pub -r</code> on a command topic is never what you want.</div>
-<p>Access is your broker's business: anyone allowed to publish to these topics can control the audio, exactly as anyone allowed to read the state topics can watch it. Use your broker's own credentials and per-topic ACLs.</p>
-<div class="note">This chapter is rendered from <a href="https://github.com/sonn-audio/core/blob/main/INTEGRATING.md" rel="noopener">INTEGRATING.md</a> in sonn-audio/core — the API's single source of truth, kept next to the code it describes.</div>
+<p>
+  The questions people ask before their first <code>docker compose up</code> — answered short.
+  Everything here is covered in depth elsewhere in the documentation; the links point there.
+</p>
+
+<h2>Do I need Loxone?</h2>
+
+<p>
+  No. Loxone is one integration among several — switched off on a fresh install. Everything else on
+  this site — the library, streaming services, zones, grouping, receivers, the web player, the API —
+  works without a Miniserver anywhere on the network. If you <em>do</em> run Loxone, sonn behaves as
+  a complete <a href="/docs/loxone/">Loxone Audio Server</a>: zones, wall switches and the native
+  Loxone app just work.
+</p>
+
+<h2>Does it replace Sonos?</h2>
+
+<p>
+  It replaces the reason to buy into one: sonn provides the brains — grouped rooms, one app, music
+  everywhere — while the speakers can be any mix of brands and protocols. If you already own Sonos
+  speakers, sonn drives them as <a href="/docs/zones/">zones</a> next to everything else, so an
+  existing pair is a head start, not a conflict.
+</p>
+
+<h2>What hardware does it need?</h2>
+
+<p>
+  Anything that runs Docker or Node.js&nbsp;20+ — a NAS, a mini-PC, a single-board computer, the
+  machine that already runs your other services. There is no cloud component and no account with us;
+  see the <a href="/docs/install/">install guide</a> for the one command.
+</p>
+
+<h2>Which streaming services does it support?</h2>
+
+<p>
+  Spotify, Apple Music, Tidal, Deezer, YouTube Music, YouTube and SoundCloud — plus Music Assistant
+  as a source, which brings its own providers along. Several accounts of one service can coexist, and
+  every account is served on to every consumer: the web player, Loxone, DLNA devices and Subsonic
+  apps alike. Details in <a href="/docs/content/">Content</a>.
+</p>
+
+<h2>Can my phone cast to it?</h2>
+
+<p>
+  Yes — a zone can <em>receive</em>. Switch on its receivers and the zone shows up as an AirPlay,
+  Spotify Connect or DLNA target on the network, whatever the speaker behind it actually is. A pair
+  of Snapcast speakers on a Raspberry&nbsp;Pi becomes an AirPlay target with no support of its own.
+  See <a href="/docs/zones/">receivers</a>.
+</p>
+
+<h2>Is playback bit-perfect?</h2>
+
+<p>
+  On the output built for it, yes: Sendspin negotiates the format per track, so the file's own
+  samples reach a USB DAC unchanged, clocked at the rate they were recorded at. Fixed-format outputs
+  (Chromecast, Sonos, AirPlay …) take a conversion — a good one, SoX at 28-bit precision — and the
+  web player shows the true signal path of every zone, with the verdict and the reason. The
+  <a href="/">landing page</a> has an interactive version of exactly that view.
+</p>
+
+<h2>Does my music leave my network?</h2>
+
+<p>
+  sonn is self-hosted and has no cloud component: control, state and your library stay on your own
+  machine, and the system keeps playing with the internet cable pulled. Streaming services are the
+  exception by nature — those tracks come from the service's own servers, using the accounts you
+  connected.
+</p>
+
+<h2>What does it cost?</h2>
+
+<p>
+  Nothing. sonn is open source under Apache-2.0 — no license, no subscription, no tiers.
+  Streaming service subscriptions are between you and the service.
+</p>
+
+<h2>How does Home Assistant fit in?</h2>
+
+<p>
+  Today over <a href="/docs/access/">MQTT and the HTTP API</a>: every zone is published as retained
+  topics that HA consumes without custom code, and control is publishing a value back. A native Home
+  Assistant integration is on the roadmap to make it one-click.
+</p>
+
+<h2>How stable is it?</h2>
+
+<p>
+  sonn core is at <strong>4.0 beta</strong>: in active daily use and actively developed, with
+  releases tagged from the <code>beta</code> branch. Breaking changes can still land between betas —
+  read the release notes before updating.
+</p>
+
+<h2>Where do I get help?</h2>
+
+<p>
+  Start with <a href="/docs/troubleshooting/">troubleshooting</a>; for everything else, open an
+  issue on <a href="https://github.com/sonn-audio/core/issues" rel="noopener">GitHub</a> — bug,
+  question or idea.
+</p>
 
           <footer class="docs-foot">
             <p class="mono">
