@@ -754,8 +754,8 @@
       "'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.'"
     ],
     [
-      "'Resampled — this output is fixed at 48 kHz. That is the output’s ceiling talking, not a setting you missed, and the conversion is a good one: SoX at 28-bit precision.'",
-      "'Resampelt — dieser Ausgang ist fest auf 48 kHz. Das ist die Obergrenze des Ausgangs, keine Einstellung, die du übersehen hast, und die Umwandlung ist eine gute: SoX mit 28-bit-Präzision.'"
+      "'Resampled and encoded — this output takes one fixed stream: 44.1 kHz, carried as MP3. That is the output’s ceiling talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'",
+      "'Resampelt und enkodiert — dieser Ausgang nimmt einen festen Stream: 44,1 kHz, getragen als MP3. Das ist die Obergrenze des Ausgangs, keine Einstellung, die du übersehen hast — und der Resampler ist ein guter: SoX mit 28-bit-Präzision.'"
     ],
     [
       "'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.'",
@@ -976,6 +976,10 @@
     [
       "HTTP API, live events and MQTT",
       "HTTP-API, Live-Events und MQTT"
+    ],
+    [
+      "'No resampling needed — the source is already at this output’s fixed 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.'",
+      "'Kein Resampling nötig — die Quelle liegt schon auf den festen 44,1 kHz dieses Ausgangs — aber der Stream wird zum Transport enkodiert, und der Player ist ehrlich dazu: altered.'"
     ]
   ]
 }

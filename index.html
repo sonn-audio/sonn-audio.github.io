@@ -1651,15 +1651,19 @@ npm start"><span class="c-com"># Node.js 20+</span>
       function render() {
         const src = SOURCES[state.src];
         const sendspin = state.out === 'sendspin';
-        const converts = !sendspin; // fixed-format outputs take 48 kHz, so anything else converts
+        // The fixed-format outputs take one stream: 44.1 kHz, carried as MP3. Only a
+        // hi-res source actually needs the resampler — CD rips and streams are already
+        // at 44.1, so for them the encode is the only stage that touches the audio.
+        const converts = !sendspin;
+        const resamples = converts && state.src === 'hires';
 
         $('n-src').textContent = src.name;
         $('n-src-f').textContent = src.fmt;
 
         const resample = $('n-resample');
-        resample.classList.toggle('bypass', !converts);
-        resample.classList.toggle('touches', converts);
-        $('n-resample-f').textContent = converts ? '→ 16-bit / 48 kHz' : 'bypassed';
+        resample.classList.toggle('bypass', !resamples);
+        resample.classList.toggle('touches', resamples);
+        $('n-resample-f').textContent = resamples ? '→ 16-bit / 44.1 kHz' : 'bypassed';
 
         const eq = $('n-eq');
         eq.classList.toggle('bypass', !state.eq);
@@ -1668,7 +1672,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
 
         $('n-out-k').textContent = sendspin ? 'sendspin' : 'cast / sonos';
         $('n-out').textContent = sendspin ? 'USB DAC' : 'Speaker';
-        $('n-out-f').textContent = converts ? '16-bit / 48 kHz' : src.rate;
+        $('n-out-f').textContent = converts ? 'MP3 · 44.1 kHz' : src.rate;
 
         // The three verdicts the player's technical view hands out, with the reason.
         const badge = $('verdict');
@@ -1691,8 +1695,9 @@ npm start"><span class="c-com"># Node.js 20+</span>
           badge.dataset.v = 'altered';
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
-          why.textContent =
-            'Resampled — this output is fixed at 48 kHz. That is the output’s ceiling talking, not a setting you missed, and the conversion is a good one: SoX at 28-bit precision.';
+          why.textContent = resamples
+            ? 'Resampled and encoded — this output takes one fixed stream: 44.1 kHz, carried as MP3. That is the output’s ceiling talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'
+            : 'No resampling needed — the source is already at this output’s fixed 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.';
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';
