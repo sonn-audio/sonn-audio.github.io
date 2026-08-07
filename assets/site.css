@@ -684,7 +684,7 @@ section[data-num]::before {
 }
 
 .phone-wrap.reveal {
-  --rvr: 44px;
+  --rvr: 28px;
 }
 
 /* --- top bar ------------------------------------------------------------- */
@@ -2500,143 +2500,32 @@ section[data-num]::before {
 
 /* --- the player, drawn: a phone in the product's own panel style ----------- */
 
-.phone-wrap {
-  display: grid;
-  place-items: center;
-}
-
-.phone {
-  width: min(300px, 78vw);
-  padding: 18px 20px 24px;
+/* The real player, as itself: hairline, corner radius, deep shadow — nothing drawn. */
+.player-shot {
+  width: min(320px, 82vw);
   border: 1px solid var(--line);
-  border-radius: 34px;
-  background:
-    linear-gradient(168deg, rgb(255 255 255 / 5%), rgb(255 255 255 / 1.5%)),
-    rgb(10 12 16 / 90%);
+  border-radius: 28px;
+  overflow: hidden;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 7%),
     0 50px 100px -50px rgb(0 0 0 / 100%),
-    0 0 90px -40px rgb(74 222 128 / 25%);
-  transform: rotate(1.6deg);
+    0 0 90px -40px rgb(74 222 128 / 22%);
   transition: transform 0.4s var(--ease);
 }
 
-.phone:hover {
-  transform: rotate(0deg) translateY(-4px);
+.player-shot:hover {
+  transform: translateY(-4px);
 }
 
-.phone-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+.player-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
-.phone-cover {
+.phone-wrap {
   display: grid;
   place-items: center;
-  aspect-ratio: 1;
-  margin-top: 16px;
-  border: 1px solid var(--line-soft);
-  border-radius: 14px;
-  background:
-    radial-gradient(120% 100% at 20% 0%, rgb(74 222 128 / 14%), transparent 55%),
-    radial-gradient(120% 100% at 90% 100%, rgb(45 212 191 / 10%), transparent 55%),
-    rgb(0 0 0 / 30%);
-  color: rgb(74 222 128 / 45%);
-}
-
-.phone-cover svg {
-  width: 42%;
-}
-
-.phone-title {
-  margin-top: 16px;
-  font-size: 17px;
-  font-weight: 750;
-  letter-spacing: -0.02em;
-}
-
-.phone-artist {
-  margin-top: 3px;
-  font-size: 12.5px;
-  color: var(--dim);
-}
-
-.phone-progress {
-  position: relative;
-  height: 3px;
-  margin-top: 14px;
-  border-radius: 2px;
-  background: rgb(255 255 255 / 8%);
-}
-
-.phone-progress i {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 34%;
-  border-radius: 2px;
-  background: linear-gradient(90deg, rgb(74 222 128 / 50%), var(--accent));
-  box-shadow: 0 0 8px rgb(74 222 128 / 55%);
-  animation: creep 260s linear forwards;
-}
-
-.phone-transport {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 26px;
-  margin-top: 16px;
-}
-
-.phone-transport svg {
-  width: 20px;
-  height: 20px;
-  color: var(--muted);
-}
-
-.phone-play {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 4px 24px -4px rgb(74 222 128 / 55%);
-}
-
-.phone-play svg {
-  width: 19px;
-  height: 19px;
-  color: var(--accent-ink);
-}
-
-.phone-queue {
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line-soft);
-}
-
-.phone-queue-k {
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--dim);
-}
-
-.phone-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 9px 0 0;
-  font-size: 13px;
-}
-
-.phone-row .mono {
-  font-size: 10px;
 }
 
 /* --- the beoremote one --------------------------------------------------- */
@@ -2700,24 +2589,6 @@ section[data-num]::before {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--dim);
-}
-
-/* The real player in the drawn bezel: the frame is ours, the screen is the product's. */
-.phone-real {
-  padding: 10px;
-}
-
-.phone-real img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 24px;
-}
-
-.phone-real .shot-caption {
-  border-top: 0;
-  padding: 12px 4px 2px;
-  text-align: center;
 }
 
 /* --- sonn ♥ sendspin -------------------------------------------------------- */
