@@ -42,7 +42,7 @@
     </script>
     <link rel="preload" href="assets/fonts/hanken-grotesk-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="assets/site.css" />
+    <link rel="stylesheet" href="assets/site.css?v=2" />
     <!-- The one inline script: mark the page as scripted before first paint, so entrance
          states only ever hide things when something is actually going to reveal them. -->
     <script>document.documentElement.classList.add('js');</script>
@@ -1423,6 +1423,15 @@ npm start"><span class="c-com"># Node.js 20+</span>
       // headline steps out line by line. The CSS holds the choreography; this only
       // measures the path and fires the class.
       requestAnimationFrame(() => document.documentElement.classList.add('hero-go'));
+
+      // Safari restores pages from its back-forward cache with CSS animations already
+      // finished-and-frozen mid-state — a returning visitor would get half a hello.
+      // Re-inserting the mark restarts the whole intro, pulse rings included.
+      addEventListener('pageshow', (e) => {
+        if (!e.persisted) return;
+        const mark = $('hero-mark');
+        if (mark) mark.replaceWith(mark.cloneNode(true));
+      });
 
       /* ============================== live level meters ================================ */
       if (!reduced) {
