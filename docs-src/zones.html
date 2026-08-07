@@ -61,10 +61,10 @@
 </p>
 
 <p>
-  The other outputs sonn feeds one continuous stream in one fixed format. That is a design choice,
-  not a hard limit of every protocol involved: a single stream in a format the device is guaranteed
-  to accept is what keeps groups in lockstep and playback gapless. The conversion it implies is a
-  good one (SoX resampler, 28-bit precision) — it is simply not the same as <em>not converting</em>.
+  The other outputs share the ambition: wherever the protocol can switch formats, sonn follows the
+  source there too. A conversion happens only where a fixed format is forced — AirPlay takes
+  16-bit/44.1&nbsp;kHz, many speakers top out at 48&nbsp;kHz — and then exactly once, with a good
+  resampler (SoX, 28-bit precision). The player reports it honestly, per zone.
 </p>
 
 <p>Two things deliberately stay out of the audio path either way:</p>

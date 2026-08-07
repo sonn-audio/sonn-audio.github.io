@@ -314,7 +314,7 @@
           <ul class="gist-list rise" aria-label="What it does out of the box">
             <li>Every room in perfect sync</li>
             <li>Spotify, Apple Music &amp; Tidal on devices that lack them</li>
-            <li>Bit-perfect delivery over Sendspin</li>
+            <li>Bit-perfect delivery to the endpoint</li>
             <li>AirPlay &amp; Spotify Connect target for any zone</li>
             <li>The turntable, through the whole house</li>
             <li>Amplifiers wake before the first note</li>
@@ -482,12 +482,13 @@
               which is exactly how bit-perfect should work.
             </p>
             <p>
-              Every other output sonn drives with one continuous stream in one fixed format — the
-              price of keeping a grouped house in lockstep — so anything else means a conversion: a
-              good one, but a conversion. Sendspin is the one output where the format is free to
-              follow the source, per track. And it carries more than playback: the visualizer role
-              streams live analysis for VU meters and light scenes, and the source role brings
-              line-in devices in — a part of the spec that started life here, in sonn.
+              The rest of the house shares the ambition: sonn follows the source on every output
+              whose protocol can switch formats, and converts only where a fixed format is forced —
+              AirPlay's 44.1&nbsp;kHz, a speaker that tops out at 48 — once, well: SoX at 28-bit
+              precision. What makes Sendspin the preferred output is everything around that: the
+              format is negotiated per track and guaranteed, and it carries more than playback — the
+              visualizer role streams live analysis for VU meters and light scenes, and the source
+              role brings line-in devices in, a part of the spec that started life here, in sonn.
             </p>
           </aside>
 
@@ -1651,11 +1652,10 @@ npm start"><span class="c-com"># Node.js 20+</span>
       function render() {
         const src = SOURCES[state.src];
         const sendspin = state.out === 'sendspin';
-        // The fixed-format outputs take one stream: 44.1 kHz, carried as MP3. Only a
-        // hi-res source actually needs the resampler — CD rips and streams are already
-        // at 44.1, so for them the encode is the only stage that touches the audio.
-        const converts = !sendspin;
-        const resamples = converts && state.src === 'hires';
+        // sonn follows the source wherever the protocol can switch formats. The fixed
+        // option models a typical cast/sonos device with a 48 kHz ceiling — so only a
+        // hi-res source meets the resampler; everything else travels as-is.
+        const resamples = !sendspin && state.src === 'hires';
 
         $('n-src').textContent = src.name;
         $('n-src-f').textContent = src.fmt;
@@ -1663,7 +1663,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
         const resample = $('n-resample');
         resample.classList.toggle('bypass', !resamples);
         resample.classList.toggle('touches', resamples);
-        $('n-resample-f').textContent = resamples ? '→ 16-bit / 44.1 kHz' : 'bypassed';
+        $('n-resample-f').textContent = resamples ? '→ 24-bit / 48 kHz' : 'bypassed';
 
         const eq = $('n-eq');
         eq.classList.toggle('bypass', !state.eq);
@@ -1672,7 +1672,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
 
         $('n-out-k').textContent = sendspin ? 'sendspin' : 'cast / sonos';
         $('n-out').textContent = sendspin ? 'USB DAC' : 'Speaker';
-        $('n-out-f').textContent = converts ? 'MP3 · 44.1 kHz' : src.rate;
+        $('n-out-f').textContent = resamples ? '24-bit / 48 kHz' : src.rate;
 
         // The three verdicts the player's technical view hands out, with the reason.
         const badge = $('verdict');
@@ -1691,13 +1691,12 @@ npm start"><span class="c-com"># Node.js 20+</span>
           svg.innerHTML = verdictIcons.wave;
           why.textContent =
             'The equalizer is on — a per-zone choice to process the audio, off by default, and the player says so while it is on. Switch it off and the path below returns.';
-        } else if (converts) {
+        } else if (resamples) {
           badge.dataset.v = 'altered';
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
-          why.textContent = resamples
-            ? 'Resampled and encoded — sonn drives this output with one continuous stream, 44.1 kHz carried as MP3, so a grouped house stays in lockstep. That is the design talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'
-            : 'No resampling needed — the source is already at the stream’s 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.';
+          why.textContent =
+            'Resampled — this device tops out at 48 kHz, so the server converts once, well: SoX at 28-bit precision. That is the device’s ceiling talking, not a setting you missed.';
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';
@@ -1708,8 +1707,9 @@ npm start"><span class="c-com"># Node.js 20+</span>
           badge.dataset.v = 'perfect';
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
-          why.textContent =
-            'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.';
+          why.textContent = sendspin
+            ? 'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.'
+            : 'This device accepts the source’s format, so the server sends the file’s own samples, untouched. A conversion would only appear if the source rose above the device’s ceiling.';
         }
       }
 

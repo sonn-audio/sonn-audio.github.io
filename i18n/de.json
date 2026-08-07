@@ -754,8 +754,8 @@
       "'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.'"
     ],
     [
-      "'Resampled and encoded — sonn drives this output with one continuous stream, 44.1 kHz carried as MP3, so a grouped house stays in lockstep. That is the design talking, not a setting you missed — and the resampler is a good one: SoX at 28-bit precision.'",
-      "'Resampelt und enkodiert — sonn fährt diesen Ausgang mit einem durchgehenden Stream, 44,1 kHz als MP3, damit ein gruppiertes Haus im Gleichschritt bleibt. Das ist das Design, keine Einstellung, die du übersehen hast — und der Resampler ist ein guter: SoX mit 28-bit-Präzision.'"
+      "'Resampled — this device tops out at 48 kHz, so the server converts once, well: SoX at 28-bit precision. That is the device’s ceiling talking, not a setting you missed.'",
+      "'Resampelt — dieses Gerät endet bei 48 kHz, also wandelt der Server einmal um, gut: SoX mit 28-bit-Präzision. Das ist die Obergrenze des Geräts, keine Einstellung, die du übersehen hast.'"
     ],
     [
       "'A lossy source we did not make worse: the stream is passed through as delivered, with no second encode and no resampler in the path.'",
@@ -822,8 +822,8 @@
       "Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Der Endpoint erhält die Samples der Datei selbst, unangetastet. Alles danach — der DAC, der Verstärker — gehört dir, und genau so soll bit-perfect funktionieren."
     ],
     [
-      "Every other output sonn drives with one continuous stream in one fixed format — the price of keeping a grouped house in lockstep — so anything else means a conversion: a good one, but a conversion. Sendspin is the one output where the format is free to follow the source, per track. And it carries more than playback: the visualizer role streams live analysis for VU meters and light scenes, and the source role brings line-in devices in — a part of the spec that started life here, in sonn.",
-      "Jeden anderen Ausgang fährt sonn mit einem durchgehenden Stream in einem festen Format — der Preis dafür, dass ein gruppiertes Haus im Gleichschritt bleibt — also bedeutet alles andere eine Umwandlung: eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem das Format der Quelle folgen darf, pro Titel. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist."
+      "The rest of the house shares the ambition: sonn follows the source on every output whose protocol can switch formats, and converts only where a fixed format is forced — AirPlay's 44.1&nbsp;kHz, a speaker that tops out at 48 — once, well: SoX at 28-bit precision. What makes Sendspin the preferred output is everything around that: the format is negotiated per track and guaranteed, and it carries more than playback — the visualizer role streams live analysis for VU meters and light scenes, and the source role brings line-in devices in, a part of the spec that started life here, in sonn.",
+      "Der Rest des Hauses teilt den Anspruch: sonn folgt der Quelle auf jedem Ausgang, dessen Protokoll das Format wechseln kann, und wandelt nur um, wo ein festes Format erzwungen wird — AirPlays 44,1&nbsp;kHz, ein Lautsprecher, der bei 48 endet — einmal, gut: SoX mit 28-bit-Präzision. Was Sendspin zum bevorzugten Ausgang macht, ist alles drumherum: Das Format wird pro Titel ausgehandelt und ist garantiert, und es trägt mehr als Wiedergabe — die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein, ein Teil der Spec, der hier in sonn entstanden ist."
     ],
     [
       "beoremote one",
@@ -954,8 +954,8 @@
       "Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben"
     ],
     [
-      "Bit-perfect delivery over Sendspin",
-      "Bit-perfect-Lieferung über Sendspin"
+      "Bit-perfect delivery to the endpoint",
+      "Bit-perfect-Lieferung bis zum Endpoint"
     ],
     [
       "AirPlay &amp; Spotify Connect target for any zone",
@@ -978,8 +978,8 @@
       "HTTP-API, Live-Events und MQTT"
     ],
     [
-      "'No resampling needed — the source is already at the stream’s 44.1 kHz — but the stream is encoded to travel, and the player is honest about that: altered.'",
-      "'Kein Resampling nötig — die Quelle liegt schon auf den 44,1 kHz des Streams — aber der Stream wird zum Transport enkodiert, und der Player ist ehrlich dazu: altered.'"
+      "'This device accepts the source’s format, so the server sends the file’s own samples, untouched. A conversion would only appear if the source rose above the device’s ceiling.'",
+      "'Dieses Gerät akzeptiert das Format der Quelle, also schickt der Server die Samples der Datei selbst, unangetastet. Eine Umwandlung erschiene erst, wenn die Quelle über die Obergrenze des Geräts stiege.'"
     ]
   ]
 }

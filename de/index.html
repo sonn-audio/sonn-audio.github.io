@@ -309,7 +309,7 @@
           <ul class="gist-list rise" aria-label="Was es ab Werk kann">
             <li>Jeder Raum in perfektem Sync</li>
             <li>Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben</li>
-            <li>Bit-perfect-Lieferung über Sendspin</li>
+            <li>Bit-perfect-Lieferung bis zum Endpoint</li>
             <li>AirPlay- &amp; Spotify-Connect-Ziel für jede Zone</li>
             <li>Der Plattenspieler, durchs ganze Haus</li>
             <li>Verstärker wachen vor der ersten Note auf</li>
@@ -461,7 +461,7 @@
               Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Der Endpoint erhält die Samples der Datei selbst, unangetastet. Alles danach — der DAC, der Verstärker — gehört dir, und genau so soll bit-perfect funktionieren.
             </p>
             <p>
-              Jeden anderen Ausgang fährt sonn mit einem durchgehenden Stream in einem festen Format — der Preis dafür, dass ein gruppiertes Haus im Gleichschritt bleibt — also bedeutet alles andere eine Umwandlung: eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem das Format der Quelle folgen darf, pro Titel. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist.
+              Der Rest des Hauses teilt den Anspruch: sonn folgt der Quelle auf jedem Ausgang, dessen Protokoll das Format wechseln kann, und wandelt nur um, wo ein festes Format erzwungen wird — AirPlays 44,1&nbsp;kHz, ein Lautsprecher, der bei 48 endet — einmal, gut: SoX mit 28-bit-Präzision. Was Sendspin zum bevorzugten Ausgang macht, ist alles drumherum: Das Format wird pro Titel ausgehandelt und ist garantiert, und es trägt mehr als Wiedergabe — die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein, ein Teil der Spec, der hier in sonn entstanden ist.
             </p>
           </aside>
 
@@ -1573,11 +1573,10 @@ npm start"><span class="c-com"># Node.js 20+</span>
       function render() {
         const src = SOURCES[state.src];
         const sendspin = state.out === 'sendspin';
-        // The fixed-format outputs take one stream: 44.1 kHz, carried as MP3. Only a
-        // hi-res source actually needs the resampler — CD rips and streams are already
-        // at 44.1, so for them the encode is the only stage that touches the audio.
-        const converts = !sendspin;
-        const resamples = converts && state.src === 'hires';
+        // sonn follows the source wherever the protocol can switch formats. The fixed
+        // option models a typical cast/sonos device with a 48 kHz ceiling — so only a
+        // hi-res source meets the resampler; everything else travels as-is.
+        const resamples = !sendspin && state.src === 'hires';
 
         $('n-src').textContent = src.name;
         $('n-src-f').textContent = src.fmt;
@@ -1585,7 +1584,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
         const resample = $('n-resample');
         resample.classList.toggle('bypass', !resamples);
         resample.classList.toggle('touches', resamples);
-        $('n-resample-f').textContent = resamples ? '→ 16-bit / 44.1 kHz' : 'bypassed';
+        $('n-resample-f').textContent = resamples ? '→ 24-bit / 48 kHz' : 'bypassed';
 
         const eq = $('n-eq');
         eq.classList.toggle('bypass', !state.eq);
@@ -1594,7 +1593,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
 
         $('n-out-k').textContent = sendspin ? 'sendspin' : 'cast / sonos';
         $('n-out').textContent = sendspin ? 'USB-DAC' : 'Lautsprecher';
-        $('n-out-f').textContent = converts ? 'MP3 · 44.1 kHz' : src.rate;
+        $('n-out-f').textContent = resamples ? '24-bit / 48 kHz' : src.rate;
 
         // The three verdicts the player's technical view hands out, with the reason.
         const badge = $('verdict');
@@ -1613,13 +1612,12 @@ npm start"><span class="c-com"># Node.js 20+</span>
           svg.innerHTML = verdictIcons.wave;
           why.textContent =
             'Der Equalizer ist an — eine Entscheidung pro Zone, das Audio zu verarbeiten, standardmäßig aus, und der Player sagt es, solange er läuft. Schalte ihn ab und der Weg unten kehrt zurück.';
-        } else if (converts) {
+        } else if (resamples) {
           badge.dataset.v = 'altered';
           label.textContent = 'altered';
           svg.innerHTML = verdictIcons.wave;
-          why.textContent = resamples
-            ? 'Resampelt und enkodiert — sonn fährt diesen Ausgang mit einem durchgehenden Stream, 44,1 kHz als MP3, damit ein gruppiertes Haus im Gleichschritt bleibt. Das ist das Design, keine Einstellung, die du übersehen hast — und der Resampler ist ein guter: SoX mit 28-bit-Präzision.'
-            : 'Kein Resampling nötig — die Quelle liegt schon auf den 44,1 kHz des Streams — aber der Stream wird zum Transport enkodiert, und der Player ist ehrlich dazu: altered.';
+          why.textContent =
+            'Resampelt — dieses Gerät endet bei 48 kHz, also wandelt der Server einmal um, gut: SoX mit 28-bit-Präzision. Das ist die Obergrenze des Geräts, keine Einstellung, die du übersehen hast.';
         } else if (!src.lossless) {
           badge.dataset.v = 'untouched';
           label.textContent = 'untouched';
@@ -1630,8 +1628,9 @@ npm start"><span class="c-com"># Node.js 20+</span>
           badge.dataset.v = 'perfect';
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
-          why.textContent =
-            'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.';
+          why.textContent = sendspin
+            ? 'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.'
+            : 'Dieses Gerät akzeptiert das Format der Quelle, also schickt der Server die Samples der Datei selbst, unangetastet. Eine Umwandlung erschiene erst, wenn die Quelle über die Obergrenze des Geräts stiege.';
         }
       }
 
