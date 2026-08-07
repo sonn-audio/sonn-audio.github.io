@@ -394,7 +394,7 @@
               <div class="sig-group">
                 <h4>ausgang</h4>
                 <div class="chips" role="radiogroup" aria-label="Ausgangstyp">
-                  <button class="chip" role="radio" aria-checked="true" data-out="sendspin">Sendspin + USB-DAC</button>
+                  <button class="chip" role="radio" aria-checked="true" data-out="sendspin">Sendspin</button>
                   <button class="chip" role="radio" aria-checked="false" data-out="squeezelite">Squeezelite</button>
                   <button class="chip" role="radio" aria-checked="false" data-out="snapcast">Snapcast</button>
                   <button class="chip" role="radio" aria-checked="false" data-out="dlna">DLNA / UPnP</button>
@@ -439,7 +439,7 @@
                 <span class="link" style="--d: 1.5s"></span>
                 <div class="node endpoint">
                   <p class="node-k" id="n-out-k">sendspin</p>
-                  <p class="node-v" id="n-out">USB-DAC</p>
+                  <p class="node-v" id="n-out">Endpoint</p>
                   <p class="node-f" id="n-out-f">24-bit / 192 kHz</p>
                 </div>
               </div>
@@ -1573,7 +1573,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
       const OUTPUTS = {
         sendspin: {
           name: 'sendspin',
-          device: 'USB DAC',
+          device: 'Endpoint',
           hz: Infinity,
           bits: 32,
           ok: 'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.',

@@ -222,10 +222,6 @@
       ">CD-Rip 16/44.1<"
     ],
     [
-      ">Sendspin + USB DAC<",
-      ">Sendspin + USB-DAC<"
-    ],
-    [
       "<p class=\"node-k\">source</p>",
       "<p class=\"node-k\">quelle</p>"
     ],
@@ -248,10 +244,6 @@
     [
       ">10-band<",
       ">10-Band<"
-    ],
-    [
-      ">USB DAC<",
-      ">USB-DAC<"
     ],
     [
       "A Sendspin endpoint announces the formats it accepts, and this one accepts the source's own — so the server sends exactly that: the file's own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.",
