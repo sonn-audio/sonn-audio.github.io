@@ -107,9 +107,10 @@
 <h2>Power management</h2>
 
 <p>
-  A zone can switch an amplifier or power supply on when it starts and off after it stops, over either
-  a GPIO line (using libgpiod's <code>gpioset</code>) or a USB HID relay board (CRelay). Configure it
-  per zone under Zones.
+  A zone can switch an amplifier or power supply on when it starts and off after it stops, over a
+  GPIO line (using libgpiod's <code>gpioset</code>), a USB HID relay board (CRelay), or the network:
+  an HTTP(S) on/off URL — a Shelly or Tasmota plug, for instance — or a UDP packet. Configure it per
+  zone under Zones.
 </p>
 
 <p>

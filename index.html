@@ -371,7 +371,7 @@
                 <li>Central control from the web player, Admin UI or a Loxone app</li>
                 <li>Group any rooms to play in perfect sync</li>
                 <li>Per-zone equalizer, volume limits, favorites and recents</li>
-                <li>Amp power switching over GPIO or USB relay, per zone or shared</li>
+                <li>Amp power switching over GPIO, USB relay or the network, per zone or shared</li>
               </ul>
               <p class="door-note">
                 With the Loxone integration on, the Miniserver supplies the zones — sonn behaves as a
@@ -856,8 +856,9 @@
               <dt>Power management</dt>
               <dd>
                 A zone can wake its amplifier before the first note and switch it off after the music
-                stops — GPIO or USB relay, per zone or per shared amp group, with pre-delays and off-delays
-                so short gaps never cycle the hardware.
+                stops — a GPIO line, a USB relay, or a network switch driven over HTTP or UDP — per
+                zone or per shared amp group, with pre-delays and off-delays so short gaps never
+                cycle the hardware.
               </dd>
             </div>
             <div class="row">

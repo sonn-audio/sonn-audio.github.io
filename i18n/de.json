@@ -178,8 +178,8 @@
       "Equalizer, Lautstärkegrenzen, Favoriten und Verlauf pro Zone"
     ],
     [
-      "Amp power switching over GPIO or USB relay, per zone or shared",
-      "Verstärker schalten über GPIO oder USB-Relais, pro Zone oder geteilt"
+      "Amp power switching over GPIO, USB relay or the network, per zone or shared",
+      "Verstärker-Schaltung über GPIO, USB-Relais oder Netzwerk, pro Zone oder geteilt"
     ],
     [
       "With the Loxone integration on, the Miniserver supplies the zones — sonn behaves as a full Loxone Audio Server.",
@@ -454,8 +454,8 @@
       ">Verstärker schalten<"
     ],
     [
-      "A zone can wake its amplifier before the first note and switch it off after the music stops — GPIO or USB relay, per zone or per shared amp group, with pre-delays and off-delays so short gaps never cycle the hardware.",
-      "Eine Zone kann ihren Verstärker vor dem ersten Ton wecken und nach der Musik wieder abschalten — GPIO oder USB-Relais, pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie takten."
+      "A zone can wake its amplifier before the first note and switch it off after the music stops — a GPIO line, a USB relay, or a network switch driven over HTTP or UDP — per zone or per shared amp group, with pre-delays and off-delays so short gaps never cycle the hardware.",
+      "Eine Zone kann ihren Verstärker vor der ersten Note wecken und nach der Musik wieder abschalten — eine GPIO-Leitung, ein USB-Relais oder ein Netzwerkschalter über HTTP oder UDP — pro Zone oder pro geteilter Verstärkergruppe, mit Vor- und Nachlaufzeiten, damit kurze Pausen die Hardware nie zyklisch schalten."
     ],
     [
       ">This browser is a room<",
