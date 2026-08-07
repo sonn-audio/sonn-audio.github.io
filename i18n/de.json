@@ -254,8 +254,8 @@
       ">USB-DAC<"
     ],
     [
-      "A Sendspin endpoint announces the formats it accepts, and this one accepts the source's own — so the server sends exactly that: the file's own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.",
-      "Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht."
+      "A Sendspin endpoint announces the formats it accepts, and this one accepts the source's own — so the server sends exactly that: the file's own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.",
+      "Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir."
     ],
     [
       "The web player shows this technical view for every zone, live: the source format, every stage that touched the audio, and the verdict. <em>Bit-perfect</em>, <em>untouched</em>, or <em>altered</em> — with the reason. And if you just want music: use whatever output you already have. All of it works, all of it sounds good, and none of it needs a thought about sample rates.",
@@ -762,8 +762,8 @@
       "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Der Stream wird durchgereicht wie geliefert — kein zweites Encoding, kein Resampler im Weg.'"
     ],
     [
-      "'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.'",
-      "'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.'"
+      "'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.'",
+      "'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.'"
     ],
     [
       "textContent = '✓ copied'",
@@ -818,8 +818,8 @@
       "Der bevorzugte Ausgang — nichts in der Kette hat ein Mitspracherecht."
     ],
     [
-      "A Sendspin client announces the sample rates and bit depths it accepts, in order of preference, and the server picks the stream format per track. sonn uses that freedom to follow the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. Pair it with a USB DAC and the file's own samples reach the converter untouched, clocked at the rate they were recorded at.",
-      "Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Mit einem USB-DAC erreichen die Samples der Datei selbst den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden."
+      "A Sendspin client announces the sample rates and bit depths it accepts, in order of preference, and the server picks the stream format per track. sonn uses that freedom to follow the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. The endpoint receives the file's own samples, untouched. Everything after that — the DAC, the amplifier — is yours, which is exactly how bit-perfect should work.",
+      "Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Der Endpoint erhält die Samples der Datei selbst, unangetastet. Alles danach — der DAC, der Verstärker — gehört dir, und genau so soll bit-perfect funktionieren."
     ],
     [
       "Every other output sonn drives with one continuous stream in one fixed format — the price of keeping a grouped house in lockstep — so anything else means a conversion: a good one, but a conversion. Sendspin is the one output where the format is free to follow the source, per track. And it carries more than playback: the visualizer role streams live analysis for VU meters and light scenes, and the source role brings line-in devices in — a part of the spec that started life here, in sonn.",
@@ -870,8 +870,8 @@
       "Zonen, eine pro Raum"
     ],
     [
-      "bit-perfect, source to DAC",
-      "bit-perfect, von Quelle bis DAC"
+      "bit-perfect, delivered untouched",
+      "bit-perfect, unangetastet geliefert"
     ],
     [
       "output protocols",
@@ -954,8 +954,8 @@
       "Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben"
     ],
     [
-      "Bit-perfect playback to a USB DAC",
-      "Bit-perfect bis zum USB-DAC"
+      "Bit-perfect delivery over Sendspin",
+      "Bit-perfect-Lieferung über Sendspin"
     ],
     [
       "AirPlay &amp; Spotify Connect target for any zone",

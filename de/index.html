@@ -255,7 +255,7 @@
           </div>
           <div class="stat">
             <p class="stat-n"><b data-count="192">192</b><i>kHz</i></p>
-            <p class="stat-k">bit-perfect, von Quelle bis DAC</p>
+            <p class="stat-k">bit-perfect, unangetastet geliefert</p>
           </div>
           <div class="stat">
             <p class="stat-n"><b data-count="8">8</b></p>
@@ -309,7 +309,7 @@
           <ul class="gist-list rise" aria-label="Was es ab Werk kann">
             <li>Jeder Raum in perfektem Sync</li>
             <li>Spotify, Apple Music &amp; Tidal auf Geräten, die sie nicht haben</li>
-            <li>Bit-perfect bis zum USB-DAC</li>
+            <li>Bit-perfect-Lieferung über Sendspin</li>
             <li>AirPlay- &amp; Spotify-Connect-Ziel für jede Zone</li>
             <li>Der Plattenspieler, durchs ganze Haus</li>
             <li>Verstärker wachen vor der ersten Note auf</li>
@@ -447,7 +447,7 @@
                   <span id="verdict-label">bit-perfect</span>
                 </span>
                 <p class="verdict-why" id="verdict-why">
-                  Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.
+                  Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.
                 </p>
               </div>
             </div>
@@ -458,7 +458,7 @@
             <p class="eyebrow">sonn &#9829; sendspin</p>
             <h3 class="h3">Der bevorzugte Ausgang — nichts in der Kette hat ein Mitspracherecht.</h3>
             <p>
-              Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Mit einem USB-DAC erreichen die Samples der Datei selbst den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden.
+              Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Der Endpoint erhält die Samples der Datei selbst, unangetastet. Alles danach — der DAC, der Verstärker — gehört dir, und genau so soll bit-perfect funktionieren.
             </p>
             <p>
               Jeden anderen Ausgang fährt sonn mit einem durchgehenden Stream in einem festen Format — der Preis dafür, dass ein gruppiertes Haus im Gleichschritt bleibt — also bedeutet alles andere eine Umwandlung: eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem das Format der Quelle folgen darf, pro Titel. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und die Source-Rolle bringt Line-in-Geräte herein — ein Teil der Spec, der hier in sonn entstanden ist.
@@ -1631,7 +1631,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
           why.textContent =
-            'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.';
+            'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst kommen unangetastet am Endpoint an. Nichts in der Kette hat ein Mitspracherecht — und nach der Übergabe gehört die Kette dir.';
         }
       }
 

@@ -256,7 +256,7 @@
           </div>
           <div class="stat">
             <p class="stat-n"><b data-count="192">192</b><i>kHz</i></p>
-            <p class="stat-k">bit-perfect, source to DAC</p>
+            <p class="stat-k">bit-perfect, delivered untouched</p>
           </div>
           <div class="stat">
             <p class="stat-n"><b data-count="8">8</b></p>
@@ -314,7 +314,7 @@
           <ul class="gist-list rise" aria-label="What it does out of the box">
             <li>Every room in perfect sync</li>
             <li>Spotify, Apple Music &amp; Tidal on devices that lack them</li>
-            <li>Bit-perfect playback to a USB DAC</li>
+            <li>Bit-perfect delivery over Sendspin</li>
             <li>AirPlay &amp; Spotify Connect target for any zone</li>
             <li>The turntable, through the whole house</li>
             <li>Amplifiers wake before the first note</li>
@@ -462,8 +462,8 @@
                 </span>
                 <p class="verdict-why" id="verdict-why">
                   A Sendspin endpoint announces the formats it accepts, and this one accepts the source's
-                  own — so the server sends exactly that: the file's own samples travel over the network,
-                  and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.
+                  own — so the server sends exactly that: the file's own samples arrive at the endpoint,
+                  untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.
                 </p>
               </div>
             </div>
@@ -477,9 +477,9 @@
               A Sendspin client announces the sample rates and bit depths it accepts, in order of
               preference, and the server picks the stream format per track. sonn uses that freedom to
               follow the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD
-              rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. Pair it with a USB DAC and
-              the file's own samples reach the converter untouched, clocked at the rate they were
-              recorded at.
+              rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. The endpoint receives the
+              file's own samples, untouched. Everything after that — the DAC, the amplifier — is yours,
+              which is exactly how bit-perfect should work.
             </p>
             <p>
               Every other output sonn drives with one continuous stream in one fixed format — the
@@ -1709,7 +1709,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
           why.textContent =
-            'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.';
+            'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples arrive at the endpoint, untouched. Nothing in the chain gets a vote — and after the handoff, the chain is yours.';
         }
       }
 
