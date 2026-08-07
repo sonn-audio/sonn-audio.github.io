@@ -254,8 +254,8 @@
       ">USB-DAC<"
     ],
     [
-      "Sendspin negotiates the format per track, so the server follows the source: the file's own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.",
-      "Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht."
+      "A Sendspin endpoint announces the formats it accepts, and this one accepts the source's own — so the server sends exactly that: the file's own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.",
+      "Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht."
     ],
     [
       "The web player shows this technical view for every zone, live: the source format, every stage that touched the audio, and the verdict. <em>Bit-perfect</em>, <em>untouched</em>, or <em>altered</em> — with the reason. And if you just want music: use whatever output you already have. All of it works, all of it sounds good, and none of it needs a thought about sample rates.",
@@ -762,8 +762,8 @@
       "'Eine verlustbehaftete Quelle, die wir nicht schlechter gemacht haben: Der Stream wird durchgereicht wie geliefert — kein zweites Encoding, kein Resampler im Weg.'"
     ],
     [
-      "'Sendspin negotiates the format per track, so the server follows the source: the file’s own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.'",
-      "'Sendspin handelt das Format pro Titel aus, also folgt der Server der Quelle: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.'"
+      "'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.'",
+      "'Ein Sendspin-Endpoint meldet, welche Formate er akzeptiert — und dieser akzeptiert das der Quelle. Also schickt der Server genau das: Die Samples der Datei selbst reisen übers Netzwerk, und der DAC taktet sie mit der Rate, mit der sie aufgenommen wurden. Nichts in der Kette hat ein Mitspracherecht.'"
     ],
     [
       "textContent = '✓ copied'",
@@ -794,8 +794,8 @@
       ">Line-in<"
     ],
     [
-      "The turntable or CD player, through any zone — captured by the line-in bridge, or by Sendspin's source role: on a dedicated endpoint, or riding along with a player.",
-      "Plattenspieler oder CD-Player, durch jede Zone — eingefangen von der Line-in-Bridge oder von Sendspins Source-Rolle: auf einem eigenen Endpoint, oder huckepack bei einem Player."
+      "The turntable or CD player, through any zone — captured by the line-in bridge, or by sonn's Sendspin source role: on a dedicated endpoint, or riding along with a player.",
+      "Plattenspieler oder CD-Player, durch jede Zone — eingefangen von der Line-in-Bridge oder von sonns Sendspin-Source-Rolle: auf einem eigenen Endpoint, oder huckepack bei einem Player."
     ],
     [
       "Optional Shazam track recognition",
@@ -830,12 +830,12 @@
       "Der bevorzugte Ausgang — nichts in der Kette hat ein Mitspracherecht."
     ],
     [
-      "A Sendspin client negotiates its format per track: it tells the server which sample rates and bit depths it accepts, and the server follows the <em>source</em>. A 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. Pair it with a USB DAC and the file's own samples reach the converter untouched, clocked at the rate they were recorded at.",
-      "Ein Sendspin-Client handelt sein Format pro Titel aus: Er sagt dem Server, welche Sampleraten und Bittiefen er akzeptiert, und der Server folgt der <em>Quelle</em>. Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44.1&nbsp;kHz — ohne jeden Resampler im Weg. Kombiniere ihn mit einem USB-DAC, und die Samples der Datei selbst erreichen den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden."
+      "A Sendspin client announces the sample rates and bit depths it accepts, in order of preference, and the server picks the stream format per track. sonn uses that freedom to follow the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. Pair it with a USB DAC and the file's own samples reach the converter untouched, clocked at the rate they were recorded at.",
+      "Ein Sendspin-Client meldet, welche Sampleraten und Bittiefen er akzeptiert — in bevorzugter Reihenfolge — und der Server wählt das Streamformat pro Titel. sonn nutzt diese Freiheit, um der <em>Quelle</em> zu folgen: Ein 24-bit/192&nbsp;kHz-FLAC reist als 24-bit/192&nbsp;kHz, ein CD-Rip als 16-bit/44,1&nbsp;kHz — ohne Resampler im Pfad. Mit einem USB-DAC erreichen die Samples der Datei selbst den Wandler unangetastet, getaktet mit der Rate, mit der sie aufgenommen wurden."
     ],
     [
-      "Every other output takes a fixed format, so anything else means a conversion — a good one, but a conversion. Sendspin is the one output where <em>not converting</em> is guaranteed. And it carries more than playback: its source role brings line-in devices in, and its visualizer role streams live analysis for VU meters and light scenes.",
-      "Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem <em>nicht umwandeln</em> garantiert ist. Und er trägt mehr als Wiedergabe: Seine Source-Rolle bringt Line-in-Geräte herein, und seine Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen."
+      "Every other output takes a fixed format, so anything else means a conversion — a good one, but a conversion. Sendspin is the one output that lets the server skip converting entirely: an endpoint that accepts the source format gets exactly that, always. And it carries more than playback: the visualizer role streams live analysis for VU meters and light scenes, and sonn extends the protocol with a source role that brings line-in devices in.",
+      "Jeder andere Ausgang nimmt ein festes Format, also bedeutet alles andere eine Umwandlung — eine gute, aber eine Umwandlung. Sendspin ist der eine Ausgang, bei dem der Server das Umwandeln ganz auslassen kann: Ein Endpoint, der das Quellformat akzeptiert, bekommt genau das, immer. Und es trägt mehr als Wiedergabe: Die Visualizer-Rolle streamt Live-Analyse für VU-Meter und Lichtszenen, und sonn erweitert das Protokoll um eine Source-Rolle, die Line-in-Geräte hereinbringt."
     ],
     [
       "beoremote one",

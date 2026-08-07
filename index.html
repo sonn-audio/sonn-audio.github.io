@@ -461,9 +461,9 @@
                   <span id="verdict-label">bit-perfect</span>
                 </span>
                 <p class="verdict-why" id="verdict-why">
-                  Sendspin negotiates the format per track, so the server follows the source: the file's own
-                  samples travel over the network and the DAC clocks them at the rate they were recorded at.
-                  Nothing in the chain gets a vote.
+                  A Sendspin endpoint announces the formats it accepts, and this one accepts the source's
+                  own — so the server sends exactly that: the file's own samples travel over the network,
+                  and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.
                 </p>
               </div>
             </div>
@@ -474,17 +474,19 @@
             <p class="eyebrow">sonn &#9829; sendspin</p>
             <h3 class="h3">The preferred output — nothing in the chain gets a vote.</h3>
             <p>
-              A Sendspin client negotiates its format per track: it tells the server which sample rates
-              and bit depths it accepts, and the server follows the <em>source</em>. A 24-bit/192&nbsp;kHz
-              FLAC travels as 24-bit/192&nbsp;kHz, a CD rip as 16-bit/44.1&nbsp;kHz — no resampler in the
-              path at all. Pair it with a USB DAC and the file's own samples reach the converter
-              untouched, clocked at the rate they were recorded at.
+              A Sendspin client announces the sample rates and bit depths it accepts, in order of
+              preference, and the server picks the stream format per track. sonn uses that freedom to
+              follow the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC travels as 24-bit/192&nbsp;kHz, a CD
+              rip as 16-bit/44.1&nbsp;kHz — no resampler in the path at all. Pair it with a USB DAC and
+              the file's own samples reach the converter untouched, clocked at the rate they were
+              recorded at.
             </p>
             <p>
               Every other output takes a fixed format, so anything else means a conversion — a good one,
-              but a conversion. Sendspin is the one output where <em>not converting</em> is guaranteed.
-              And it carries more than playback: its source role brings line-in devices in, and its
-              visualizer role streams live analysis for VU meters and light scenes.
+              but a conversion. Sendspin is the one output that lets the server skip converting entirely:
+              an endpoint that accepts the source format gets exactly that, always. And it carries more
+              than playback: the visualizer role streams live analysis for VU meters and light scenes,
+              and sonn extends the protocol with a source role that brings line-in devices in.
             </p>
           </aside>
 
@@ -574,7 +576,7 @@
               <h3>Line-in</h3>
               <p>
                 The turntable or CD player, through any zone — captured by the line-in bridge, or by
-                Sendspin's source role: on a dedicated endpoint, or riding along with a player.
+                sonn's Sendspin source role: on a dedicated endpoint, or riding along with a player.
               </p>
               <ul>
                 <li>Optional Shazam track recognition</li>
@@ -1701,7 +1703,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
           label.textContent = 'bit-perfect';
           svg.innerHTML = verdictIcons.check;
           why.textContent =
-            'Sendspin negotiates the format per track, so the server follows the source: the file’s own samples travel over the network and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.';
+            'A Sendspin endpoint announces the formats it accepts, and this one accepts the source’s own — so the server sends exactly that: the file’s own samples travel over the network, and the DAC clocks them at the rate they were recorded at. Nothing in the chain gets a vote.';
         }
       }
 

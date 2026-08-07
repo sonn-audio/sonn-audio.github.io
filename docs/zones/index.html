@@ -133,13 +133,13 @@
 </p>
 
 <p>
-  <strong>Sendspin is the output where that can be guaranteed</strong>, because its format is
-  negotiated per track. A Sendspin client tells the server which sample rates and bit depths it
-  accepts, and the server then follows the <em>source</em>: a 24-bit/192&nbsp;kHz FLAC is streamed as
-  24-bit/192&nbsp;kHz, a 16-bit CD rip as 16-bit/44.1&nbsp;kHz, with no resampler in the path at all.
-  Sendspin with a USB DAC is therefore the perfect audio path: the file's own samples travel over the
-  network, the client hands them to the DAC untouched, and the DAC clocks them at the rate they were
-  recorded at.
+  <strong>Sendspin is the output where that can be guaranteed</strong>, because nothing about its
+  format is fixed. A Sendspin client announces which sample rates and bit depths it accepts, the
+  server picks the stream format per track, and sonn uses that freedom to follow the <em>source</em>:
+  to an endpoint that accepts them, a 24-bit/192&nbsp;kHz FLAC is streamed as 24-bit/192&nbsp;kHz and
+  a 16-bit CD rip as 16-bit/44.1&nbsp;kHz, with no resampler in the path at all. Sendspin with a USB
+  DAC is therefore the perfect audio path: the file's own samples travel over the network, the client
+  hands them to the DAC untouched, and the DAC clocks them at the rate they were recorded at.
 </p>
 
 <p>
