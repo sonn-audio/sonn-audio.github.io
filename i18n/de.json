@@ -2,16 +2,16 @@
   "//": "The German edition, as data. Each pair is [english-as-it-appears-in-index.html, german]. Matching is whitespace-insensitive; a pair whose English side no longer occurs FAILS the build, so copy edits cannot silently strand the translation. Product vocabulary (bit-perfect, zones · live, bypassed, grouped) is deliberately not translated — that is what the product UI itself says.",
   "pairs": [
     [
-      "sonn — open-source multiroom audio server for your home",
-      "sonn — Open-Source-Multiroom-Audioserver für dein Zuhause"
+      "sonn — the open audio server",
+      "sonn — der offene Audioserver"
     ],
     [
-      "sonn is an open-source audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included.",
-      "sonn ist ein Open-Source-Audioserver: deine Musik, Streamingdienste, Radio und Line-in — bereitgestellt für jede App oder synchron in jedem Raum, auf den Lautsprechern, die du schon besitzt. Vollständige Loxone-Audioserver-Emulation inklusive."
+      "sonn is an open-source multiroom audio server: your music, streaming services, radio and line-in, served to any app or played in sync across every room — on the speakers you already own. Full Loxone Audio Server emulation included.",
+      "sonn ist ein Open-Source-Multiroom-Audioserver: deine Musik, Streamingdienste, Radio und Line-in — bereitgestellt für jede App oder synchron in jedem Raum, auf den Lautsprechern, die du schon besitzt. Vollständige Loxone-Audioserver-Emulation inklusive."
     ],
     [
-      "The ultimate audio server. Run it as a pure content server, or as a full multiroom system with fixed zones. Loxone and Home Assistant friendly. Open source.",
-      "Der ultimative Audioserver. Als reiner Content-Server, oder als komplettes Multiroom-System mit festen Zonen. Loxone- und Home-Assistant-freundlich. Open Source."
+      "The open audio server. Run it as a pure content server, or as a full multiroom system with fixed zones. Loxone and Home Assistant friendly. Open source.",
+      "Der offene Audioserver. Als reiner Content-Server, oder als komplettes Multiroom-System mit festen Zonen. Loxone- und Home-Assistant-freundlich. Open Source."
     ],
     [
       "aria-label=\"sonn — back to top\"",
@@ -50,7 +50,7 @@
       ">Loslegen<"
     ],
     [
-      "the open audioserver",
+      "the open audio server",
       "der offene audioserver"
     ],
     [
@@ -682,8 +682,8 @@
       ">Quick Start<"
     ],
     [
-      "Multiroom audio for your whole home. Open source, self-hosted, and built to leave your music exactly as it was recorded.",
-      "Multiroom-Audio für dein ganzes Zuhause. Open Source, self-hosted, und gebaut, um deine Musik exakt so zu lassen, wie sie aufgenommen wurde."
+      "The open audio server: multiroom audio for your whole home — open source, self-hosted, and built to leave your music exactly as it was recorded.",
+      "Der offene Audioserver: Multiroom-Audio für dein ganzes Zuhause — Open Source, self-hosted, und gebaut, um deine Musik exakt so zu lassen, wie sie aufgenommen wurde."
     ],
     [
       "<h5>product</h5>",
