@@ -231,6 +231,28 @@
         </div>
       </section>
 
+      <!-- ==================================================== the spec line -->
+      <section class="stats-band" aria-label="The numbers" data-amb="145">
+        <div class="wrap stats-in">
+          <div class="stat">
+            <p class="stat-n"><b data-count="24">24</b></p>
+            <p class="stat-k">zones, one per room</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n"><b data-count="192">192</b><i>kHz</i></p>
+            <p class="stat-k">bit-perfect, source to DAC</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n"><b data-count="8">8</b></p>
+            <p class="stat-k">output protocols</p>
+          </div>
+          <div class="stat">
+            <p class="stat-n"><b data-count="0">0</b></p>
+            <p class="stat-k">cloud required</p>
+          </div>
+        </div>
+      </section>
+
       <!-- ======================================================== two ways -->
       <section id="two-ways" data-num="01" data-amb="145">
         <div class="wrap">
@@ -541,7 +563,7 @@
             </div>
 
             <!-- The player itself: a real screenshot, in a bezel — not a mockup. -->
-            <div class="phone-wrap rise">
+            <div class="phone-wrap reveal">
               <figure class="phone phone-real">
                 <img src="assets/shots/player-mobile.png" width="780" height="1440" alt="The sonn web player on a phone, playing That Thing You Do by Ellem in the living room" loading="lazy" />
                 <figcaption class="shot-caption mono">player · living room · :7090</figcaption>
@@ -791,7 +813,7 @@
           </div>
 
           <!-- Real pixels: the Admin UI's Zones screen, exactly as it ships. -->
-          <figure class="shot rise">
+          <figure class="shot reveal">
             <div class="slab-chrome" aria-hidden="true"><i></i><i></i><i></i><span>admin · zones · live</span></div>
             <img src="assets/shots/zones-web.jpg" width="1920" height="1260" alt="The sonn Admin UI Zones screen: four zones named Living room, Kitchen, Study and Bedroom, each with AirPlay, Spotify Connect and DLNA receiver chips" loading="lazy" />
             <figcaption class="shot-caption mono">zones — one per room, receivers on every one</figcaption>
@@ -1237,6 +1259,46 @@ npm start"><span class="c-com"># Node.js 20+</span>
         });
       }
 
+      /* ============================== headlines, word by word ========================= */
+      // The big headings arrive the way a typesetter would set them: each word from
+      // behind its own baseline, one beat apart. Split at runtime, so the German edition
+      // splits its own words — and with reduced motion the sentence simply stands there.
+      if (!reduced) {
+        document.querySelectorAll('.section-head .h2, .closing .h2').forEach((h) => {
+          for (const child of [...h.childNodes]) {
+            if (child.nodeType === Node.TEXT_NODE) {
+              const frag = document.createDocumentFragment();
+              for (const part of child.textContent.split(/(\s+)/)) {
+                if (!part) continue;
+                if (/^\s+$/.test(part)) {
+                  frag.append(part);
+                } else {
+                  const w = document.createElement('span');
+                  w.className = 'w';
+                  const inn = document.createElement('span');
+                  inn.className = 'w-in';
+                  inn.textContent = part;
+                  w.append(inn);
+                  frag.append(w);
+                }
+              }
+              child.replaceWith(frag);
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+              // an <em> or <code> travels as one word
+              const w = document.createElement('span');
+              w.className = 'w';
+              const inn = document.createElement('span');
+              inn.className = 'w-in';
+              child.replaceWith(w);
+              inn.append(child);
+              w.append(inn);
+            }
+          }
+          h.querySelectorAll('.w-in').forEach((el, i) => el.style.setProperty('--wi', i));
+          h.classList.add('words');
+        });
+      }
+
       /* ============================== reveal on scroll ================================ */
       let batch = 0;
       let batchAt = 0;
@@ -1255,7 +1317,35 @@ npm start"><span class="c-com"># Node.js 20+</span>
         },
         { threshold: 0.12 },
       );
-      document.querySelectorAll('.rise').forEach((el) => io.observe(el));
+      document.querySelectorAll('.rise, .reveal').forEach((el) => io.observe(el));
+
+      /* ============================== the spec line counts itself ===================== */
+      // Four numbers, from zero to the truth, once — as the band enters the screen.
+      {
+        const nums = [...document.querySelectorAll('[data-count]')];
+        if (nums.length && !reduced) {
+          const easeOut = (x) => 1 - Math.pow(1 - x, 4);
+          nums.forEach((b) => (b.textContent = '0'));
+          const cio = new IntersectionObserver(
+            (entries) => {
+              for (const e of entries) {
+                if (!e.isIntersecting) continue;
+                cio.unobserve(e.target);
+                const total = Number(e.target.dataset.count);
+                const t0 = performance.now();
+                const tick = (t) => {
+                  const p = clamp01((t - t0) / 1300);
+                  e.target.textContent = String(Math.round(easeOut(p) * total));
+                  if (p < 1) requestAnimationFrame(tick);
+                };
+                requestAnimationFrame(tick);
+              }
+            },
+            { threshold: 0.5 },
+          );
+          nums.forEach((b) => cio.observe(b));
+        }
+      }
 
       /* ============================== the mark draws itself =========================== */
       // Roofline first — a pen stroke — then the meter bars rise under it, then the
@@ -1604,9 +1694,33 @@ npm start"><span class="c-com"># Node.js 20+</span>
         });
       }
 
-      /* ============================== scrollspy ======================================== */
+      /* ============================== scrollspy + the chapter rail ==================== */
       const navLinks = [...document.querySelectorAll('.bar-nav a')];
       const byId = Object.fromEntries(navLinks.map((a) => [a.getAttribute('href').slice(1), a]));
+
+      // A quiet dot per chapter along the right edge — where you are, at a glance.
+      // Built from the nav itself, so the German edition labels itself.
+      const railLinks = [];
+      if (matchMedia('(min-width: 1100px)').matches) {
+        const rail = document.createElement('nav');
+        rail.className = 'rail';
+        rail.setAttribute('aria-label', 'Chapters');
+        for (const a of navLinks) {
+          const href = a.getAttribute('href');
+          if (!href.startsWith('#')) continue;
+          const d = document.createElement('a');
+          d.href = href;
+          d.dataset.for = href.slice(1);
+          const dot = document.createElement('i');
+          const label = document.createElement('span');
+          label.textContent = a.textContent;
+          d.append(dot, label);
+          rail.append(d);
+          railLinks.push(d);
+        }
+        document.body.append(rail);
+      }
+
       const spy = new IntersectionObserver(
         (entries) => {
           for (const e of entries) {
@@ -1614,6 +1728,7 @@ npm start"><span class="c-com"># Node.js 20+</span>
             if (link && e.isIntersecting) {
               navLinks.forEach((a) => a.classList.remove('now'));
               link.classList.add('now');
+              for (const d of railLinks) d.classList.toggle('now', d.dataset.for === e.target.id);
             }
           }
         },

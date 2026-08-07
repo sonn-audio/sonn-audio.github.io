@@ -872,6 +872,30 @@
     [
       "<button class=\"slab-copy mono\" type=\"button\">copy</button>",
       "<button class=\"slab-copy mono\" type=\"button\">kopieren</button>"
+    ],
+    [
+      "aria-label=\"The numbers\"",
+      "aria-label=\"Die Zahlen\""
+    ],
+    [
+      "zones, one per room",
+      "Zonen, eine pro Raum"
+    ],
+    [
+      "bit-perfect, source to DAC",
+      "bit-perfect, von Quelle bis DAC"
+    ],
+    [
+      "output protocols",
+      "Ausgabeprotokolle"
+    ],
+    [
+      "cloud required",
+      "Cloud nötig"
+    ],
+    [
+      "rail.setAttribute('aria-label', 'Chapters');",
+      "rail.setAttribute('aria-label', 'Kapitel');"
     ]
   ]
 }

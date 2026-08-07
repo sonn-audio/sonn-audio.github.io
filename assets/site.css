@@ -52,6 +52,8 @@
   --sans: 'Hanken Grotesk', -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
   --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* The luxury curve: fast out of the gate, a long soft landing. For the big arrivals. */
+  --ease-lux: cubic-bezier(0.16, 1, 0.3, 1);
 
   --page: 1180px;
   --pad: clamp(20px, 5vw, 56px);
@@ -169,6 +171,83 @@ footer,
   transform: scaleX(0);
   transform-origin: left;
   box-shadow: 0 0 12px rgb(74 222 128 / 55%);
+}
+
+/* --- the chapter rail: one quiet dot per chapter, right edge ------------------ */
+
+/* Built by the script from the nav itself; never exists on small screens. */
+.rail {
+  position: fixed;
+  top: 50%;
+  right: 16px;
+  z-index: 30;
+  display: grid;
+  gap: 13px;
+  transform: translateY(-50%);
+}
+
+.rail a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 15px;
+  height: 15px;
+}
+
+.rail a i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 20%);
+  transition:
+    background 0.3s,
+    box-shadow 0.3s,
+    transform 0.3s var(--ease);
+}
+
+.rail a:hover i {
+  background: rgb(255 255 255 / 55%);
+  transform: scale(1.4);
+}
+
+.rail a.now i {
+  background: var(--accent);
+  box-shadow: 0 0 10px rgb(74 222 128 / 70%);
+  transform: scale(1.4);
+}
+
+.rail a span {
+  position: absolute;
+  right: 26px;
+  top: 50%;
+  padding: 4px 10px;
+  border: 1px solid var(--line-soft);
+  border-radius: 6px;
+  background: rgb(10 12 16 / 92%);
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+  opacity: 0;
+  transform: translate(6px, -50%);
+  transition:
+    opacity 0.25s var(--ease),
+    transform 0.25s var(--ease);
+  pointer-events: none;
+}
+
+.rail a:hover span,
+.rail a:focus-visible span {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+@media (max-width: 1099px) {
+  .rail {
+    display: none;
+  }
 }
 
 /* --- shared type --------------------------------------------------------- */
@@ -338,6 +417,78 @@ section[data-num]::before {
   max-width: 760px;
 }
 
+/* --- the spec line: four numbers that are the whole pitch --------------------- */
+
+.stats-band {
+  padding: 0;
+  background: rgb(255 255 255 / 1.2%);
+}
+
+.stats-in {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding-block: clamp(30px, 5vh, 52px);
+}
+
+.stat {
+  padding: 6px clamp(16px, 2.6vw, 38px);
+}
+
+.stat + .stat {
+  border-left: 1px solid var(--line-soft);
+}
+
+/* The numbers are cut thin and from the same light as the headings. */
+.stat-n {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  font-size: clamp(38px, 5vw, 66px);
+  font-weight: 250;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #fff 28%, #97a0ad 115%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-n b {
+  font-weight: inherit;
+}
+
+.stat-n i {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 0.3em;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  -webkit-text-fill-color: var(--accent);
+}
+
+.stat-k {
+  margin-top: 12px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+@media (max-width: 860px) {
+  .stats-in {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 30px;
+  }
+
+  .stat:nth-child(3) {
+    border-left: 0;
+  }
+}
+
 .cols {
   display: grid;
   gap: clamp(16px, 2vw, 22px);
@@ -380,6 +531,115 @@ section[data-num]::before {
   opacity: 1;
   transform: none;
   filter: none;
+}
+
+/*
+ * The section heads conduct themselves instead of arriving as one block: the eyebrow's
+ * dash draws itself, the headline comes up word by word from behind its own baseline,
+ * and the lede settles last. The word spans only exist once the script has split them,
+ * so a static page keeps its sentences whole.
+ */
+.js .section-head.rise,
+.js .closing .rise {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: none;
+}
+
+.js .section-head.rise .eyebrow,
+.js .closing .rise .eyebrow {
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.6s var(--ease),
+    transform 0.6s var(--ease);
+}
+
+.js .section-head.rise .eyebrow::before,
+.js .closing .rise .eyebrow::before {
+  width: 0;
+  transition: width 0.8s var(--ease) 0.25s;
+}
+
+.js .section-head.rise .lede,
+.js .closing .rise .lede,
+.js .closing .rise .actions {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.8s var(--ease) 0.4s,
+    transform 0.8s var(--ease) 0.4s;
+}
+
+.js .closing .rise .actions {
+  transition-delay: 0.55s;
+}
+
+.js .section-head.rise.in .eyebrow,
+.js .closing .rise.in .eyebrow,
+.js .section-head.rise.in .lede,
+.js .closing .rise.in .lede,
+.js .closing .rise.in .actions {
+  opacity: 1;
+  transform: none;
+}
+
+.js .section-head.rise.in .eyebrow::before,
+.js .closing .rise.in .eyebrow::before {
+  width: 18px;
+}
+
+/* Each word in its own mask. The gradient moves to the word, so the mask can clip it. */
+.h2.words {
+  background: none;
+}
+
+.h2.words .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.h2.words .w-in {
+  display: inline-block;
+  background: linear-gradient(180deg, #fff 30%, #aab2bf 120%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateY(118%) rotate(2.5deg);
+  transform-origin: 0 100%;
+  transition: transform 0.9s var(--ease-lux);
+  transition-delay: calc(0.08s + var(--wi, 0) * 0.05s);
+}
+
+.js .section-head.rise.in .w-in,
+.js .closing .rise.in .w-in {
+  transform: none;
+}
+
+/*
+ * Real pixels get a curtain instead of a blur: the screenshot stands cropped into its
+ * frame and the window opens as you arrive. The final inset is negative on purpose —
+ * the clip ends beyond the box, so drop shadows survive the reveal.
+ */
+.js .reveal {
+  clip-path: inset(14% 11% 14% 11% round var(--rvr, 18px));
+  transform: translateY(28px) scale(1.04);
+  transition:
+    clip-path 1.15s var(--ease-lux),
+    transform 1.15s var(--ease-lux);
+}
+
+.js .reveal.in {
+  clip-path: inset(-160px -160px -160px -160px round var(--rvr, 18px));
+  transform: none;
+}
+
+.phone-wrap.reveal {
+  --rvr: 44px;
 }
 
 /* --- top bar ------------------------------------------------------------- */
@@ -3016,6 +3276,27 @@ footer {
     opacity: 1;
     transform: none;
     filter: none;
+    transition: none;
+  }
+
+  .js .section-head.rise .eyebrow,
+  .js .closing .rise .eyebrow,
+  .js .section-head.rise .lede,
+  .js .closing .rise .lede,
+  .js .closing .rise .actions {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .js .section-head.rise .eyebrow::before,
+  .js .closing .rise .eyebrow::before {
+    width: 18px;
+  }
+
+  .js .reveal {
+    clip-path: none;
+    transform: none;
     transition: none;
   }
 
